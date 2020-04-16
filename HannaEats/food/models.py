@@ -7,11 +7,21 @@ def direccion_imagenes_comida(selfie, filename):
     """Obtiene el directorio donde se desea guardar imagenes y nombre del archivo"""
     return f"comida/fotos/{selfie.name}{selfie.id}"
 
+def unique_name(value):
+    """Verifica que un Charfield sólo contenga números """
+    for e in value:
+        if(e in value):
+            raise ValidationError(
+                _('%(value)s Ya existe en la base de datos'),
+                code='existValue',
+                params={'value': value},
+                )
+
 class Alimento(models.Model):
     """Modelo para la BD de un alimento"""
-    nombre = models.CharField(validators=[unique_artist_name], max_length=120)
-    descripcion = models.CharField(validators=[unique_artist_name], max_length=200)
-    precio = models.CharField(validators=[unique_artist_name], max_length=200)
+    nombre = models.CharField(validators=[unique_name], max_length=120)
+    descripcion = models.CharField(validators=[unique_name], max_length=200)
+    precio = models.CharField(validators=[unique_name], max_length=200)
     foto = models.ImageField(blank=True, null=True, upload_to=direccion_imagenes_comida)
     #Nota: el atributo ID de la entidad existe por defecto en Django
     
@@ -29,7 +39,7 @@ class Alimento(models.Model):
 
 class Categoria(models.Model):
     """Modelo para la BD de una categoria"""
-    name = models.CharField(validators=[unique_artist_name], max_length=120)
+    name = models.CharField(validators=[unique_name], max_length=120)
     #Nota: el atributo ID de la entidad existe por defecto en Django
     
     # Relaciones de entidad

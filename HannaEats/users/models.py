@@ -26,7 +26,25 @@ class Cliente(models.Model):
     
     def __str__(selfie):
         """Obtener represencacion como cadena"""
-        return f"{selfie.name} {selfie.ap_paterno} {selfie.ap_materno} \n {selfie.direccion}"
+        return f"{selfie.nombre} {selfie.ap_paterno} {selfie.ap_materno} \n {selfie.direccion}"
+
+    def __repr__(selfie):
+        """Obtener represencacion como cadena"""
+        return selfie.__str__()
+
+class Direcciones(models.Model):
+    
+    calle = models.CharField(max_length = 60)
+    numero_lt = models.CharField(max_length = 5)
+    numero_mz = models.CharField(max_length = 5)
+    numero_interior = models.CharField(blank = True, max_length = 5)
+    colonia = models.CharField(max_length = 20)
+    delegacion = models.CharField(max_length = 20)
+    cp = models.CharField(max_length = 10)
+    
+    def __str__(selfie):
+        """Obtener represencacion como cadena"""
+        return f"{selfie.calle} #{selfie.numero}, {selfie.colonia} \n {selfie.delegacion}"
 
     def __repr__(selfie):
         """Obtener represencacion como cadena"""

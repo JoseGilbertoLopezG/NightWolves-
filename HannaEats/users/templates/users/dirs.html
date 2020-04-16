@@ -1,0 +1,26 @@
+{% extends 'users/base.html' %}
+
+{% load static %}
+
+{% block title %}Top Songs{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'users/css/dirs.css' %}">
+{% endblock head %}
+
+{% block body_content %}
+
+    <h1 id="dirsTit">Mis direcciones</h1>
+
+    <ul class="allDirs">
+        {% for dir in dirs  %}
+        	<li id="dirs">{{dirs}}</li>
+        {% endfor %}
+    </ul>
+
+    <br>
+
+    <footer id="pie">
+		&copy; 2020 <a href="/">MusicLab</a>
+	</footer>
+{% endblock body_content %}

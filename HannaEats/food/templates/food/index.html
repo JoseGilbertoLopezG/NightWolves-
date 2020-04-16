@@ -1,0 +1,23 @@
+{% extends 'users/base.html' %}
+
+{% load static %}
+{% block title %}Inicio{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'users/css/add_direction.css' %}">
+{% endblock css %}
+{% block body_content %}
+
+    <h1 id="titulo">Bienvenido a HannaEats</h1> 
+
+    <br>
+      <div id="player_direction">
+        <h3><a href="/users/add-directions">Añadir dirección</a></h3>
+      </div>
+    <br>
+    
+
+    <footer id="pie_home">
+		&copy; 2020 <a href="/">HannaEats</a>
+	</footer>
+
+{% endblock body_content %}

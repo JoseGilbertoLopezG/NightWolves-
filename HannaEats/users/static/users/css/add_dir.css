@@ -1,0 +1,59 @@
+h1#titulo_add_direction {
+    font-family: 'Comfortaa';
+}
+
+#titulo_add_direction {
+    text-align: center;
+}
+
+.add_dir {
+    padding-left: 0%;
+    font-family: 'Comfortaa';
+    color: darkcyan;
+    width: 120px;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(0, 100, 182);
+}
+
+#ver_dir {
+    text-decoration: none;
+    -webkit-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+    font-size: 18px;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    padding-bottom: 80px;
+    padding-right: 1%;
+    font-family: 'Comfortaa';
+}
+
+#ver_dir:hover {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 22px;
+    color: #000;
+}
+
+#dir_form {
+    font-family: 'Comfortaa';
+    padding-left: 45%;
+}
+
+#nota {
+    padding-left: 1.5%;
+}
+
+input {
+    font-family: 'Comfortaa';
+}
+
+input#add_botton {
+    margin-left: 6%;
+    font-family: 'Comfortaa';
+    font-size: medium;
+}
