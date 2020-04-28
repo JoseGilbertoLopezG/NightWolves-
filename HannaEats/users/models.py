@@ -21,16 +21,19 @@ class Cliente(models.Model):
     ap_materno = models.CharField(blank = True, max_length = 110)
     correo = models.EmailField(max_length = 300)
     telefono = models.CharField(validators=[numero_telefono], max_length=20)
-    direccion = models.CharField(max_length=300)
+    #direccion = models.CharField(max_length=300)
     #Nota: el atributo ID de la entidad existe por defecto en Django
     
-    def __str__(selfie):
+    # Relaciones de entidad
+    #direccion = models.ManyToManyField("users.Direcciones", related_name="direcciones")
+    
+    def __str__(self):
         """Obtener represencacion como cadena"""
-        return f"{selfie.nombre} {selfie.ap_paterno} {selfie.ap_materno} \n {selfie.direccion}"
+        return f"{self.nombre} {self.ap_paterno} {self.ap_materno} \n {self.direccion}"
 
-    def __repr__(selfie):
+    def __repr__(self):
         """Obtener represencacion como cadena"""
-        return selfie.__str__()
+        return self.__str__()
 
 class Direcciones(models.Model):
     
@@ -38,17 +41,19 @@ class Direcciones(models.Model):
     numero_lt = models.CharField(max_length = 5)
     numero_mz = models.CharField(max_length = 5)
     numero_interior = models.CharField(blank = True, max_length = 5)
-    colonia = models.CharField(max_length = 20)
+    colonia = models.CharField(max_length = 40)
     delegacion = models.CharField(max_length = 20)
     cp = models.CharField(max_length = 10)
     
-    def __str__(selfie):
+    def __str__(self):
         """Obtener represencacion como cadena"""
-        return f"{selfie.calle} #{selfie.numero}, {selfie.colonia} \n {selfie.delegacion}"
-
-    def __repr__(selfie):
+        if f"{self.numero_interior}" == "" or f"{self.numero_interior}" == " ":
+            return f"{self.calle} Mz. {self.numero_mz}, Lt. {self.numero_lt}, {self.colonia}, {self.delegacion}, Cp. {self.cp}"
+        else:
+            return f"{self.calle} Mz. {self.numero_mz}, Lt. {self.numero_lt}, No. Int. {self.numero_interior}, {self.colonia}, {self.delegacion}, Cp. {self.cp}"
+    def __repr__(self):
         """Obtener represencacion como cadena"""
-        return selfie.__str__()
+        return self.__str__()
 
 
 class Repartidor(models.Model):
@@ -60,13 +65,13 @@ class Repartidor(models.Model):
     telefono = models.CharField(validators=[numero_telefono], max_length=20)
     #Nota: el atributo ID de la entidad existe por defecto en Django
     
-    def __str__(selfie):
+    def __str__(self):
         """Obtener represencacion como cadena"""
-        return f"{selfie.name} {selfie.ap_paterno} {selfie.ap_materno} \n {selfie.correo}"
+        return f"{self.name} {self.ap_paterno} {self.ap_materno} \n {self.correo}"
 
-    def __repr__(selfie):
+    def __repr__(self):
         """Obtener represencacion como cadena"""
-        return selfie.__str__()
+        return self.__str__()
     
 
 class Admin(models.Model):
@@ -77,13 +82,13 @@ class Admin(models.Model):
     correo = models.EmailField(max_length = 300)
     #Nota: el atributo ID de la entidad existe por defecto en Django
     
-    def __str__(selfie):
+    def __str__(self):
         """Obtener represencacion como cadena"""
-        return f"{selfie.name} {selfie.ap_paterno} {selfie.ap_materno} \n {selfie.correo}"
+        return f"{self.name} {self.ap_paterno} {self.ap_materno} \n {self.correo}"
 
-    def __repr__(selfie):
+    def __repr__(self):
         """Obtener represencacion como cadena"""
-        return selfie.__str__()
+        return self.__str__()
 
 
 class ClienteForm(ModelForm):

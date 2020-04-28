@@ -30,7 +30,7 @@ class DirectionsForm(forms.ModelForm):
             'numero_interior': ('Num. Interior*'),
             'colonia': ('Colonia'),
             'delegacion': ('Delegación'),
-            'cp' : ('Código Postal')
+            'cp' : ('Código Postal'),
         }
         
         """help_texts = {

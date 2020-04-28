@@ -7,7 +7,7 @@
 {% endblock css %}
 
 {% block body_content %}
-<h1 id="titulo_add_direction">Agrega Direccion</h1>
+<h1 id="titulo_add_direction">Agregar Direccion</h1>
 <div class="form_dir">
     <form action="" method="post" enctype="multipart/form-data" id="dir_form">
         {% csrf_token %}
@@ -15,6 +15,7 @@
         {% for field in form %}
             <div class="add_dir">
                 {{ field.label_tag }}
+                <br>
                 {{ field }}
             </div>
             <div class="add_dir_field">
@@ -22,17 +23,21 @@
             </div>
         {% endfor %}
         <br>
-        <span id="nota">Casillas opcionales(*)</span>
+        <div id="nota_div">
+            <span id="nota">Casillas opcionales(*)</span>
+        </div>
         <br>
         <br>
-        <input id="add_botton" value="Guardar" type="submit">
+        <div id="div_botton">
+            <input id="add_botton" value="Guardar" type="submit">
+        </div>
     </form>
 </div>
-    <div >
-        <span id="ver_dir"><a href="/users/all-directions">Ver Direcciones</a></span>
-    </div>
+    
+    <span id="ver_dir"><a id="ver" href="/users/all-directions"><img id="see" alt="Borrar" title="Borrar" src="{% static 'users/images/ver.png' %}"><br><span id="add_text">Ver Direcciones</span></a></span>
 
-    <footer id="pie_home">
+
+    <footer id="pie_add_dir">
 		&copy; 2020 <a href="/">HannaEats</a>
 	</footer>
 

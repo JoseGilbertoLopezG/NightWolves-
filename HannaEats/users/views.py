@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 #Models
 from django.db import models
@@ -39,6 +41,21 @@ class AddDir(View):
         #return HttpResponse("<h1>User Created!</h1>")
         return redirect("/")
     
+
+class UpdateDir(UpdateView):
+    model = Direcciones
+    fields = '__all__'
+    template_name = "users/add_dir.html"
+    success_url = '/'
+    title = "Editar direccion"
+    
+    
+class DelDir(DeleteView):
+    model = Direcciones
+    template_name = "users/del_dir.html"
+    success_url = '/users/all-directions'
+    title = 'Borrar Direcciones'
+    
 class AllDir(View):
     
     template = "users/dirs.html"
@@ -51,10 +68,10 @@ class AllDir(View):
         
         dirs_to_see = Direcciones.objects.filter(id=dirs_id)
                 
-        #if dirs_to_see.count() == 0:
-        #    to_see = Direcciones.objects.first()
-        #else:
-        #to_see = dirs_to_see.first() , "to_see": to_see
-
-        context = {"dirs": dirs}
-        return render(request, self.template)
+        if dirs_to_see.count() == 0:
+            to_see = Direcciones.objects.first()
+        else:
+            to_see = dirs_to_see.first()
+            
+        context = {"dirs": dirs,"to_see": to_see}
+        return render(request, self.template, context)

@@ -106,7 +106,6 @@ footer {
     padding: 20px;
     margin-top: 5%;
     flex: 0 0 auto;
-    margin-bottom: 60px;
     bottom: 0;
     position: absolute;
     width: -moz-available;
@@ -124,10 +123,67 @@ footer a {
 }
 
 #dirsTit {
-    font-family: 'Baloo Thambi 2';
+    font-family: 'Manrope';
 }
 
-ul.allDirs {
+#allDirs {
     list-style: decimal;
     font-family: 'Baloo Thambi 2';
+    font-size: 20px;
+}
+
+span#add_dir {
+    text-decoration: none;
+    -webkit-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+    font-size: 18px;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    padding-bottom: 80px;
+    padding-right: 1%;
+    font-family: 'Comfortaa';
+}
+
+#add_dir:hover {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 22px;
+    color: #000;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(0, 100, 182);
+}
+
+span#updt {
+    margin-left: 10%;
+}
+
+span#del {
+    margin-left: 5%;
+}
+
+img#delete{
+    width: 35%;
+}
+
+img#mark{
+    width: 60%;
+}
+
+img#edit{
+    width: 35%;
+}
+
+td#direction{
+    width: 77%;
+    font-size: large;
+}
+
+#plus{
+    width: 15%;
+    padding: 0 45%;
 }

@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Top Songs{% endblock title %}
+{% block title %}Mis Direcciones{% endblock title %}
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'users/css/dirs.css' %}">
@@ -12,15 +12,35 @@
 
     <h1 id="dirsTit">Mis direcciones</h1>
 
-    <ul class="allDirs">
+    <table class="allDirs">
         {% for dir in dirs  %}
-        	<li id="dirs">{{dirs}}</li>
+        	<tr id="dirs">
+                <td id="mark">
+                    <img id="mark" alt="elemento {{dir.id}}" src="{% static 'users/images/checklist.png' %}">
+                </td>
+                <td id="direction">
+                    {{dir}}
+                </td>
+                
+                <td id="updt">
+                    <a href="/users/upd-directions/{{dir.id}}">
+                        <img id="edit" alt="Editar" title="Editar" src="{% static 'users/images/pencil.png' %}">
+                    </a>
+                </td>
+                <td id="del">
+                    <a href="/users/del-directions/{{dir.id}}">
+                        <img id="delete" alt="Borrar" title="Borrar" src="{% static 'users/images/close.png' %}">
+                    </a>
+                </td>
+            </li> <brr>
         {% endfor %}
     </ul>
 
     <br>
+        
+    <span id="add_dir"><a id="add" href="/users/add-directions"><img id="plus" alt="Borrar" title="Borrar" src="{% static 'users/images/plus.png' %}"><br><span id="add_text">Agregar Direccion</span></a></span>
 
     <footer id="pie">
-		&copy; 2020 <a href="/">MusicLab</a>
+		&copy; 2020 <a href="/">HannaEats</a>
 	</footer>
 {% endblock body_content %}

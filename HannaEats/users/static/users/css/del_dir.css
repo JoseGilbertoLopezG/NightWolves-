@@ -1,0 +1,33 @@
+
+#titulo_del_direction {
+    text-align: center;
+    font-family: Manrope;
+}
+
+input {
+    font-family: 'Comfortaa';
+}
+
+input#add_botton {
+    font-family: 'Comfortaa';
+    font-size: medium;
+}
+
+input#del_botton {
+    font-family: 'Comfortaa';
+    font-size: medium;
+    color: red;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(0, 100, 182);
+}
+
+#dir_form {
+    /*padding-bottom: 60px;*/
+}
+
+#dir_form_del{
+    text-align: center;
+}
