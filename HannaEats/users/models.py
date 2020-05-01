@@ -25,11 +25,19 @@ class Cliente(models.Model):
     #Nota: el atributo ID de la entidad existe por defecto en Django
     
     # Relaciones de entidad
-    #direccion = models.ManyToManyField("users.Direcciones", related_name="direcciones")
+    direccion = models.ManyToManyField("users.Direcciones", related_name="direcciones")
     
     def __str__(self):
         """Obtener represencacion como cadena"""
-        return f"{self.nombre} {self.ap_paterno} {self.ap_materno} \n {self.direccion}"
+        dirs_str = ""
+        dirs = list(self.direccion.all())
+        if len(dirs) == 0:
+            return f"{self.nombre} {self.ap_paterno} {self.ap_materno}"
+            
+        dirs_str += f"{dirs[0].__str__()}"
+        for dir in dirs[1:]:
+            dirs_str += f"{dir.__str__()}"
+        return f"Dirección: {dirs_str}"
 
     def __repr__(self):
         """Obtener represencacion como cadena"""
@@ -37,20 +45,24 @@ class Cliente(models.Model):
 
 class Direcciones(models.Model):
     
-    calle = models.CharField(max_length = 60)
-    numero_lt = models.CharField(max_length = 5)
-    numero_mz = models.CharField(max_length = 5)
+    calle = models.CharField(max_length = 60,null=False)
+    numero_lt = models.CharField(max_length = 5,null=False)
+    numero_mz = models.CharField(max_length = 5,null=False)
     numero_interior = models.CharField(blank = True, max_length = 5)
-    colonia = models.CharField(max_length = 40)
-    delegacion = models.CharField(max_length = 20)
-    cp = models.CharField(max_length = 10)
+    colonia = models.CharField(max_length = 40,null=False)
+    delegacion = models.CharField(max_length = 20,null=False)
+    cp = models.CharField(max_length = 10, null=False)
     
     def __str__(self):
         """Obtener represencacion como cadena"""
-        if f"{self.numero_interior}" == "" or f"{self.numero_interior}" == " ":
+        #dirs = list(self.all())
+        if f"{self.numero_interior}" == "" and f"{self.numero_interior}" == " " and f"{self.calle}" == "" and f"{self.calle}" == " ":
+            return f"No tienes ninguna Direccion"
+        elif f"{self.numero_interior}" == "" or f"{self.numero_interior}" == " ":
             return f"{self.calle} Mz. {self.numero_mz}, Lt. {self.numero_lt}, {self.colonia}, {self.delegacion}, Cp. {self.cp}"
         else:
             return f"{self.calle} Mz. {self.numero_mz}, Lt. {self.numero_lt}, No. Int. {self.numero_interior}, {self.colonia}, {self.delegacion}, Cp. {self.cp}"
+    
     def __repr__(self):
         """Obtener represencacion como cadena"""
         return self.__str__()
@@ -67,7 +79,7 @@ class Repartidor(models.Model):
     
     def __str__(self):
         """Obtener represencacion como cadena"""
-        return f"{self.name} {self.ap_paterno} {self.ap_materno} \n {self.correo}"
+        return f"{self.nombre} {self.ap_paterno} {self.ap_materno}"
 
     def __repr__(self):
         """Obtener represencacion como cadena"""

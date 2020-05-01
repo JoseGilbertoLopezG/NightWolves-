@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
+    color: #666;
+    background: #f2f2f2;
+    font-size: 1em;
+    line-height: 1.5em;
+    padding-top: 80px;
+}
+
+footer {
+    background: rgb(13, 5, 36);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 5%;
+    flex: 0 0 auto;
+    bottom: 0;
+    position: absolute;
+    width: -moz-available;
+    width: -webkit-fill-available;
+}
+
+footer a {
+    color: white;
+}

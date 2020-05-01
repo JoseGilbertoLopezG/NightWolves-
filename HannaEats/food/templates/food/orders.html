@@ -1,0 +1,76 @@
+{% extends 'food/base.html' %}
+
+{% load static %}
+
+{% block title %}Mis Ordenes{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'food/css/orders.css' %}">
+{% endblock head %}
+
+{% block body_content %}
+
+    <h1 id="ordrsTit">Mis Ordenes</h1>
+
+    <table class="allFoods">
+            <tr id="labels">
+                <td id="desc_l">Descripcion</td>
+                <td id="precio_l">Precio</td>
+
+                <td>Cantidad</td>
+                <td></td>
+            </tr>
+        {% for cant in cants  %}
+            <tr id="foods">
+                <td id="desc">
+                    {{cant.alimento.descripcion}} 
+                </td>
+                
+                <td id="precio">
+                     ${{cant.alimento.precio}}
+                </td>
+
+                <td id="cantidad">
+                    x {{cant.cantidad}}
+                </td>
+
+                <td id="food">
+                    <img id="food_img" title="{{cant.alimento.descripcion}}" src="/{{cant.alimento.foto.url}}">
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% for order in orders  %}
+    <table class="allOrdrs">
+        
+        
+            <tr id="ordrs">
+                <td id="estado">
+                    <span >{{order.status}}</span>
+                </td>
+
+                <td id="datos">
+                    {{order}}
+                    <br>
+                    Repartidor: {{order.id_repartidor}}
+                </td>
+                
+                <td id="grade">
+                    Calificación: {{order.calificacion}}
+                </td>
+            </tr>
+        
+    </table>
+
+    <br>
+    <div id="div_cs">
+        <a id="change_stats" href="/order/{{order.id}}/status"><b>Cambiar estado de orden</b></a>
+    </div>
+    <br>
+{% endfor %}
+
+        
+    <footer id="pie_ords">
+		&copy; 2020 <a href="/">HannaEats</a>
+	</footer>
+{% endblock body_content %}

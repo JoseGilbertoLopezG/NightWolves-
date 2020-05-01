@@ -70,6 +70,7 @@ class AllDir(View):
                 
         if dirs_to_see.count() == 0:
             to_see = Direcciones.objects.first()
+
         else:
             to_see = dirs_to_see.first()
             
