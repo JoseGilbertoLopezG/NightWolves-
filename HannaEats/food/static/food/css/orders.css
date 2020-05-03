@@ -73,11 +73,11 @@ footer#pie {
 
 #datos {
     padding-left: 2.5%;
-    width: auto;
+    width: 50%;
 }
 
 #grade {
-    width: 10%;
+    width: 30%;
     text-align: center;
 }
 
@@ -102,4 +102,41 @@ tr#labels {
 
 #cantidad {
     text-align: center;
+}
+
+#star1 {
+    width: 10%;
+}
+
+#star2 {
+    width: 10%;
+}
+
+#star3 {
+    width: 10%;
+}
+
+#star4 {
+    width: 10%;
+}
+
+#star5 {
+    width: 10%;
+}
+
+#estado_str {
+    color: rgb(255, 255, 255);
+    padding: 3% 5%;
+    font-size: large;
+    background: rgb(33, 172, 44);
+    border-radius: 15px;
+}
+
+#no_orden {
+    margin-left: 3%;
+    padding: .5% 1%;
+    border-radius: 15px;
+    background: tomato;
+    color: white;
+    font-style: oblique;
 }

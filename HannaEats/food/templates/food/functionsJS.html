@@ -1,0 +1,15 @@
+{% extends 'food/base.html' %}
+
+{% block js %}
+
+<script>
+    $(function changeStars(){
+        let star5 = document.getElementById("star5");
+
+        star5.src("/static/food/images/star.png");
+
+        console.log('hola');
+    });
+</script>
+
+{% endblock js %}

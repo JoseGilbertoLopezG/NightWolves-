@@ -38,7 +38,7 @@ class AllOrders(View):
             
         foods = Alimento.objects.all()
         foods_id = request.GET.get("to_see", 1)
-        foods_to_see = Alimento.objects.filter(id=orders_id)
+        foods_to_see = Alimento.objects.filter(id=foods_id)
                 
         if foods_to_see.count() == 0:
             to_eat = Alimento.objects.first()
@@ -47,7 +47,7 @@ class AllOrders(View):
             
         cants = CantidadAlimento.objects.all()
         cants_id = request.GET.get("to_see", 1)
-        cants_to_see = CantidadAlimento.objects.filter(id=orders_id)
+        cants_to_see = CantidadAlimento.objects.filter(id=cants_id)
                 
         if cants_to_see.count() == 0:
             to_count = CantidadAlimento.objects.first()
@@ -78,6 +78,133 @@ class AllStatus(UpdateView):
             
         context = {"orders": orders,"to_see": to_see}
         return render(request, self.template_name, context)
+
+''' Views para calificacion de la orden '''
+
+class OneStar(UpdateView):
+    model = OrdenComida
+    fields = ['calificacion']
+    template_name = "food/calification.html"
+    success_url = '/'
+    title = "Editar direccion"
+    
+    def get(self, request, pk):
+        """GET method."""
+        orders = OrdenComida.objects.all()
+        orders_id = request.GET.get("to_see", 1)
+        orders_to_see = OrdenComida.objects.filter(id=orders_id)
+                
+        if orders_to_see.count() == 0:
+            to_see = OrdenComida.objects.first()
+        else:
+            to_see = orders_to_see.first()
+            
+        context = {"orders": orders,"to_see": to_see}
+        return render(request, self.template_name, context)
+
+    def post(self,request,pk):
+        to_update = OrdenComida.objects.filter(id=pk).update(calificacion=1)
+        return redirect("/orders")
+    
+class TwoStars(UpdateView):
+    model = OrdenComida
+    fields = ['calificacion']
+    template_name = "food/calification.html"
+    success_url = '/'
+    title = "Editar direccion"
+    
+    def get(self, request, pk):
+        """GET method."""
+        orders = OrdenComida.objects.all()
+        orders_id = request.GET.get("to_see", 1)
+        orders_to_see = OrdenComida.objects.filter(id=orders_id)
+                
+        if orders_to_see.count() == 0:
+            to_see = OrdenComida.objects.first()
+        else:
+            to_see = orders_to_see.first()
+            
+        context = {"orders": orders,"to_see": to_see}
+        return render(request, self.template_name, context)
+
+    def post(self,request,pk):
+        to_update = OrdenComida.objects.filter(id=pk).update(calificacion=2)
+        return redirect("/orders")
+
+class ThreeStars(UpdateView):
+    model = OrdenComida
+    fields = ['calificacion']
+    template_name = "food/calification.html"
+    success_url = '/'
+    title = "Editar direccion"
+    
+    def get(self, request, pk):
+        """GET method."""
+        orders = OrdenComida.objects.all()
+        orders_id = request.GET.get("to_see", 1)
+        orders_to_see = OrdenComida.objects.filter(id=orders_id)
+                
+        if orders_to_see.count() == 0:
+            to_see = OrdenComida.objects.first()
+        else:
+            to_see = orders_to_see.first()
+            
+        context = {"orders": orders,"to_see": to_see}
+        return render(request, self.template_name, context)
+
+    def post(self,request,pk):
+        to_update = OrdenComida.objects.filter(id=pk).update(calificacion=3)
+        return redirect("/orders")
+    
+class FourStars(UpdateView):
+    model = OrdenComida
+    fields = ['calificacion']
+    template_name = "food/calification.html"
+    success_url = '/'
+    title = "Editar direccion"
+    
+    def get(self, request, pk):
+        """GET method."""
+        orders = OrdenComida.objects.all()
+        orders_id = request.GET.get("to_see", 1)
+        orders_to_see = OrdenComida.objects.filter(id=orders_id)
+                
+        if orders_to_see.count() == 0:
+            to_see = OrdenComida.objects.first()
+        else:
+            to_see = orders_to_see.first()
+            
+        context = {"orders": orders,"to_see": to_see}
+        return render(request, self.template_name, context)
+
+    def post(self,request,pk):
+        to_update = OrdenComida.objects.filter(id=pk).update(calificacion=4)
+        return redirect("/orders")
+    
+class FiveStars(UpdateView):
+    model = OrdenComida
+    fields = ['calificacion']
+    template_name = "food/calification.html"
+    success_url = '/'
+    title = "Editar direccion"
+    
+    def get(self, request, pk):
+        """GET method."""
+        orders = OrdenComida.objects.all()
+        orders_id = request.GET.get("to_see", 1)
+        orders_to_see = OrdenComida.objects.filter(id=orders_id)
+                
+        if orders_to_see.count() == 0:
+            to_see = OrdenComida.objects.first()
+        else:
+            to_see = orders_to_see.first()
+            
+        context = {"orders": orders,"to_see": to_see}
+        return render(request, self.template_name, context)
+
+    def post(self,request,pk):
+        to_update = OrdenComida.objects.filter(id=pk).update(calificacion=5)
+        return redirect("/orders")
 
 ''' Views para cambiar el estado de orden '''
 

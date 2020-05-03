@@ -12,6 +12,7 @@ app_name = "food"
 urlpatterns = [
     path('', views.IndexFood.as_view(), name='home'),
     path('orders', views.AllOrders.as_view(), name='orders'),
+    # Views de Cambio de estado de orden
     path('order/<int:pk>/status', views.AllStatus.as_view(), name='status'),
     path('order/<int:pk>/received', views.ChangeStatusToReceived.as_view(), name='received'),
     path('order/<int:pk>/prepared', views.ChangeStatusToPrepared.as_view(), name='prepared'),
@@ -20,4 +21,10 @@ urlpatterns = [
     path('order/<int:pk>/delivered', views.ChangeStatusToDelivered.as_view(), name='delivered'),
     path('order/<int:pk>/finalized', views.ChangeStatusToFinalized.as_view(), name='finalized'),
     path('order/<int:pk>/canceled', views.ChangeStatusToCanceled.as_view(), name='canceled'),
+    # Views de Calificaion de orden
+    path('order/<int:pk>/1_star', views.OneStar.as_view(), name='1star'),
+    path('order/<int:pk>/2_stars', views.TwoStars.as_view(), name='2star'),
+    path('order/<int:pk>/3_stars', views.ThreeStars.as_view(), name='3star'),
+    path('order/<int:pk>/4_stars', views.FourStars.as_view(), name='4star'),
+    path('order/<int:pk>/5_stars', views.FiveStars.as_view(), name='5star'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
