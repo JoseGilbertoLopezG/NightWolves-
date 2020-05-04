@@ -79,9 +79,9 @@ WSGI_APPLICATION = 'HannaEats.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'hannaeats',
-        'USER': 'fernando',
-        'PASSWORD': 'deaththekid1',
+        'NAME': os.environ.get("DB_NAME"),
+        'USER': os.environ.get("DB_USERNAME"),
+        'PASSWORD': os.environ.get("DB_USER_PASSWORD"),
         'HOST': 'localhost',
         'PORT': '',
     }
