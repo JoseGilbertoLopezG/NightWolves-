@@ -1,0 +1,49 @@
+<!-- Base -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %} | HannaEats</title>
+
+    <link href="//fonts.googleapis.com/css?family=Calistoga&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Thambi+2&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600&display=swap" rel="stylesheet">
+
+    {% load static %}
+    {% block head %}
+    {% endblock head %}
+        <link rel="stylesheet" type="text/css" href={% static 'users/css/player.css' %}>
+        <link rel="shortcut icon" href="{% static 'users/images/LogoHE.png' %}">
+        <link rel="stylesheet" href="{% static 'food/css/index.css' %}">
+    {% block css %}
+    {% endblock css %}
+</head>
+<body>
+<header>
+		<div class="cabezera">
+
+            <a id="logo-header" href="/">
+			    <img id="img_logo" src="{% static 'users/images/logoHE.png' %}">
+		    </a>
+			
+			<nav>
+				<ul>
+				    <li><a href="/">Inicio</a></li>
+			    </ul>
+			</nav>
+		</div>
+	</header>
+{% block body_content %}
+{% endblock body_content %}
+
+
+{% block js %}
+{% endblock js %}
+
+
+</body>
+</html>

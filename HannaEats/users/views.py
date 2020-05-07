@@ -3,15 +3,75 @@ from django.http import HttpResponse
 from django.views import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 #Models
 from django.db import models
 from .models import Cliente
-from .models import ClienteForm
 from .models import Direcciones
 
 # Forms
+from .models import ClienteForm
+from .models import RepartidorForm
 from users.forms import DirectionsForm
+
+
+class CreateClient(View):
+    """Página para crear una cuenta de Cliente"""
+    
+    template = "users/create_client.html"
+    
+    def get(selfie, request):
+        form = ClienteForm()
+        context = {'form': form}
+        return render(request, selfie.template, context)
+        
+    def post(selfie, request):
+        form = ClienteForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Los datos fueron guardados.\nLa cuenta será borrada, si no se verifica el correo electónico siguiendo el link enviado, en 24hrs')
+            return render( request, selfie.template, {'form': form,
+                                                      "contrib_messages": messages})
+        else:
+            template = selfie.template
+            return render( request, selfie.template, {'form': form})
+    
+
+class CreateAccount(View):
+    """Página para crear una cuenta de Repartidor"""
+    
+    template = "users/create_account.html"
+    
+    def get(selfie, request):
+        form = RepartidorForm()
+        context = {'form': form}
+        return render(request, selfie.template, context)
+        
+    def post(selfie, request):
+        form = RepartidorForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Los datos fueron guardados.\nLa cuenta será borrada, si no se verifica el correo electónico siguiendo el link enviado, en 24hrs')
+            return render( request, selfie.template, {'form': form,
+                                                      "contrib_messages": messages})
+        else:
+            template = selfie.template
+            return render( request, selfie.template, {'form': form})
+
+
+class Login(View):
+    """Página de inicio de sesion"""
+    
+    template = "users/login.html"
+    
+    def get(selfie, request):
+        form = ClienteForm()
+        context = {'form': form}
+        return render(request, selfie.template, context)
+
 
 class AddDir(View):
     """New User Sign Up."""

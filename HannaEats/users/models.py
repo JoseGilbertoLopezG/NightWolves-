@@ -14,14 +14,33 @@ def numero_telefono(value):
                 params={'value': value},
                 )
 
+def unique_email_cliente(value):
+    clientes = Cliente.objects.all()
+    for e in clientes:
+        if(e.correo == value):
+            raise ValidationError(
+                _('%(value)s ya esta en uso por alguien'),
+                code='preexisting email',
+                params={'value': value},
+                )
+
+def unique_email_repartidor(value):
+    repartidores = Repartidor.objects.all()
+    for e in repartidores:
+        if(e.correo == value):
+            raise ValidationError(
+                _('%(value)s ya esta en uso por alguien'),
+                code='preexisting email',
+                params={'value': value},
+                )
+
 class Cliente(models.Model):
     """Modelo para la BD de un cliente"""
     nombre = models.CharField(max_length = 80)
     ap_paterno = models.CharField(max_length = 110)
     ap_materno = models.CharField(blank = True, max_length = 110)
-    correo = models.EmailField(max_length = 300)
-    telefono = models.CharField(validators=[numero_telefono], max_length=20)
-    #direccion = models.CharField(max_length=300)
+    correo = models.EmailField(validators=[unique_email_cliente], max_length = 300)
+    telefono = models.CharField(blank= True, validators=[numero_telefono], max_length=20)
     #Nota: el atributo ID de la entidad existe por defecto en Django
     
     # Relaciones de entidad
@@ -73,7 +92,7 @@ class Repartidor(models.Model):
     nombre = models.CharField(max_length = 80)
     ap_paterno = models.CharField(max_length = 110)
     ap_materno = models.CharField(blank = True, max_length = 110)
-    correo = models.EmailField(max_length = 300)
+    correo = models.EmailField(validators=[unique_email_repartidor], max_length = 300)
     telefono = models.CharField(validators=[numero_telefono], max_length=20)
     #Nota: el atributo ID de la entidad existe por defecto en Django
     
@@ -103,14 +122,34 @@ class Admin(models.Model):
         return self.__str__()
 
 
+class LoginForm(ModelForm):
+    """Define un formulario para iniciar Sesión"""
+    class Meta:
+        model = Cliente
+        fields = ['correo']
+
 class ClienteForm(ModelForm):
     """Define un formulario para crear Cliente"""
     class Meta:
         model = Cliente
-        fields = ['nombre', 'ap_paterno', 'ap_materno']
+        fields = ['nombre', 'ap_paterno', 'ap_materno', 'correo', 'telefono']
+        labels = {
+            'nombre': ('Nombre'),
+            'ap_paterno': ('Apellido Paterno'),
+            'ap_materno': ('Apellido Materno*'),
+            'correo': ('Correo electrónico'),
+            'telefono': ('Número de teléfono*')
+        }
 
 class RepartidorForm(ModelForm):
     """Define un formulario para crear Repartidor"""
     class Meta:
         model = Repartidor
         fields = ['nombre', 'ap_paterno', 'ap_materno', 'correo', 'telefono']
+        labels = {
+            'nombre': ('Nombre'),
+            'ap_paterno': ('Apellido Paterno'),
+            'ap_materno': ('Apellido Materno*'),
+            'correo': ('Correo electrónico'),
+            'telefono': ('Número de teléfono')
+        }

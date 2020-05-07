@@ -10,6 +10,9 @@ from users import views
 app_name = "users"
 
 urlpatterns = [
+    path('login', views.Login.as_view(), name='login'),
+    path("create-client-account", views.CreateClient.as_view(), name='create-client'),
+    path("create-delivery-account", views.CreateAccount.as_view(), name='create-account'),
     path('add-directions', views.AddDir.as_view(), name='add-directions'),
     path('all-directions', views.AllDir.as_view(), name='all-directions'),
     path('upd-directions/<int:pk>', views.UpdateDir.as_view(), name='upd-directions'),

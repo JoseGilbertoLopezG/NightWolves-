@@ -1,0 +1,54 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Crear cuenta{% endblock title %}
+
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'users/css/create.css' %}">
+{% endblock head %}
+
+{% block body_content %}
+    
+    <h1 id="createTit">Crear una cuenta para Cliente</h1>
+
+    <div class="form_dir">
+        <form action="create-client-account" method="post" enctype="multipart/form-data">
+            
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form_field">
+                    {{ field.label_tag }}
+                    <br>
+                    {{ field }}
+                </div>
+                <div class="form_field_error">
+                    {{ field.errors }}
+                </div>
+            {% endfor %}
+            <br>
+            
+            <div text-align="center">
+                <span text-align="center" font-family="Comfortaa">Casillas opcionales(*)</span>
+            </div>
+            
+            <div id="div_button">
+                <input id="save_button" value="Crear" type="submit">
+            </div>
+        </form>
+    </div>
+    
+    {% if messages %}
+    <div class="contrib_messages">
+        {% for message in messages %}
+        <p text-align="center" font-family="Comfortaa" color="Navy" 
+        {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    
+    <footer id="pie">
+        &copy; 2020 <a href="/">HannaEats</a>
+    </footer>
+
+{% endblock body_content %}
