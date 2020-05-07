@@ -105,9 +105,19 @@ class AddDir(View):
 class UpdateDir(UpdateView):
     model = Direcciones
     fields = '__all__'
-    template_name = "users/add_dir.html"
+    template_name = "users/upd_dir.html"
     success_url = '/'
     title = "Editar direccion"
+    labels = {
+            'calle': ('Calle'),
+            'numero_lt': ('Lt'),
+            'numero_mz': ('Mz'),
+            'numero_interior': ('Num. Interior*'),
+            'colonia': ('Colonia'),
+            'delegacion': ('Delegación'),
+            'cp' : ('Código Postal'),
+        }
+        
     
     
 class DelDir(DeleteView):

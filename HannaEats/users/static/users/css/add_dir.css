@@ -13,6 +13,12 @@ h1#titulo_add_direction {
     /* width: 120px; */
     width: min-content;
     margin: auto;
+    font-size: 95%;
+}
+
+.add_dir_field {
+    text-align: center;
+    color: red;
 }
 
 a {

@@ -12,6 +12,10 @@ app_name = "food"
 urlpatterns = [
     path('', views.IndexFood.as_view(), name='home'),
     path('orders', views.AllOrders.as_view(), name='orders'),
+    path('food', views.AllFood.as_view(), name='foods'),
+    path('food/add_food', views.AddFood.as_view(), name='add_food'),
+    path('food/<int:pk>/del_food', views.DelFood.as_view(), name='del_food'),
+    path('food/<int:pk>/updt_food', views.UpdateFood.as_view(), name='updt_food'),
     # Views de Cambio de estado de orden
     path('order/<int:pk>/status', views.AllStatus.as_view(), name='status'),
     path('order/<int:pk>/received', views.ChangeStatusToReceived.as_view(), name='received'),

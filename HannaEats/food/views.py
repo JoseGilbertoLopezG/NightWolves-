@@ -14,6 +14,9 @@ from .models import Status
 from .models import Alimento
 from .models import CantidadAlimento
 
+# Forms
+from food.forms import FoodForm
+
 class IndexFood(View):
     
     template = "food/index.html"
@@ -57,7 +60,62 @@ class AllOrders(View):
         context = {"orders": orders,"to_see": to_see,"foods": foods,"to_eat": to_eat,"cants":cants, "to_count":to_count}
         return render(request, self.template, context)
     
+class AllFood(View):
+    
+    template = "food/food.html"
 
+    def get(self, request):
+        """GET method."""
+        foods = Alimento.objects.all()
+        foods_id = request.GET.get("to_see", 1)
+        foods_to_see = Alimento.objects.filter(id=foods_id)
+                
+        if foods_to_see.count() == 0:
+            to_eat = Alimento.objects.first()
+        else:
+            to_eat = foods_to_see.first()
+            
+        context = {"foods": foods,"to_eat": to_eat}
+        return render(request, self.template, context)
+    
+class AddFood(View):
+
+    template = "food/add_food.html"
+
+    def get(self, request):
+        """Render add artist form."""
+        form = FoodForm()
+        context = {"form": form}
+        return render(request, self.template, context)
+
+    def post(self, request):
+        form = FoodForm(request.POST, request.FILES)
+
+        if not form.is_valid():
+            context = {"form": form}
+            return render(request, self.template, context)
+
+        Alimento.objects.create(
+            nombre=form.cleaned_data["nombre"],
+            descripcion=form.cleaned_data["descripcion"],
+            precio=form.cleaned_data["precio"],
+            foto=form.cleaned_data["foto"],
+        )
+        return redirect("/food")
+
+
+class UpdateFood(UpdateView):
+    model = Alimento
+    fields = '__all__'
+    template_name = "food/updt_food.html"
+    success_url = '/'
+    
+    
+class DelFood(DeleteView):
+    model = Alimento
+    template_name = "food/del_food.html"
+    success_url = '/food'
+    
 class AllStatus(UpdateView):
     
     model = OrdenComida
