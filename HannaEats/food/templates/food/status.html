@@ -14,8 +14,10 @@
 
 {% for order in orders  %}
 
+{% if order.id == to_see.id%}
         <div id="status">
-
+                Orden No. {{order.id}}
+            <br>
                 Estado actual de la orden:
             <br>
                 <span id="curr_stat"><b> {{order.status}} </b></span>
@@ -35,6 +37,7 @@
 
     <br>
     <br>
+{% endif %}
 {% endfor %}
 
     <div id="cancelar">

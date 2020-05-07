@@ -1,11 +1,11 @@
 from django.forms import ModelForm
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
+from django.core.exceptions import ValidationError
 
 def direccion_imagenes_comida(self, filename):
     """Obtiene el directorio donde se desea guardar imagenes y nombre del archivo"""
-    return f"comida/fotos/{self.name}{self.id}"
+    return f"food/images/{self.nombre}{self.id}"
 
 def unique_name(value):
     """Verifica que un Charfield sólo contenga números """
@@ -39,18 +39,15 @@ def grade(value):
 
 class Alimento(models.Model):
     """Modelo para la BD de un alimento"""
-    nombre = models.CharField(validators=[unique_name], max_length=120)
-    descripcion = models.CharField(validators=[unique_name], max_length=200)
-    precio = models.CharField(validators=[unique_name], max_length=200)
+    nombre = models.CharField(max_length=120,unique=True)
+    descripcion = models.CharField( max_length=200,unique=True)
+    precio = models.CharField(max_length=200)
     foto = models.ImageField(blank=True, null=True, upload_to=direccion_imagenes_comida)
     #Nota: el atributo ID de la entidad existe por defecto en Django
     
-    # Relaciones de entidad
-    categoria = models.ManyToManyField("food.Categoria", related_name="clasificacion")
-    
     def __str__(self):
         """Obtener represencacion como cadena"""
-        return f"{self.descripcion} por ${self.precio}.00"
+        return f"{self.nombre} - {self.descripcion} por ${self.precio}.00"
 
     def __repr__(self):
         """Obtener represencacion como cadena"""
@@ -59,7 +56,7 @@ class Alimento(models.Model):
 
 class Categoria(models.Model):
     """Modelo para la BD de una categoria"""
-    name = models.CharField(validators=[unique_name], max_length=120)
+    name = models.CharField(max_length=120,unique=True)
     #Nota: el atributo ID de la entidad existe por defecto en Django
     
     # Relaciones de entidad
