@@ -42,7 +42,7 @@ class Alimento(models.Model):
     nombre = models.CharField(max_length=120,unique=True)
     descripcion = models.CharField( max_length=200,unique=True)
     precio = models.CharField(max_length=200)
-    foto = models.ImageField(blank=True, null=True, upload_to=direccion_imagenes_comida)
+    foto = models.ImageField(blank=False, null=False, upload_to=direccion_imagenes_comida)
     #Nota: el atributo ID de la entidad existe por defecto en Django
     
     # Relaciones de entidad
@@ -60,7 +60,7 @@ class Alimento(models.Model):
 class Categoria(models.Model):
     """Modelo para la BD de una categoria"""
     nombre = models.CharField(max_length=120,unique=True)
-    imagen = models.ImageField(blank=True, null=True, upload_to=direccion_imagenes_comida)
+    imagen = models.ImageField(blank=False, null=False, upload_to=direccion_imagenes_comida)
     #Nota: el atributo ID de la entidad existe por defecto en Django
     
     def __str__(self):

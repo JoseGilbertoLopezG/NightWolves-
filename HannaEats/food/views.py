@@ -127,20 +127,20 @@ class AddFood(View):
             foto=form.cleaned_data["foto"],
             categoria=form.cleaned_data["categoria"]
         )
-        return redirect("/food")
+        return redirect("/food/all")
 
 
 class UpdateFood(UpdateView):
     model = Alimento
     fields = '__all__'
     template_name = "food/updt_food.html"
-    success_url = '/'
+    success_url = '/food/all'
     
     
 class DelFood(DeleteView):
     model = Alimento
     template_name = "food/del_food.html"
-    success_url = '/food'
+    success_url = '/food/all'
     
 """ Views referentes a las categorias """
 
@@ -183,7 +183,7 @@ class AddCategory(View):
             nombre=form.cleaned_data["nombre"],
             imagen=form.cleaned_data["imagen"],
         )
-        return redirect("/category")
+        return redirect("/food/category")
 
 
 class UpdateCategory(UpdateView):
@@ -196,7 +196,7 @@ class UpdateCategory(UpdateView):
 class DelCategory(DeleteView):
     model = Categoria
     template_name = "food/del_categ.html"
-    success_url = '/category'
+    success_url = '/food/category'
     
 """ Views de los estados de las comidas """
 
@@ -205,7 +205,7 @@ class AllStatus(UpdateView):
     model = OrdenComida
     fields = ['status']
     template_name = "food/status.html"
-    success_url = '/'
+    success_url = '/food/category'
     title = "Editar direccion"
     
     def get(self, request, pk):
@@ -229,7 +229,7 @@ class ChangeStatusToReceived(UpdateView):
     model = OrdenComida
     fields = ['status']
     template_name = "food/eachstatus.html"
-    success_url = '/'
+    success_url = '/food/orders'
     title = "Editar direccion"
     
     def get(self, request, pk):

@@ -20,11 +20,11 @@ urlpatterns = [
     path('category/<int:pk>/del_categ', views.DelCategory.as_view(), name='del_categ'),
     path('category/<int:pk>/updt_categ', views.UpdateCategory.as_view(), name='updt_categ'),
     # Views para Alimentos
-    path('food', views.AllFood.as_view(), name='foods'),
+    path('all', views.AllFood.as_view(), name='foods'),
     # Views de gestion de alimentos
-    path('food/add_food', views.AddFood.as_view(), name='add_food'),
-    path('food/<int:pk>/del_food', views.DelFood.as_view(), name='del_food'),
-    path('food/<int:pk>/updt_food', views.UpdateFood.as_view(), name='updt_food'),
+    path('add_food', views.AddFood.as_view(), name='add_food'),
+    path('<int:pk>/del_food', views.DelFood.as_view(), name='del_food'),
+    path('<int:pk>/updt_food', views.UpdateFood.as_view(), name='updt_food'),
     # Views de Cambio de estado de orden
     path('order/<int:pk>/status', views.AllStatus.as_view(), name='status'),
     path('order/<int:pk>/received', views.ChangeStatusToReceived.as_view(), name='received'),
