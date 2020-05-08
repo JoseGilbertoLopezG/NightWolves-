@@ -3,6 +3,13 @@ from django.forms import ModelForm
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
+
+# Auth
+from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin
+from .managers import *
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 def numero_telefono(value):
     """Verifica que un Charfield sólo contenga números """
@@ -14,37 +21,28 @@ def numero_telefono(value):
                 params={'value': value},
                 )
 
-def unique_email_cliente(value):
-    clientes = Cliente.objects.all()
-    for e in clientes:
-        if(e.correo == value):
-            raise ValidationError(
-                _('%(value)s ya esta en uso por alguien'),
-                code='preexisting email',
-                params={'value': value},
-                )
-
-def unique_email_repartidor(value):
-    repartidores = Repartidor.objects.all()
-    for e in repartidores:
-        if(e.correo == value):
-            raise ValidationError(
-                _('%(value)s ya esta en uso por alguien'),
-                code='preexisting email',
-                params={'value': value},
-                )
-
-class Cliente(models.Model):
+class Cliente(AbstractBaseUser, PermissionsMixin):
     """Modelo para la BD de un cliente"""
     nombre = models.CharField(max_length = 80)
     ap_paterno = models.CharField(max_length = 110)
     ap_materno = models.CharField(blank = True, max_length = 110)
-    correo = models.EmailField(validators=[unique_email_cliente], max_length = 300)
+    correo = models.EmailField(unique=True, max_length = 300)
     telefono = models.CharField(blank= True, validators=[numero_telefono], max_length=20)
     #Nota: el atributo ID de la entidad existe por defecto en Django
     
     # Relaciones de entidad
     direccion = models.ManyToManyField("users.Direcciones", related_name="direcciones")
+    
+    # Perrmisos y auth
+    is_client = models.BooleanField(default=True)
+    is_repartidor = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    fecha_registro = models.DateTimeField(default=timezone.now)
+    USERNAME_FIELD = 'correo'
+    REQUIRED_FIELDS = ['nombre', 'ap_paterno']
+    objects = ClientManager()
+    
     
     def __str__(self):
         """Obtener represencacion como cadena"""
@@ -63,7 +61,7 @@ class Cliente(models.Model):
         return self.__str__()
 
 class Direcciones(models.Model):
-    
+    "Clase para representar direcciones"
     calle = models.CharField(max_length = 60,null=False)
     numero_lt = models.CharField(max_length = 5,null=False)
     numero_mz = models.CharField(max_length = 5,null=False)
@@ -87,14 +85,24 @@ class Direcciones(models.Model):
         return self.__str__()
 
 
-class Repartidor(models.Model):
+class Repartidor(AbstractBaseUser, PermissionsMixin):
     """Modelo para la BD de un repartidor"""
     nombre = models.CharField(max_length = 80)
     ap_paterno = models.CharField(max_length = 110)
     ap_materno = models.CharField(blank = True, max_length = 110)
-    correo = models.EmailField(validators=[unique_email_repartidor], max_length = 300)
+    correo = models.EmailField(unique=True, max_length = 300)
     telefono = models.CharField(validators=[numero_telefono], max_length=20)
     #Nota: el atributo ID de la entidad existe por defecto en Django
+    
+    # Perrmisos y auth
+    is_client = models.BooleanField(default=False)
+    is_repartidor = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    fecha_registro = models.DateTimeField(default=timezone.now)
+    USERNAME_FIELD = 'correo'
+    REQUIRED_FIELDS = ['nombre', 'ap_paterno']
+    objects = RepartidorManager()
     
     def __str__(self):
         """Obtener represencacion como cadena"""
@@ -105,13 +113,21 @@ class Repartidor(models.Model):
         return self.__str__()
     
 
-class Admin(models.Model):
-    """Modelo para la BD de un cliente"""
+class Admin(AbstractBaseUser, PermissionsMixin):
+    """Modelo para la BD de un admin"""
     nombre = models.CharField(max_length = 80)
     ap_paterno = models.CharField(max_length = 110)
     ap_materno = models.CharField(blank = True, max_length = 110)
-    correo = models.EmailField(max_length = 300)
+    correo = models.EmailField(unique=True, max_length = 300)
     #Nota: el atributo ID de la entidad existe por defecto en Django
+    
+    # Perrmisos y auth
+    is_staff = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
+    fecha_registro = models.DateTimeField(default=timezone.now)
+    USERNAME_FIELD = 'correo'
+    REQUIRED_FIELDS = ['nombre', 'ap_paterno']
+    objects = AdminManager()
     
     def __str__(self):
         """Obtener represencacion como cadena"""
@@ -128,8 +144,21 @@ class LoginForm(ModelForm):
         model = Cliente
         fields = ['correo']
 
-class ClienteForm(ModelForm):
+class ClienteForm(UserCreationForm):
     """Define un formulario para crear Cliente"""
+    class Meta(UserCreationForm):
+        model = Cliente
+        fields = ['nombre', 'ap_paterno', 'ap_materno', 'correo', 'telefono']
+        labels = {
+            'nombre': ('Nombre'),
+            'ap_paterno': ('Apellido Paterno'),
+            'ap_materno': ('Apellido Materno*'),
+            'correo': ('Correo electrónico'),
+            'telefono': ('Número de teléfono*')
+        }
+
+class ClienteModifyForm(UserChangeForm):
+    """Define un formulario para modificar Cliente"""
     class Meta:
         model = Cliente
         fields = ['nombre', 'ap_paterno', 'ap_materno', 'correo', 'telefono']
@@ -143,6 +172,19 @@ class ClienteForm(ModelForm):
 
 class RepartidorForm(ModelForm):
     """Define un formulario para crear Repartidor"""
+    class Meta(UserCreationForm):
+        model = Repartidor
+        fields = ['nombre', 'ap_paterno', 'ap_materno', 'correo', 'telefono']
+        labels = {
+            'nombre': ('Nombre'),
+            'ap_paterno': ('Apellido Paterno'),
+            'ap_materno': ('Apellido Materno*'),
+            'correo': ('Correo electrónico'),
+            'telefono': ('Número de teléfono*')
+        }
+        
+class RepartidorModifyForm(UserChangeForm):
+    """Define un formulario para modificar Repartidor"""
     class Meta:
         model = Repartidor
         fields = ['nombre', 'ap_paterno', 'ap_materno', 'correo', 'telefono']
@@ -151,5 +193,5 @@ class RepartidorForm(ModelForm):
             'ap_paterno': ('Apellido Paterno'),
             'ap_materno': ('Apellido Materno*'),
             'correo': ('Correo electrónico'),
-            'telefono': ('Número de teléfono')
+            'telefono': ('Número de teléfono*')
         }
