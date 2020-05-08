@@ -33,7 +33,11 @@
 			<nav>
 				<ul>
 				    <li><a href="/">Inicio</a></li>
-                    <li><a href="#">Iniciar Sesión</a></li>
+				    {% if user.is_authenticated %}
+                        <li><a href="/users/logout">Cerrar Sesión</a></li>
+                    {% else %}
+                        <li><a href="/users/login">Iniciar Sesión</a></li>
+                    {% endif %}
 			    </ul>
 			</nav>
 		</div>

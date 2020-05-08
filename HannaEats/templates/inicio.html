@@ -14,23 +14,54 @@
             Actualmente esta en sesión como {{ user.correo }} </h2>
             {% if user.tipo == 3 %}
                 <h3>cuenta tipo Cliente</h3>
+                <br>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/food/">Ver comida</a></h3>
+                </div>
+                <br>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/food/">Mis ordenes</a></h3>
+                </div>
+                <br>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/food/">Mis direcciones</a></h3>
+                </div>
+                <br>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/users/logout">Cerrar sesión</a></h3>
+                </div>
+                
+            {% elif user.tipo == 2  %}
+                <h3>cuenta tipo Repartidor</h3>
+                <br>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/food/">Ordenes disponibles</a></h3>
+                </div>
+                <br>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/users/logout">Cerrar sesión</a></h3>
+                </div>
+                
             {% else %}
-                {% if user.tipo == 2  %}
-                    <h3 text-align="center" font-family="Comfortaa">
-                    cuenta tipo Repartidor</h3>
-                {% else %}
-                    <h3 text-align="center" font-family="Comfortaa">
-                    cuenta tipo Administrador</h3>
-                {% endif %}
+                <h3 text-align="center" font-family="Comfortaa">
+                cuenta tipo Administrador</h3>
+                <br>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/food/">Ordenes</a></h3>
+                </div>
+                <br>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/food/">Categorias</a></h3>
+                </div>
+                <br>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/food/">Alimentos</a></h3>
+                </div>
+                <br>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/admin/">Django</a></h3>
+                </div>
             {% endif %}
-            <br>
-            <div id="player_direction">
-                <h3><a id="action_link" href="/food/">Comida y direcciones</a></h3>
-            </div>
-            <br>
-            <div id="player_direction">
-                <h3><a id="action_link" href="/users/logout">Cerrar sesión</a></h3>
-            </div>
 
         {% else %}
             <h2 text-align="center" font-family="Comfortaa">
