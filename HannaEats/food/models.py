@@ -74,8 +74,10 @@ class Categoria(models.Model):
 class OrdenComida(models.Model):
     """Modelo para la BD de una orden de comida"""
     status = models.ForeignKey('food.Status', on_delete=models.CASCADE)
-    id_cliente = models.ForeignKey('users.Cliente', on_delete=models.CASCADE)
-    id_repartidor = models.ForeignKey('users.Repartidor', on_delete=models.CASCADE)
+    id_cliente = models.ForeignKey('users.Account',  
+                                   related_name="cliente", on_delete=models.CASCADE)
+    id_repartidor = models.ForeignKey('users.Account', 
+                                    related_name="repartidor",on_delete=models.CASCADE)
     calificacion = models.IntegerField(validators=[grade], null=True)
     #Nota: el atributo Numero Orden de la entidad lo manejaremos como ID
     

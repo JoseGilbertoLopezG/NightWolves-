@@ -7,14 +7,13 @@ from django.contrib import messages
 
 #Models
 from django.db import models
-from .models import Cliente
 from .models import Direcciones
 from food.models import OrdenComida
 
 # Forms
-from .models import ClienteForm
-from .models import RepartidorForm
-from users.forms import DirectionsForm
+from .forms import ClienteForm
+from .forms import RepartidorForm
+from .forms import DirectionsForm
 
 
 class CreateClient(View):

@@ -6,7 +6,6 @@ from django.urls import reverse_lazy
 
 #Models
 from django.db import models
-from users.models import Cliente
 from users.models import Direcciones
 from .models import Status
 from .models import Alimento
@@ -15,7 +14,7 @@ from .models import OrdenComida
 
 # Forms
 from .forms import FoodForm
-from users.models import ClienteForm
+from users.forms import ClienteForm
 
 class IndexFood(View):
     

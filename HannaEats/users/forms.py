@@ -1,13 +1,18 @@
 # Django
 from django import forms
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate
-from users.models import Direcciones
-from food.models import Alimento
+from django.forms import ModelForm
 from django.core.exceptions import ValidationError
 
-from django.db import models
+# Auth
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth import authenticate
+
+# Modelos
+from users.models import *
+from food.models import Alimento
+
 
 
 class DirectionsForm(forms.Form):
@@ -42,3 +47,42 @@ class DirectionsForm(forms.ModelForm):
                 'max_length': ("This Artist's name is too long."),
             },
         }"""
+
+class ClienteForm(UserCreationForm):
+    """Define un formulario para crear Cliente"""
+    class Meta(UserCreationForm):
+        model = Account
+        fields = ['nombre', 'ap_paterno', 'ap_materno', 'correo', 'telefono']
+        labels = {
+            'nombre': ('Nombre'),
+            'ap_paterno': ('Apellido Paterno'),
+            'ap_materno': ('Apellido Materno*'),
+            'correo': ('Correo electrónico'),
+            'telefono': ('Número de teléfono*')
+        }
+
+class RepartidorForm(ModelForm):
+    """Define un formulario para crear Repartidor"""
+    class Meta(UserCreationForm):
+        model = Account
+        fields = ['nombre', 'ap_paterno', 'ap_materno', 'correo', 'telefono']
+        labels = {
+            'nombre': ('Nombre'),
+            'ap_paterno': ('Apellido Paterno'),
+            'ap_materno': ('Apellido Materno*'),
+            'correo': ('Correo electrónico'),
+            'telefono': ('Número de teléfono*')
+        }
+
+class AccountModifyForm(UserChangeForm):
+    """Define un formulario para modificar una cuenta"""
+    class Meta:
+        model = Account
+        fields = ['nombre', 'ap_paterno', 'ap_materno', 'correo', 'telefono']
+        labels = {
+            'nombre': ('Nombre'),
+            'ap_paterno': ('Apellido Paterno'),
+            'ap_materno': ('Apellido Materno*'),
+            'correo': ('Correo electrónico'),
+            'telefono': ('Número de teléfono*')
+        }
