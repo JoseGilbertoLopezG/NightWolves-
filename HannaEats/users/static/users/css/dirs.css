@@ -166,24 +166,41 @@ span#del {
     margin-left: 5%;
 }
 
-img#delete{
+img#delete {
     width: 35%;
 }
 
-img#mark{
+img#mark {
     width: 60%;
 }
 
-img#edit{
+img#edit {
     width: 35%;
 }
 
-td#direction{
+td#direction {
     width: 77%;
     font-size: large;
 }
 
-#plus{
+#plus {
     width: 15%;
     padding: 0 45%;
+}
+
+.supercard {
+    /* width: 90%; */
+    margin: 0% 5%;
+    background: #f2f2f2;
+    padding-bottom: 5%;
+}
+
+.bg {
+    /* background: rgb(133, 171, 247); */
+    padding-top: 1px;
+    padding-bottom: 3%;
+}
+
+#add_dir {
+    margin-right: 5%;
 }

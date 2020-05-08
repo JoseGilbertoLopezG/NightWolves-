@@ -50,6 +50,24 @@ footer#pie {
     font-family: Comfortaa;
 }
 
+#desc_l {
+    padding-left: 2.5%;
+    width: 55%;
+    color: black;
+    font-size: larger;
+    font-family: Comfortaa;
+    padding-bottom: 2%;
+}
+
+#cate_l {
+    text-align: center;
+    width: 13%;
+    color: black;
+    font-size: larger;
+    font-family: Comfortaa;
+    padding-bottom: 2%;
+}
+
 #img_food {
     /* padding-left: 5%; */
     text-align: center;
@@ -71,6 +89,7 @@ footer#pie_ords {
     color: white;
     text-align: center;
     padding: 20px;
+    margin-top: 0%;
     flex: 0 0 auto;
     bottom: 0;
     margin-bottom: 0;
@@ -134,5 +153,5 @@ a {
 .bg {
     /* background: rgb(133, 171, 247); */
     padding-top: 1px;
-    padding-bottom: 2%;
+    padding-bottom: 3%;
 }

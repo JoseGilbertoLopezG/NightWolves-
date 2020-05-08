@@ -5,65 +5,66 @@
 {% block title %}Alimentos{% endblock title %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'food/css/food.css' %}">
+<link rel="stylesheet" href="{% static 'food/css/categorie.css' %}">
 <script src="{% static 'food/js/functions.js' %}"></script>
 {% endblock head %}
 
 {% block body_content %}
+
 <div class="bg" style="background-image: url('/static/food/images/bg.jpg'); ">
 <div class="supercard">
-
 <br>
-<h1 id="ordrsTit">Comida</h1>
+
+<h1 id="ordrsTit">Categorias</h1>
 
     <table class="allFoods">
 
         <tr>
-            <td id ="desc">
-                Alimento
+            <td id ="desc_l">
+                Nombre
             </td>
-            <td id="cate">
-                Categoria
-            </td>
-            <td>
-
+            <td id="cate_l">
+                Imagen
             </td>
             <td>
 
             </td>
+            <td>
+
+            </td>
+            <br>
         </tr>
 
-        {% for food in foods  %}
+        {% for categoria in categorias  %}
                 <tr id="foods">
                     <td id="desc">
-                        {{food}} 
-                    </td>
-                    <td id="cate">
-                    {{food.categoria.nombre}}
-                    
+                        {{categoria.nombre}}
                     </td>
                     <td id="img_food">
-                        <img id="food_img" title="{{food.descripcion}}" src="/{{food.foto.url}}">
+                        {% if not categoria.imagen %}
+                            <img id="food_img" title="categoria img default" src="{% static 'food/images/categoria.jpg' %}">
+                        {% else %}
+                            <img id="food_img" title="{{categoria.nombre}}" src="/media/{{categoria.imagen}}">
+                        {% endif %}
                     </td>
                 
                     <td id="updt">
-                        <a href="/food/{{food.id}}/updt_food">
+                        <a href="/category/{{categoria.id}}/updt_categ">
                             <img id="edit" alt="Editar" title="Editar" src="{% static 'users/images/pencil.png' %}">
                         </a>
                     </td>
                     <td id="del">
-                        <a href="/food/{{food.id}}/del_food">
+                        <a href="/category/{{categoria.id}}/del_categ">
                             <img id="delete" alt="Borrar" title="Borrar" src="{% static 'users/images/close.png' %}">
                     </td>
                 </tr>
         {% endfor %}
     </table>
 
-    <span id="add_dir"><a id="add" href="/food/add_food"><img id="plus" alt="Agregar" title="Agregar" src="{% static 'users/images/plus.png' %}"><br><span id="add_text">Agregar Alimento</span></a></span>
+    <span id="add_dir"><a id="add" href="/category/add/category"><img id="plus" alt="Agregar" title="Agregar" src="{% static 'users/images/plus.png' %}"><br><span id="add_text">Agregar Categoria</span></a></span>
 
 </div>
-</div>
-
+</div>    
     <footer id="pie_ords">
 		&copy; 2020 <a href="/">HannaEats</a>
 	</footer>

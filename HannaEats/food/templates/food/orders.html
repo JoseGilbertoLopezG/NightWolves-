@@ -11,7 +11,11 @@
 
 {% block body_content %}
 
+<div class="bg" style="background-image: url('/static/food/images/bg.jpg'); ">
+<div class="supercard">
+    <br>
     <h1 id="ordrsTit">Mis Ordenes</h1>
+    <br>
 {% for order in orders  %}
 
     <span id="no_orden"><b> Orden No. {{order.id}} </b></span>
@@ -116,7 +120,8 @@
     </div>
     <br>
 {% endfor %}
-
+</div>
+</div>
         
     <footer id="pie_ords">
 		&copy; 2020 <a href="/">HannaEats</a>
