@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 
 def direccion_imagenes_comida(self, filename):
     """Obtiene el directorio donde se desea guardar imagenes y nombre del archivo"""
-    return f"food/images/{self.nombre}{self.id}"
+    return f"food/images/{self.nombre}_{self.id}.png"
 
 def unique_name(value):
     """Verifica que un Charfield sólo contenga números """
@@ -45,6 +45,9 @@ class Alimento(models.Model):
     foto = models.ImageField(blank=True, null=True, upload_to=direccion_imagenes_comida)
     #Nota: el atributo ID de la entidad existe por defecto en Django
     
+    # Relaciones de entidad
+    categoria = models.ForeignKey("food.Categoria",on_delete=models.CASCADE)
+    
     def __str__(self):
         """Obtener represencacion como cadena"""
         return f"{self.nombre} - {self.descripcion} por ${self.precio}.00"
@@ -56,15 +59,13 @@ class Alimento(models.Model):
 
 class Categoria(models.Model):
     """Modelo para la BD de una categoria"""
-    name = models.CharField(max_length=120,unique=True)
+    nombre = models.CharField(max_length=120,unique=True)
+    imagen = models.ImageField(blank=True, null=True, upload_to=direccion_imagenes_comida)
     #Nota: el atributo ID de la entidad existe por defecto en Django
-    
-    # Relaciones de entidad
-    alimentos = models.ManyToManyField("food.Alimento", related_name="miembros")
     
     def __str__(self):
         """Obtener represencacion como cadena"""
-        return self.name
+        return self.nombre
 
     def __repr__(self):
         """Obtener represencacion como cadena"""

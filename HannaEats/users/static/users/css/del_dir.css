@@ -1,4 +1,3 @@
-
 #titulo_del_direction {
     text-align: center;
     font-family: Manrope;
@@ -28,6 +27,10 @@ a {
     /*padding-bottom: 60px;*/
 }
 
-#dir_form_del{
+#dir_form_del {
     text-align: center;
+}
+
+#pie_del_dir {
+    position: absolute;
 }

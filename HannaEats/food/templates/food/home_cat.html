@@ -1,0 +1,38 @@
+{% extends 'food/base.html' %}
+
+{% load static %}
+
+{% block title %}Menú{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'food/css/menu.css' %}">
+<script src="{% static 'food/js/functions.js' %}"></script>
+{% endblock head %}
+
+{% block body_content %}
+<div class="bg" style="background-image: url('/static/food/images/bg.jpg'); ">
+<div class="supercard">
+    <br>
+    <h1 id="title">
+        Menú
+    </h1>
+    <div class="cartas">  
+      {% for categoria in categorias %}
+        <div class="card"> 
+            <a id="link" href="/category/{{ categoria.nombre | lower }}">
+            {% if not categoria.imagen %}
+                <img id="food_img" title="categoria img default" src="{% static 'food/images/categoria.jpg' %}">
+            {% else %}
+                <img id="food_img" src="/media/{{ categoria.imagen }}" />
+            {% endif %}
+            <br>
+            <span id="name"><b>{{categoria.nombre}}</b></span>
+            </a>
+        </div>
+      {% endfor %}  
+    </div>   
+</div>
+    <footer id="pie_ords">
+		&copy; 2020 <a href="/">HannaEats</a>
+	</footer>
+{% endblock body_content %}

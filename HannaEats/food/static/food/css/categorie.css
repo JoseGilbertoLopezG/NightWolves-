@@ -50,6 +50,24 @@ footer#pie {
     font-family: Comfortaa;
 }
 
+#desc_l {
+    padding-left: 2.5%;
+    width: 55%;
+    color: black;
+    font-size: larger;
+    font-family: Comfortaa;
+    padding-bottom: 2%;
+}
+
+#cate_l {
+    text-align: center;
+    width: 13%;
+    color: black;
+    font-size: larger;
+    font-family: Comfortaa;
+    padding-bottom: 2%;
+}
+
 #img_food {
     /* padding-left: 5%; */
     text-align: center;

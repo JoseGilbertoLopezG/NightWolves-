@@ -1,0 +1,42 @@
+{% extends 'food/base.html' %}
+
+{% load static %}
+
+{% block title %}{{cat}}{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'food/css/menu_food.css' %}">
+{% endblock head %}
+
+{% block body_content %}
+
+<div class="bg" style="background-image: url('/static/food/images/bg.jpg'); ">
+<div class="supercard">
+    <br>
+    <h1 id="title">
+        {{cat}}
+    </h1>
+    <div class="cartas">  
+        {% for food in foods %}
+            <div class="card"> 
+                <img id="img_food" src="/media/{{ food.foto }}"/>
+                <span id="desc">
+                {{food.descripcion}}
+                </span>
+                <br>
+                <span id="precio">
+                ${{food.precio}}
+                </span>
+                <!--p>{{food.descripcion}}</p-->
+                <!--p><button>Agregar al Carrito</button></p-->
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+</div>
+    
+    <footer id="pie_food">
+		&copy; 2020 <a href="/">HannaEats</a>
+	</footer>
+{% endblock body_content %}

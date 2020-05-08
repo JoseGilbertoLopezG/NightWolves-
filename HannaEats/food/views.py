@@ -12,10 +12,12 @@ from users.models import Direcciones
 from .models import OrdenComida
 from .models import Status
 from .models import Alimento
+from .models import Categoria
 from .models import CantidadAlimento
 
 # Forms
 from food.forms import FoodForm
+from food.forms import CategoryForm
 
 class IndexFood(View):
     
@@ -23,6 +25,28 @@ class IndexFood(View):
 
     def get(self, request):
         return render(request, self.template)
+
+class CategoriaVista(View):
+    
+    template = "food/home_cat.html"
+
+    def get(self, request):
+        """GET method."""
+        categorias = Categoria.objects.all()
+        context = {"categorias": categorias}
+        return render(request, self.template, context)
+    
+class ComidaVista(View):
+
+    template = "food/categoria_comida.html"
+
+    def get(self, request, name):
+        """GET method."""
+        cat = name.capitalize()
+        id = Categoria.objects.filter(nombre = name.capitalize()).first()
+        foods = Alimento.objects.filter(categoria_id = id)
+        context = {"foods": foods,"cat":cat}
+        return render(request, self.template, context)
     
 class AllOrders(View):
     
@@ -60,6 +84,8 @@ class AllOrders(View):
         context = {"orders": orders,"to_see": to_see,"foods": foods,"to_eat": to_eat,"cants":cants, "to_count":to_count}
         return render(request, self.template, context)
     
+""" Views referentes a los alimentos """
+
 class AllFood(View):
     
     template = "food/food.html"
@@ -74,7 +100,6 @@ class AllFood(View):
             to_eat = Alimento.objects.first()
         else:
             to_eat = foods_to_see.first()
-            
         context = {"foods": foods,"to_eat": to_eat}
         return render(request, self.template, context)
     
@@ -100,6 +125,7 @@ class AddFood(View):
             descripcion=form.cleaned_data["descripcion"],
             precio=form.cleaned_data["precio"],
             foto=form.cleaned_data["foto"],
+            categoria=form.cleaned_data["categoria"]
         )
         return redirect("/food")
 
@@ -116,6 +142,64 @@ class DelFood(DeleteView):
     template_name = "food/del_food.html"
     success_url = '/food'
     
+""" Views referentes a las categorias """
+
+class AllCategorys(View):
+    
+    template = "food/categoria.html"
+
+    def get(self, request):
+        """GET method."""            
+        categorias = Categoria.objects.all()
+        categorias_id = request.GET.get("to_see", 1)
+        categorias_to_see = Categoria.objects.filter(id=categorias_id)
+                
+        if categorias_to_see.count() == 0:
+            to_see = Categoria.objects.first()
+        else:
+            to_see = categorias_to_see.first()
+            
+        context = {"categorias":categorias,"to_see":to_see}
+        return render(request, self.template, context)
+    
+class AddCategory(View):
+
+    template = "food/add_categ.html"
+
+    def get(self, request):
+        """Render add artist form."""
+        form = CategoryForm()
+        context = {"form": form}
+        return render(request, self.template, context)
+
+    def post(self, request):
+        form = CategoryForm(request.POST, request.FILES)
+
+        if not form.is_valid():
+            context = {"form": form}
+            return render(request, self.template, context)
+
+        Categoria.objects.create(
+            nombre=form.cleaned_data["nombre"],
+            imagen=form.cleaned_data["imagen"],
+        )
+        return redirect("/category")
+
+
+class UpdateCategory(UpdateView):
+    model = Categoria
+    fields = '__all__'
+    template_name = "food/updt_categ.html"
+    success_url = '/'
+    
+    
+class DelCategory(DeleteView):
+    model = Categoria
+    template_name = "food/del_categ.html"
+    success_url = '/category'
+    
+""" Views de los estados de las comidas """
+
 class AllStatus(UpdateView):
     
     model = OrdenComida

@@ -13,6 +13,7 @@ from .models import Direcciones
 # Forms
 from users.forms import DirectionsForm
 
+
 class AddDir(View):
     """New User Sign Up."""
 
