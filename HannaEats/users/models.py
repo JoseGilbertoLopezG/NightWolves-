@@ -11,11 +11,25 @@ from django.contrib.auth.models import PermissionsMixin
 from .managers import AccountManager
 
 def numero_telefono(value):
-    """Verifica que un Charfield sólo contenga números """
+    """Verifica que el charfiel tenga una longitud adecuada y que sólo contenga números"""
+    if len(value) > 20:
+        raise ValidationError(
+            _('%(value)s Es demasiado largo'),
+            code='tooLong',
+            params={'value': value},
+            )
+    if len(value) < 8:
+        raise ValidationError(
+            _('%(value)s Es demasiado corto'),
+            code='tooSmall',
+            params={'value': value},
+            )
     for e in value:
-        if(e == ' ' or (e >= '0' and e <= '9')):
+        if(e >= '0' and e <= '9'):
+            return
+        else:
             raise ValidationError(
-                _('%(value)s no es un número de teléfono válido'),
+                _('%(value)s Sólo debe contener números'),
                 code='numbersOnly',
                 params={'value': value},
                 )
