@@ -11,7 +11,7 @@ from django.contrib.auth.models import PermissionsMixin
 from .managers import AccountManager
 
 def numero_telefono(value):
-    """Verifica que un Charfield sólo contenga números """
+    """Verifica que el charfiel tenga una longitud adecuada y que sólo contenga números"""
     if len(value) > 20:
         raise ValidationError(
             _('%(value)s Es demasiado largo'),
