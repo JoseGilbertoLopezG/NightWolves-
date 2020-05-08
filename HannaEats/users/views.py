@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse_lazy
 from django.contrib import messages
 
@@ -13,6 +14,7 @@ from food.models import OrdenComida
 # Forms
 from .forms import ClienteForm
 from .forms import RepartidorForm
+from .forms import AccountLoginForm
 from .forms import DirectionsForm
 
 
@@ -30,6 +32,7 @@ class CreateClient(View):
         form = ClienteForm(request.POST)
         
         if form.is_valid():
+            form.instance.tipo ='3'
             form.save()
             messages.info(request, 'Los datos fueron guardados.\nLa cuenta será borrada, si no se verifica el correo electónico siguiendo el link enviado, en 24hrs')
             return render( request, selfie.template, {'form': form,
@@ -53,6 +56,7 @@ class CreateAccount(View):
         form = RepartidorForm(request.POST)
         
         if form.is_valid():
+            form.instance.tipo ='2'
             form.save()
             messages.info(request, 'Los datos fueron guardados.\nLa cuenta será borrada, si no se verifica el correo electónico siguiendo el link enviado, en 24hrs')
             return render( request, selfie.template, {'form': form,
@@ -60,18 +64,41 @@ class CreateAccount(View):
         else:
             template = selfie.template
             return render( request, selfie.template, {'form': form})
-
+        
 
 class Login(View):
     """Página de inicio de sesion"""
-    
+    template = "users/login.html"
+
+    def get(selfie, request):
+        form = AccountLoginForm()
+        context = {"form": form}
+        return render(request, selfie.template, context)
+
+    def post(selfie, request):
+        form = AccountLoginForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = authenticate(username=cd.get('username'), password=cd.get('password') )
+            if user is not None:
+                login(request, user)
+                return redirect("/")
+            else:
+                messages.info(request, 'Los datos no son correctos. Intenta de nuevo')
+                return render(request, selfie.template, {'form': form,
+                                                      "contrib_messages": messages})
+        else:
+            messages.info(request, 'Asegurate de llenar los campos como se pide')
+            return render(request, selfie.template, {'form': form,
+                                                      "contrib_messages": messages})
+ 
+class Logout(View):
+    """Página de inicio de sesion"""
     template = "users/login.html"
     
     def get(selfie, request):
-        form = ClienteForm()
-        context = {'form': form}
-        return render(request, selfie.template, context)
-
+        logout(request)
+        return redirect('/')
 
 
 class AddDir(View):

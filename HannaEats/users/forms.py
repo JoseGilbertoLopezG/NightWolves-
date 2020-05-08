@@ -1,6 +1,6 @@
 # Django
 from django import forms
-from django.forms import ModelForm
+from django.forms import ModelForm, Form
 from django.core.exceptions import ValidationError
 
 # Auth
@@ -50,6 +50,17 @@ class DirectionsForm(forms.ModelForm):
 
 class ClienteForm(UserCreationForm):
     """Define un formulario para crear Cliente"""
+    
+    def clean_username(self):
+        # Since User.username is unique, this check is redundant,
+        # but it sets a nicer error message than the ORM. See #13147.
+        username = self.cleaned_data["username"]
+        try:
+            User._default_manager.get(username=username)
+        except User.DoesNotExist:
+            return username
+        raise forms.ValidationError(self.error_messages['duplicate_username'])
+    
     class Meta(UserCreationForm):
         model = Account
         fields = ['nombre', 'ap_paterno', 'ap_materno', 'correo', 'telefono']
@@ -63,6 +74,7 @@ class ClienteForm(UserCreationForm):
 
 class RepartidorForm(ModelForm):
     """Define un formulario para crear Repartidor"""
+
     class Meta(UserCreationForm):
         model = Account
         fields = ['nombre', 'ap_paterno', 'ap_materno', 'correo', 'telefono']
@@ -86,3 +98,12 @@ class AccountModifyForm(UserChangeForm):
             'correo': ('Correo electrónico'),
             'telefono': ('Número de teléfono*')
         }
+
+class AccountLoginForm(Form):
+    """Define un formulario para iniciar sesión"""
+    username = forms.EmailField(max_length=300)
+    password = forms.CharField(max_length=20)
+    labels = {
+        'username': ('Correo electrónico'),
+        'password': ("Contraseña"),
+    }

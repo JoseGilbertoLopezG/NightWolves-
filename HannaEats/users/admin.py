@@ -5,5 +5,12 @@ from django.contrib.auth.admin import UserAdmin
 from .forms import ClienteForm, AccountModifyForm
 from .models import Account, Direcciones
 
-admin.site.register(Account)
+class AccountAdmin(UserAdmin):
+    add_form = ClienteForm
+    form = AccountModifyForm
+    model = Account
+    list_display = ['nombre', 'ap_paterno', 'ap_materno', 'correo', 'telefono']
+    ordering = ['nombre', 'ap_paterno', 'ap_materno', 'correo', 'telefono']
+
+admin.site.register(Account, AccountAdmin)
 admin.site.register(Direcciones)

@@ -11,6 +11,7 @@ app_name = "users"
 
 urlpatterns = [
     path('login', views.Login.as_view(), name='login'),
+    path('logout', views.Logout.as_view(), name='logout'),
     #Views de carrito de compras
     path('cart/add', views.CartAdd.as_view(), name='add-to.cart'),
     path('cart/delete', views.CartDelete.as_view(), name='delete-from-cart'),

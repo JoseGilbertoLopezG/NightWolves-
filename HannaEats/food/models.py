@@ -69,8 +69,7 @@ class Categoria(models.Model):
 
     def __repr__(self):
         """Obtener represencacion como cadena"""
-        return self.__str__()
-    
+        return self.__str__()    
 
 class OrdenComida(models.Model):
     """Modelo para la BD de una orden de comida"""
