@@ -248,7 +248,7 @@ class ChangeStatusToReceived(UpdateView):
 
     def post(self,request,pk):
         to_update = OrdenComida.objects.filter(id=pk).update(status=1)
-        return redirect("/orders")
+        return redirect("/food/orders")
     
 ''' View para cambiar a preparandose '''
     
@@ -275,7 +275,7 @@ class ChangeStatusToPrepared(UpdateView):
 
     def post(self,request,pk):
         to_update = OrdenComida.objects.filter(id=pk).update(status=2)
-        return redirect("/orders")
+        return redirect("/food/orders")
     
 ''' View para cambiar a en espera '''
     
@@ -302,7 +302,7 @@ class ChangeStatusToWait(UpdateView):
 
     def post(self,request,pk):
         to_update = OrdenComida.objects.filter(id=pk).update(status=3)
-        return redirect("/orders")
+        return redirect("/food/orders")
 
 ''' View para cambiar a en Camino '''
 
@@ -329,7 +329,7 @@ class ChangeStatusToOnWay(UpdateView):
 
     def post(self,request,pk):
         to_update = OrdenComida.objects.filter(id=pk).update(status=4)
-        return redirect("/orders")
+        return redirect("/food/orders")
 
 ''' View para cambiar a Entregada '''
     
@@ -356,7 +356,7 @@ class ChangeStatusToDelivered(UpdateView):
 
     def post(self,request,pk):
         to_update = OrdenComida.objects.filter(id=pk).update(status=5)
-        return redirect("/orders")
+        return redirect("/food/orders")
 
 ''' View para cambiar a finalizada ''' 
     
@@ -383,7 +383,7 @@ class ChangeStatusToFinalized(UpdateView):
 
     def post(self,request,pk):
         to_update = OrdenComida.objects.filter(id=pk).update(status=6)
-        return redirect("/orders")
+        return redirect("/food/orders")
     
 ''' View para cambiar a cancelada '''
 
@@ -410,4 +410,4 @@ class ChangeStatusToCanceled(UpdateView):
 
     def post(self,request,pk):
         to_update = OrdenComida.objects.filter(id=pk).update(status=7)
-        return redirect("/orders")
+        return redirect("/food/orders")
