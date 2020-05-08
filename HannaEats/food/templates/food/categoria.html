@@ -10,6 +10,11 @@
 {% endblock head %}
 
 {% block body_content %}
+
+<div class="bg" style="background-image: url('/static/food/images/bg.jpg'); ">
+<div class="supercard">
+<br>
+
 <h1 id="ordrsTit">Categorias</h1>
 
     <table class="allFoods">
@@ -56,9 +61,10 @@
         {% endfor %}
     </table>
 
-    <span id="add_dir"><a id="add" href="/category/add_category"><img id="plus" alt="Agregar" title="Agregar" src="{% static 'users/images/plus.png' %}"><br><span id="add_text">Agregar Categoria</span></a></span>
+    <span id="add_dir"><a id="add" href="/category/add/category"><img id="plus" alt="Agregar" title="Agregar" src="{% static 'users/images/plus.png' %}"><br><span id="add_text">Agregar Categoria</span></a></span>
 
-    
+</div>
+</div>    
     <footer id="pie_ords">
 		&copy; 2020 <a href="/">HannaEats</a>
 	</footer>

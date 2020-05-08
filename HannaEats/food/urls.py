@@ -16,7 +16,7 @@ urlpatterns = [
     path('category/<str:name>', views.ComidaVista.as_view(), name='food_view'),
     # Views para Categorias
     path('category', views.AllCategorys.as_view(), name='category'),
-    path('category/add_category', views.AddCategory.as_view(), name='add_categ'),
+    path('category/add/category', views.AddCategory.as_view(), name='add_categ'),
     path('category/<int:pk>/del_categ', views.DelCategory.as_view(), name='del_categ'),
     path('category/<int:pk>/updt_categ', views.UpdateCategory.as_view(), name='updt_categ'),
     # Views para Alimentos

@@ -10,6 +10,11 @@
 
 {% block body_content %}
 
+
+<div class="bg" style="background-image: url('/static/food/images/bg.jpg'); ">
+<div class="supercard">
+<br>
+
     <h1 id="dirsTit">Mis direcciones</h1>
 
     <table class="allDirs">
@@ -34,11 +39,15 @@
                 </td>
             </li> <brr>
         {% endfor %}
-    </ul>
+    </table>
 
     <br>
         
     <span id="add_dir"><a id="add" href="/users/add-directions"><img id="plus" alt="Agregar" title="Agregar" src="{% static 'users/images/plus.png' %}"><br><span id="add_text">Agregar Direccion</span></a></span>
+
+</div>
+</div>
+
 
     <footer id="pie">
 		&copy; 2020 <a href="/">HannaEats</a>

@@ -68,6 +68,32 @@ input#del_botton {
     padding: 20px;
     /*margin-top: 3%;*/
     flex: 0 0 auto;
+    margin-top: 0%;
+    margin-bottom: 1;
+    width: -moz-available;
+    width: -webkit-fill-available;
+}
+
+#pie_add_dirs {
+    background: rgb(0, 0, 0);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    /*margin-top: 3%;*/
+    flex: 0 0 auto;
+    margin-top: 0%;
+    margin-bottom: 1;
+    width: -moz-available;
+    width: -webkit-fill-available;
+}
+
+#pie_upd_dir {
+    background: rgb(0, 0, 0);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 0%;
+    flex: 0 0 auto;
     margin-bottom: 1;
     width: -moz-available;
     width: -webkit-fill-available;
@@ -85,7 +111,9 @@ span#ver_dir {
     transition: all 500ms ease;
     font-size: 18px;
     right: 0;
+    margin-bottom: 10%;
     /*bottom: 0;*/
+    margin-right: 5%;
     position: absolute;
     padding-right: 1%;
     font-family: 'Comfortaa';
@@ -113,4 +141,17 @@ a#ver {
 
 #pie_add_categoria {
     position: absolute;
+}
+
+.supercard {
+    /* width: 90%; */
+    margin: 0% 5%;
+    background: #f2f2f2;
+    padding-bottom: 5%;
+}
+
+.bg {
+    /* background: rgb(133, 171, 247); */
+    padding-top: 1px;
+    padding-bottom: 3%;
 }
