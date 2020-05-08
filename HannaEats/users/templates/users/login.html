@@ -1,0 +1,35 @@
+{% extends 'users/base.html' %}
+
+
+{% block title %}Iniciar Sesión{% endblock title %}
+
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'users/css/auth.css' %}">
+{% endblock head %}
+
+{% block body_content %}
+
+    <h1 id="loginTit">Inicio de sesión</h1>
+    <h2>Ingresa tus datos para iniciar sesión</h2>
+    <div text-align="center">
+        <form action="login" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit">Iniciar sesión</button>
+        </form>        
+    </div>
+    
+    {% if messages %}
+    <div class="contrib_messages">
+        {% for message in messages %}
+        <h3 {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {{ message }}</h3>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <footer id="pie">
+        &copy; 2020 <a href="/">HannaEats</a>
+    </footer>
+{% endblock body_content %}

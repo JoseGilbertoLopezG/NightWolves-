@@ -1,0 +1,64 @@
+{% extends 'users/base.html' %}
+
+{% load static %}
+{% block title %}Agregar Direccion {% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'users/css/add_dir.css' %}">
+{% endblock css %}
+
+{% block body_content %}
+<div class="bg" style="background-image: url('/static/food/images/bg.jpg'); ">
+<div class="supercard">
+<br>
+
+<h1 id="titulo_add_direction">Agregar Direccion</h1>
+<div class="form_dir">
+    <form action="" method="post" enctype="multipart/form-data" id="dir_form">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="add_dir">
+            {% if field.label_tag == 'Numero interior:' %}
+                Numero Interior*:
+            {% else %}
+                {{ field.label_tag }}
+                
+            {% endif %}
+            <br>
+                {{ field }}
+            </div>
+            <div class="add_dir_field">
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+        <br>
+        <div id="nota_div">
+            <span id="nota">Casillas opcionales(*)</span>
+        </div>
+        <br>
+        <br>
+        <div id="div_botton">
+            <input id="add_botton" value="Guardar" type="submit">
+            <br>
+            <br>
+            <a id="cancelar" href="/users/all-directions">Cancelar</a>
+        </div>
+    </form>
+</div>
+    
+    <span id="ver_dir">
+        <a id="ver" href="/users/all-directions">
+            <img id="see" alt="Ver" title="Ver" src="{% static 'users/images/ver.png' %}">
+            <br>
+            <span id="add_text">Ver Direcciones</span>
+        </a>
+    </span>
+
+</div>
+</div>
+
+    <footer id="pie_add_dirs">
+		&copy; 2020 <a href="/">HannaEats</a>
+	</footer>
+
+{% endblock body_content %}

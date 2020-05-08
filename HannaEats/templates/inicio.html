@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Inicio{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'users/css/auth.css' %}">
+{% endblock css %}
+{% block body_content %}
+
+    <h1 id="createTit">¡Bienvenido a HannaEats!</h1>
+    <br>    
+        {% if user.is_authenticated %}
+            <h2 text-align="center" font-family="Comfortaa">
+            Actualmente esta en sesión como {{ user.correo }} </h2>
+            {% if user.tipo == 3 %}
+                <h3>cuenta tipo Cliente</h3>
+                <br>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/food/">Ver comida</a></h3>
+                </div>
+                <br>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/food/">Mis ordenes</a></h3>
+                </div>
+                <br>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/food/">Mis direcciones</a></h3>
+                </div>
+                <br>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/users/logout">Cerrar sesión</a></h3>
+                </div>
+                
+            {% elif user.tipo == 2  %}
+                <h3>cuenta tipo Repartidor</h3>
+                <br>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/food/">Ordenes disponibles</a></h3>
+                </div>
+                <br>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/users/logout">Cerrar sesión</a></h3>
+                </div>
+                
+            {% else %}
+                <h3 text-align="center" font-family="Comfortaa">
+                cuenta tipo Administrador</h3>
+                <br>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/food/orders">Ordenes</a></h3>
+                </div>
+                <br>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/food/category/all">Categorias</a></h3>
+                </div>
+                <div id="player_direction">
+                    <h3><a id="action_link" href="/admin/">Django</a></h3>
+                </div>
+            {% endif %}
+
+        {% else %}
+            <h2 text-align="center" font-family="Comfortaa">
+            No hay una sesión iniciada</h2>
+            <br>
+            <div id="player_direction">
+                <h3><a id="action_link" href="/users/login">Iniciar sesión</a></h3>
+            </div>
+            <br>
+            <div id="player_direction">
+                <h3><a id="action_link" href="/users/create-client-account">
+                Crear una cuenta</a></h3>
+            </div>
+        {% endif %}
+    
+    <footer id="pie">
+        &copy; 2020 <a href="/">HannaEats</a>
+    </footer>
+{% endblock body_content %}

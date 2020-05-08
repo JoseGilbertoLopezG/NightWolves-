@@ -1,0 +1,42 @@
+{% extends 'users/base.html' %}
+
+{% load static %}
+{% block title %}Inicio{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'users/css/add_dir.css' %}">
+{% endblock css %}
+{% block body_content %}
+
+<div class="bg" style="background-image: url('/static/food/images/bg.jpg'); ">
+<div class="supercard">
+    <br>
+    <h1 id="titulo">Administrador</h1> 
+  <br>
+      <div id="player_direction">
+        <h3><a id="mis_dir" href="/food/category/all">Menú</a></h3>
+      </div>
+    <br>
+      <div id="player_direction">
+        <h3><a id="mis_dir" href="/users/all-directions">Mis Direcciones</a></h3>
+      </div>
+      <br>
+      <div id="player_direction">
+        <h3><a id="mis_dir" href="/food/orders">Mis Ordenes</a></h3>
+      </div>
+      <br>
+      <div id="player_direction">
+        <h3><a id="mis_dir" href="/food/all">Alimentos</a></h3>
+      </div>
+      <br>
+      <div id="player_direction">
+        <h3><a id="mis_dir" href="/food/category">Categorias</a></h3>
+      </div>
+    <br>
+</div>
+</div>
+
+    <footer id="pie_home">
+		&copy; 2020 <a href="/">HannaEats</a>
+	</footer>
+
+{% endblock body_content %}

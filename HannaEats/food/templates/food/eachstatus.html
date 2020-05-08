@@ -1,0 +1,31 @@
+{% extends 'food/base.html' %}
+
+{% load static %}
+
+{% block title %}Estado de Orden{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'food/css/eachstatus.css' %}">
+{% endblock head %}
+
+{% block body_content %}
+
+    <h1 id="titulo_confirm">¿Estas seguro de que deseas cambiar el estado de orden?</h1>
+
+    <div class="form_dir">
+    <form action="" method="post" enctype="multipart/form-data" id="dir_form_del">
+        {% csrf_token %}
+        <br>
+        <input id="del_botton" value="Aceptar" type="submit">
+        <br><br> 
+    </form>
+    </div>
+
+    <div id="cancelar">   
+        <a href="/food/orders">Cancelar</a> 
+    </div>
+
+    <footer id="pie_status">
+		&copy; 2020 <a href="/">HannaEats</a>
+	</footer>
+{% endblock body_content %}

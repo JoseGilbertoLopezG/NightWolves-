@@ -1,0 +1,153 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
+    color: #666;
+    background: #f2f2f2;
+    font-size: 1em;
+    line-height: 1.5em;
+    padding-top: 80px;
+}
+
+header {
+    background: rgb(0, 0, 0);
+    color: white;
+    height: 80px;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: fixed;
+}
+
+header a {
+    color: white;
+}
+
+footer#pie_artist {
+    margin-bottom: 0;
+    position: absolute;
+}
+
+footer#pie_home {
+    /* position: absolute; */
+    bottom: 0;
+}
+
+footer {
+    background: rgb(0, 0, 0);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    /* margin-top: 5%; */
+    flex: 0 0 auto;
+    bottom: 0;
+    margin-bottom: 0;
+    width: -moz-available;
+    width: -webkit-fill-available;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+#logo-header {
+    float: left;
+    padding: 0 0 0 5%;
+    text-decoration: none;
+}
+
+#logo-header:hover {
+    color: #0b76a6;
+}
+
+#logo-header .site-name {
+    display: block;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+#logo-header .site-desc {
+    display: block;
+    font-weight: 300;
+    font-size: 0.8em;
+    color: #999;
+}
+
+header .logo {
+    color: #f2f2f2;
+    font-size: 50px;
+    line-height: 200px;
+    float: left;
+    width: 60%;
+}
+
+nav {
+    float: right;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    padding-right: 20px;
+}
+
+nav ul li {
+    display: inline-block;
+    line-height: 80px;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    line-height: normal;
+    font-size: 20px;
+    font-weight: bold;
+    -webkit-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+    font-family: 'Comfortaa';
+}
+
+nav ul li a:hover {
+    background: #2c59d4;
+    border-radius: 50px;
+}
+
+img#img_logo {
+    height: 75px;
+    width: 275px;
+    margin: auto;
+}
+
+#titulo {
+    text-align: center;
+    font-family: Manrope;
+}
+
+#player_direction {
+    text-align: center;
+    width: 20%;
+    margin: auto;
+}
+
+h3 a {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    -webkit-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+    font-family: 'Comfortaa';
+    color: #000;
+}
+
+#player_direction:hover {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0px 10px 15px rgba(75, 110, 175, 0.4);
+    transform: translateY(-7px);
+}

@@ -1,0 +1,29 @@
+{% extends 'users/base.html' %}
+
+{% load static %}
+{% block title %}Borrar Alimento {% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'users/css/del_dir.css' %}">
+{% endblock css %}
+
+{% block body_content %}
+<h1 id="titulo_del_direction">
+    Borrar Alimento
+    <br> <br>
+    ¿Estas seguro de borrar éste Alimento? 
+</h1>
+<div class="form_dir">
+    <form action="" method="post" enctype="multipart/form-data" id="dir_form_del">
+        {% csrf_token %}
+        <br>
+        <input id="del_botton" value="Borrar" type="submit">
+        <br><br>
+        <a id="cancelar" href="/food/all">Cancelar</a> 
+    </form>
+</div>
+
+    <footer id="pie_del">
+		&copy; 2020 <a href="/">HannaEats</a>
+	</footer>
+
+{% endblock body_content %}

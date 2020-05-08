@@ -1,0 +1,206 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
+    color: #666;
+    background: #f2f2f2;
+    font-size: 1em;
+    line-height: 1.5em;
+    padding-top: 80px;
+}
+
+header {
+    background: rgb(13, 5, 36);
+    color: white;
+    height: 80px;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: fixed;
+}
+
+header a {
+    color: white;
+}
+
+#logo-header {
+    float: left;
+    padding: 0 0 0 5%;
+    text-decoration: none;
+}
+
+#logo-header:hover {
+    color: #0b76a6;
+}
+
+#logo-header .site-name {
+    display: block;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+#logo-header .site-desc {
+    display: block;
+    font-weight: 300;
+    font-size: 0.8em;
+    color: #999;
+}
+
+header .logo {
+    color: #f2f2f2;
+    font-size: 50px;
+    line-height: 200px;
+    float: left;
+    width: 60%;
+}
+
+nav {
+    float: right;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    padding-right: 20px;
+}
+
+nav ul li {
+    display: inline-block;
+    line-height: 80px;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    line-height: normal;
+    font-size: 20px;
+    font-weight: bold;
+    -webkit-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+    font-family: 'Calistoga';
+}
+
+nav ul li a:hover {
+    background: #2c59d4;
+    border-radius: 50px;
+}
+
+#img_logo {
+    height: 75px;
+    width: 225px;
+    margin: auto;
+}
+
+h1 {
+    margin-left: 30px;
+}
+
+footer {
+    background: rgb(13, 5, 36);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 5%;
+    flex: 0 0 auto;
+    bottom: 0;
+    position: absolute;
+    width: -moz-available;
+    width: -webkit-fill-available;
+}
+
+footer a {
+    color: white;
+}
+
+#song {
+    text-decoration: none;
+    font-family: 'Baloo Thambi 2';
+    color: rgb(57, 68, 161);
+}
+
+#dirsTit {
+    font-family: 'Manrope';
+}
+
+#allDirs {
+    list-style: decimal;
+    font-family: 'Baloo Thambi 2';
+    font-size: 20px;
+}
+
+span#add_dir {
+    text-decoration: none;
+    -webkit-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+    font-size: 18px;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    padding-bottom: 80px;
+    padding-right: 1%;
+    font-family: 'Comfortaa';
+}
+
+#add_dir:hover {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 22px;
+    color: #000;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(0, 100, 182);
+}
+
+span#updt {
+    margin-left: 10%;
+}
+
+span#del {
+    margin-left: 5%;
+}
+
+img#delete {
+    width: 35%;
+}
+
+img#mark {
+    width: 60%;
+}
+
+img#edit {
+    width: 35%;
+}
+
+td#direction {
+    width: 77%;
+    font-size: large;
+}
+
+#plus {
+    width: 15%;
+    padding: 0 45%;
+}
+
+.supercard {
+    /* width: 90%; */
+    margin: 0% 5%;
+    background: #f2f2f2;
+    padding-bottom: 5%;
+}
+
+.bg {
+    /* background: rgb(133, 171, 247); */
+    padding-top: 1px;
+    padding-bottom: 3%;
+}
+
+#add_dir {
+    margin-right: 5%;
+}

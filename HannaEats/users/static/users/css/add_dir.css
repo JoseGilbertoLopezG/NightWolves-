@@ -1,0 +1,157 @@
+h1#titulo_add_direction {
+    font-family: 'Comfortaa';
+}
+
+#titulo_add_direction {
+    text-align: center;
+}
+
+.add_dir {
+    /* padding-left: 0%; */
+    font-family: 'Comfortaa';
+    color: darkcyan;
+    /* width: 120px; */
+    width: min-content;
+    margin: auto;
+    font-size: 95%;
+}
+
+.add_dir_field {
+    text-align: center;
+    color: red;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(0, 100, 182);
+}
+
+#dir_form {
+    /*padding-bottom: 60px;*/
+}
+
+#dir_form_del {
+    text-align: center;
+}
+
+#nota {
+    text-align: center;
+}
+
+div#nota_div {
+    text-align: center;
+}
+
+div#div_botton {
+    text-align: center;
+}
+
+input {
+    font-family: 'Comfortaa';
+}
+
+input#add_botton {
+    font-family: 'Comfortaa';
+    font-size: medium;
+}
+
+input#del_botton {
+    font-family: 'Comfortaa';
+    font-size: medium;
+    color: red;
+}
+
+#pie_add_dir {
+    background: rgb(0, 0, 0);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    /*margin-top: 3%;*/
+    flex: 0 0 auto;
+    margin-top: 0%;
+    margin-bottom: 1;
+    width: -moz-available;
+    width: -webkit-fill-available;
+}
+
+#pie_add_dirs {
+    background: rgb(0, 0, 0);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    /*margin-top: 3%;*/
+    flex: 0 0 auto;
+    margin-top: 0%;
+    margin-bottom: 1;
+    width: -moz-available;
+    width: -webkit-fill-available;
+}
+
+#pie_upd_dir {
+    background: rgb(0, 0, 0);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 0%;
+    flex: 0 0 auto;
+    margin-bottom: 1;
+    width: -moz-available;
+    width: -webkit-fill-available;
+}
+
+#cancelar {
+    font-size: larger;
+    color: red;
+}
+
+span#ver_dir {
+    text-decoration: none;
+    -webkit-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+    font-size: 18px;
+    right: 0;
+    margin-bottom: 10%;
+    /*bottom: 0;*/
+    margin-right: 5%;
+    position: absolute;
+    padding-right: 1%;
+    font-family: 'Comfortaa';
+}
+
+#ver_dir:hover {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 22px;
+    color: #000;
+}
+
+#see {
+    width: 15%;
+    padding: 0 42%;
+}
+
+a#ver {
+    color: navy;
+}
+
+#pie_mod_dir {
+    position: absolute;
+}
+
+#pie_add_categoria {
+    position: absolute;
+}
+
+.supercard {
+    /* width: 90%; */
+    margin: 0% 5%;
+    background: #f2f2f2;
+    padding-bottom: 5%;
+}
+
+.bg {
+    /* background: rgb(133, 171, 247); */
+    padding-top: 1px;
+    padding-bottom: 3%;
+}

@@ -1,0 +1,50 @@
+{% extends 'food/base.html' %}
+
+{% load static %}
+
+{% block title %}Estado de Orden{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'food/css/status.css' %}">
+{% endblock head %}
+
+{% block body_content %}
+
+    <h1 id="select">Selecciona el estado nuevo</h1>
+
+{% for order in orders  %}
+
+{% if order.id == to_see.id%}
+        <div id="status">
+                Orden No. {{order.id}}
+            <br>
+                Estado actual de la orden:
+            <br>
+                <span id="curr_stat"><b> {{order.status}} </b></span>
+            
+        </div>
+
+<br>   
+    <div id="options"><b>
+        <a id="stat" href="/users/order/{{order.id}}/received">Recibida</a> 
+        <a id="stat" href="/users/order/{{order.id}}/prepared">Preparandose</a>
+        <a id="stat" href="/users/order/{{order.id}}/wait">En espera</a>
+        <a id="stat" href="/users/order/{{order.id}}/onWay">En camino</a> 
+        <a id="stat" href="/users/order/{{order.id}}/delivered">Entregada</a> 
+        <a id="stat" href="/users/order/{{order.id}}/finalized">Finalizada</a> 
+        <a id="stat" href="/users/order/{{order.id}}/canceled">Cancelada</a>
+    </b></div>
+
+    <br>
+    <br>
+{% endif %}
+{% endfor %}
+
+    <div id="cancelar">
+        <a id="cancelar" href="/food/orders">Cancelar</a> 
+    <div>
+
+    <footer id="pie_status">
+		&copy; 2020 <a href="/">HannaEats</a>
+	</footer>
+{% endblock body_content %}
