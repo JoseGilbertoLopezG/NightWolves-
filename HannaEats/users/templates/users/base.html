@@ -38,10 +38,27 @@
 			</nav>
 		</div>
 	</header>
+
+{% if user.is_authenticated %}
+    {% if user.tipo == 1 %}
+        {% block admin_content %}
+        {% endblock admin_content %}
+    {% endif %}
+    
+    {% if user.tipo == 2 %}
+        {% block repartidor_content %}
+        {% endblock repartidor_content %}
+    {% endif %}
+    
+    {% if user.tipo == 3 %}
+        {% block cliente_content %}
+        {% endblock cliente_content %}
+    {% endif %}
+{% endif %}
+
 {% block body_content %}
 {% endblock body_content %}
     
-
 {% block js %}
 {% endblock js %}
 

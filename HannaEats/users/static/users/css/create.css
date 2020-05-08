@@ -11,12 +11,22 @@ h1 {
 
 h2 {
     font-family: 'Comfortaa';
+    color: Navy;
     display: block;
     text-align: center;
     margin: auto;
     margin-top: 5px;
     font-weight: normal;
-    color: Navy;
+}
+
+h3 {
+    font-family: 'Comfortaa';
+    color: darkcyan;
+    display: block;
+    text-align: center;
+    margin: auto;
+    margin-top: 15px;
+    font-weight: bold;
 }
 
 a {
