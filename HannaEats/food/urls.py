@@ -13,6 +13,7 @@ urlpatterns = [
     path('', views.IndexFood.as_view(), name='home'),
     path('orders', views.AllOrders.as_view(), name='orders'),
     path('food', views.AllFood.as_view(), name='foods'),
+    # Views de gestion de alimentos
     path('food/add_food', views.AddFood.as_view(), name='add_food'),
     path('food/<int:pk>/del_food', views.DelFood.as_view(), name='del_food'),
     path('food/<int:pk>/updt_food', views.UpdateFood.as_view(), name='updt_food'),
@@ -24,11 +25,5 @@ urlpatterns = [
     path('order/<int:pk>/onWay', views.ChangeStatusToOnWay.as_view(), name='onWay'),
     path('order/<int:pk>/delivered', views.ChangeStatusToDelivered.as_view(), name='delivered'),
     path('order/<int:pk>/finalized', views.ChangeStatusToFinalized.as_view(), name='finalized'),
-    path('order/<int:pk>/canceled', views.ChangeStatusToCanceled.as_view(), name='canceled'),
-    # Views de Calificaion de orden
-    path('order/<int:pk>/1_star', views.OneStar.as_view(), name='1star'),
-    path('order/<int:pk>/2_stars', views.TwoStars.as_view(), name='2star'),
-    path('order/<int:pk>/3_stars', views.ThreeStars.as_view(), name='3star'),
-    path('order/<int:pk>/4_stars', views.FourStars.as_view(), name='4star'),
-    path('order/<int:pk>/5_stars', views.FiveStars.as_view(), name='5star'),
+    path('order/<int:pk>/canceled', views.ChangeStatusToCanceled.as_view(), name='canceled')
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

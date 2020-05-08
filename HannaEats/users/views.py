@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.db import models
 from .models import Cliente
 from .models import Direcciones
+from food.models import OrdenComida
 
 # Forms
 from .models import ClienteForm
@@ -146,3 +147,143 @@ class AllDir(View):
             
         context = {"dirs": dirs,"to_see": to_see}
         return render(request, self.template, context)
+    
+
+''' Views para calificacion de la orden '''
+
+class OneStar(UpdateView):
+    model = OrdenComida
+    fields = ['calificacion']
+    template_name = "users/calification.html"
+    success_url = '/'
+    title = "Editar direccion"
+    
+    def get(self, request, pk):
+        """GET method."""
+        orders = OrdenComida.objects.all()
+        orders_id = request.GET.get("to_see", 1)
+        orders_to_see = OrdenComida.objects.filter(id=orders_id)
+                
+        if orders_to_see.count() == 0:
+            to_see = OrdenComida.objects.first()
+        else:
+            to_see = orders_to_see.first()
+            
+        context = {"orders": orders,"to_see": to_see}
+        return render(request, self.template_name, context)
+
+    def post(self,request,pk):
+        to_update = OrdenComida.objects.filter(id=pk).update(calificacion=1)
+        return redirect("/")
+    
+class TwoStars(UpdateView):
+    model = OrdenComida
+    fields = ['calificacion']
+    template_name = "users/calification.html"
+    success_url = '/'
+    title = "Editar direccion"
+    
+    def get(self, request, pk):
+        """GET method."""
+        orders = OrdenComida.objects.all()
+        orders_id = request.GET.get("to_see", 1)
+        orders_to_see = OrdenComida.objects.filter(id=orders_id)
+                
+        if orders_to_see.count() == 0:
+            to_see = OrdenComida.objects.first()
+        else:
+            to_see = orders_to_see.first()
+            
+        context = {"orders": orders,"to_see": to_see}
+        return render(request, self.template_name, context)
+
+    def post(self,request,pk):
+        to_update = OrdenComida.objects.filter(id=pk).update(calificacion=2)
+        return redirect("/")
+
+class ThreeStars(UpdateView):
+    model = OrdenComida
+    fields = ['calificacion']
+    template_name = "users/calification.html"
+    success_url = '/'
+    title = "Editar direccion"
+    
+    def get(self, request, pk):
+        """GET method."""
+        orders = OrdenComida.objects.all()
+        orders_id = request.GET.get("to_see", 1)
+        orders_to_see = OrdenComida.objects.filter(id=orders_id)
+                
+        if orders_to_see.count() == 0:
+            to_see = OrdenComida.objects.first()
+        else:
+            to_see = orders_to_see.first()
+            
+        context = {"orders": orders,"to_see": to_see}
+        return render(request, self.template_name, context)
+
+    def post(self,request,pk):
+        to_update = OrdenComida.objects.filter(id=pk).update(calificacion=3)
+        return redirect("/")
+    
+class FourStars(UpdateView):
+    model = OrdenComida
+    fields = ['calificacion']
+    template_name = "users/calification.html"
+    success_url = '/'
+    title = "Editar direccion"
+    
+    def get(self, request, pk):
+        """GET method."""
+        orders = OrdenComida.objects.all()
+        orders_id = request.GET.get("to_see", 1)
+        orders_to_see = OrdenComida.objects.filter(id=orders_id)
+                
+        if orders_to_see.count() == 0:
+            to_see = OrdenComida.objects.first()
+        else:
+            to_see = orders_to_see.first()
+            
+        context = {"orders": orders,"to_see": to_see}
+        return render(request, self.template_name, context)
+
+    def post(self,request,pk):
+        to_update = OrdenComida.objects.filter(id=pk).update(calificacion=4)
+        return redirect("/")
+    
+class FiveStars(UpdateView):
+    model = OrdenComida
+    fields = ['calificacion']
+    template_name = "users/calification.html"
+    success_url = '/'
+    title = "Editar direccion"
+    
+    def get(self, request, pk):
+        """GET method."""
+        orders = OrdenComida.objects.all()
+        orders_id = request.GET.get("to_see", 1)
+        orders_to_see = OrdenComida.objects.filter(id=orders_id)
+                
+        if orders_to_see.count() == 0:
+            to_see = OrdenComida.objects.first()
+        else:
+            to_see = orders_to_see.first()
+            
+        context = {"orders": orders,"to_see": to_see}
+        return render(request, self.template_name, context)
+
+    def post(self,request,pk):
+        to_update = OrdenComida.objects.filter(id=pk).update(calificacion=5)
+        return redirect("/")
+    
+class CartAdd(UpdateView):
+    template_name = "users/cart.html"
+    
+class CartDelete(UpdateView):
+    template_name = "users/cart.html"
+    
+class CartContents(UpdateView):
+    template_name = "users/cart.html"
+    
+class CartCheckout(UpdateView):
+    template_name = "users/cart.html"

@@ -11,10 +11,23 @@ app_name = "users"
 
 urlpatterns = [
     path('login', views.Login.as_view(), name='login'),
+    #Views de carrito de compras
+    path('cart/add', views.CartAdd.as_view(), name='add-to.cart'),
+    path('cart/delete', views.CartDelete.as_view(), name='delete-from-cart'),
+    path('cart', views.CartContents.as_view(), name='cart-contents'),
+    path('cart/checkout', views.CartCheckout.as_view(), name='checkout-cart'),
+    #Views de creación de cuentas 
     path("create-client-account", views.CreateClient.as_view(), name='create-client'),
     path("create-delivery-account", views.CreateAccount.as_view(), name='create-account'),
+    #Views de gestión de direcciones 
     path('add-directions', views.AddDir.as_view(), name='add-directions'),
     path('all-directions', views.AllDir.as_view(), name='all-directions'),
     path('upd-directions/<int:pk>', views.UpdateDir.as_view(), name='upd-directions'),
     path('del-directions/<int:pk>', views.DelDir.as_view(), name='del-directions'),
+    # Views de Calificaion de orden
+    path('order/<int:pk>/1_star', views.OneStar.as_view(), name='1star'),
+    path('order/<int:pk>/2_stars', views.TwoStars.as_view(), name='2star'),
+    path('order/<int:pk>/3_stars', views.ThreeStars.as_view(), name='3star'),
+    path('order/<int:pk>/4_stars', views.FourStars.as_view(), name='4star'),
+    path('order/<int:pk>/5_stars', views.FiveStars.as_view(), name='5star'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
