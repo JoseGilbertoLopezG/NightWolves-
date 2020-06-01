@@ -21,8 +21,8 @@ urlpatterns = [
     path("create-client-account", views.CreateClient.as_view(), name='create-client'),
     path("create-delivery-account", views.CreateAccount.as_view(), name='create-account'),
     #Views de gestión de direcciones 
-    path('add-directions', views.AddDir.as_view(), name='add-directions'),
-    path('all-directions', views.AllDir.as_view(), name='all-directions'),
+    path('<int:pk>/add-directions', views.AddDir.as_view(), name='add-directions'),
+    path('<int:pk>/all-directions', views.AllDir.as_view(), name='all-directions'),
     path('upd-directions/<int:pk>', views.UpdateDir.as_view(), name='upd-directions'),
     path('del-directions/<int:pk>', views.DelDir.as_view(), name='del-directions'),
     # Views de Calificaion de orden

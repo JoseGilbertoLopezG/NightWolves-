@@ -19,12 +19,14 @@
 
     <table class="allDirs">
         {% for dir in dirs  %}
+        
+            
         	<tr id="dirs">
                 <td id="mark">
                     <img id="mark" alt="elemento {{dir.id}}" src="{% static 'users/images/checklist.png' %}">
                 </td>
                 <td id="direction">
-                    {{dir}}
+                    <!--{{dir}}-->{{dir}}
                 </td>
                 
                 <td id="updt">
@@ -43,7 +45,7 @@
 
     <br>
         
-    <span id="add_dir"><a id="add" href="/users/add-directions"><img id="plus" alt="Agregar" title="Agregar" src="{% static 'users/images/plus.png' %}"><br><span id="add_text">Agregar Direccion</span></a></span>
+    <span id="add_dir"><a id="add" href="/users/{{user.id}}/add-directions"><img id="plus" alt="Agregar" title="Agregar" src="{% static 'users/images/plus.png' %}"><br><span id="add_text">Agregar Direccion</span></a></span>
 
 </div>
 </div>

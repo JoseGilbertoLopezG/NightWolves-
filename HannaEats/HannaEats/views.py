@@ -7,3 +7,9 @@ class Home(View):
 
     def get(self, request):
         return render(request, self.template)
+
+class MenuSesion(View):    
+    template = "menu_sesion.html"
+
+    def get(self, request):
+        return render(request, self.template)

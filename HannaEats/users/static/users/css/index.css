@@ -19,6 +19,10 @@ header {
     position: fixed;
 }
 
+#pie {
+    position: fixed;
+}
+
 header a {
     color: white;
 }
@@ -31,6 +35,12 @@ footer#pie_artist {
 footer#pie_home {
     /* position: absolute; */
     bottom: 0;
+}
+
+#loginTit {
+    text-align: center;
+    font-family: Manrope;
+    color: black;
 }
 
 footer {

@@ -9,6 +9,7 @@ from django.contrib import messages
 #Models
 from django.db import models
 from .models import Direcciones
+from .models import Account
 from food.models import OrdenComida
 
 # Forms
@@ -106,12 +107,12 @@ class AddDir(View):
 
     template = "users/add_dir.html"
 
-    def get(self, request):
+    def get(self, request,pk):
         form = DirectionsForm()
         context = {"form": form}
         return render(request, self.template, context)
 
-    def post(self, request):
+    def post(self, request,pk):
         form = DirectionsForm(request.POST)
 
         if not form.is_valid():
@@ -125,7 +126,8 @@ class AddDir(View):
             colonia = form.cleaned_data["colonia"],
             delegacion = form.cleaned_data["delegacion"],
             cp = form.cleaned_data["cp"]
-        )
+        ).direccion.add(pk)
+        
         #return HttpResponse("<h1>User Created!</h1>")
         return redirect("/")
     
@@ -158,9 +160,12 @@ class AllDir(View):
     
     template = "users/dirs.html"
 
-    def get(self, request):
+    def get(self, request, pk):
         """GET method."""
-        dirs = Direcciones.objects.all()
+        
+        cuentas = Direcciones.objects.filter(direccion=pk).all()
+        
+        dirs = Direcciones.objects.filter(direccion=pk).all()
         
         dirs_id = request.GET.get("to_see", 1)
         
@@ -172,7 +177,7 @@ class AllDir(View):
         else:
             to_see = dirs_to_see.first()
             
-        context = {"dirs": dirs,"to_see": to_see}
+        context = {"dirs": dirs,"to_see": to_see,"pk":pk,"cuentas":cuentas}
         return render(request, self.template, context)
     
 

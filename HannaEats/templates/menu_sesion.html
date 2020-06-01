@@ -16,15 +16,15 @@
                 <h3>cuenta tipo Cliente</h3>
                 <br>
                 <div id="player_direction">
-                    <h3><a id="action_link" href="/food/category/all">Ver comida</a></h3>
+                    <h3><a id="action_link" href="/food/">Ver comida</a></h3>
                 </div>
                 <br>
                 <div id="player_direction">
-                    <h3><a id="action_link" href="/food/orders">Mis ordenes</a></h3>
+                    <h3><a id="action_link" href="/food/">Mis ordenes</a></h3>
                 </div>
                 <br>
                 <div id="player_direction">
-                    <h3><a id="action_link" href="/users/{{user.id}}/all-directions">Mis direcciones</a></h3>
+                    <h3><a id="action_link" href="/food/">Mis direcciones</a></h3>
                 </div>
                 <br>
                 <div id="player_direction">
@@ -60,26 +60,17 @@
             {% endif %}
 
         {% else %}
-        <div class="bg" style="background-image: url({% static '/food/images/pn.jpg' %}); ">
-<div class="supercard">
-
-<br>
             <h2 text-align="center" font-family="Comfortaa">
-            Para continuar </h2>
+            No hay una sesión iniciada</h2>
             <br>
             <div id="player_direction">
                 <h3><a id="action_link" href="/users/login">Iniciar sesión</a></h3>
             </div>
             <br>
-            <h2 text-align="center" font-family="Comfortaa">
-            ó</h2>
-            <br>
             <div id="player_direction">
                 <h3><a id="action_link" href="/users/create-client-account">
                 Crear una cuenta</a></h3>
             </div>
-        </div>
-        </div>
         {% endif %}
     
     <footer id="pie">

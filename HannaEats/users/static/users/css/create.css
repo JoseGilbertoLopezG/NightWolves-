@@ -1,5 +1,4 @@
 @import "base.css";
-
 h1 {
     font-family: 'Comfortaa';
     display: block;
@@ -50,4 +49,9 @@ div {
 input#save_button {
     font-family: 'Comfortaa';
     font-size: medium;
+}
+
+.form_dir {
+    padding-bottom: 80px;
+    padding-top: 30px;
 }

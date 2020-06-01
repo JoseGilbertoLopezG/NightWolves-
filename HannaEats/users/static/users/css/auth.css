@@ -1,12 +1,12 @@
 @import "base.css";
-
-h1 {
+h1#createTit {
     font-family: 'Comfortaa';
     display: block;
     text-align: center;
     margin: auto;
     margin-top: 20px;
     font-weight: bold;
+    color: black;
 }
 
 h2 {
@@ -48,4 +48,23 @@ div {
 input {
     font-family: 'Comfortaa';
     font-size: medium;
+}
+
+.supercard {
+    /* width: 90%; */
+    margin: 4% 35%;
+    background: #f2f2f2;
+    padding-bottom: 5%;
+}
+
+.bg {
+    /* background: rgb(133, 171, 247); */
+    padding-top: 1px;
+    padding-bottom: 3%;
+}
+
+#player_direction {
+    text-align: center;
+    width: 50%;
+    margin: auto;
 }

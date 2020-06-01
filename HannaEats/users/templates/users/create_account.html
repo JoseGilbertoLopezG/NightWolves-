@@ -9,7 +9,7 @@
 
 {% block body_content %}
     <h1 id="createTit">Crear una cuenta para Repartidor</h1>
-
+    <br>
     {% if user.is_authenticated and user.tipo == 1 %}
         <div class="form_dir">
             <form action="create-delivery-account" method="post" enctype="multipart/form-data">
