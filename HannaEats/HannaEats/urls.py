@@ -23,6 +23,7 @@ from HannaEats import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.Home.as_view(), name='home'),
+    path('login/', views.MenuSesion.as_view(), name='sesion'),
     path('food/', include('food.urls')),
     path('users/', include('users.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
