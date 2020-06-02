@@ -13,8 +13,6 @@ from django.contrib.auth import authenticate
 from users.models import *
 from food.models import Alimento
 
-
-
 class DirectionsForm(forms.Form):
 
     calle = forms.CharField(max_length = 60)
@@ -39,18 +37,10 @@ class DirectionsForm(forms.ModelForm):
             'cp' : ('Código Postal'),
         }
         
-        """help_texts = {
-            'name': ('Agrega el nombre del artista'),
-        }
-        error_messages = {
-            'name': {
-                'max_length': ("This Artist's name is too long."),
-            },
-        }"""
 
 class ClienteForm(UserCreationForm):
     """Define un formulario para crear Cliente"""
-    
+    correo = forms.EmailField()
     def clean_username(self):
         # Since User.username is unique, this check is redundant,
         # but it sets a nicer error message than the ORM. See #13147.
@@ -74,7 +64,16 @@ class ClienteForm(UserCreationForm):
 
 class RepartidorForm(ModelForm):
     """Define un formulario para crear Repartidor"""
-
+    def clean_username(self):
+        # Since User.username is unique, this check is redundant,
+        # but it sets a nicer error message than the ORM. See #13147.
+        username = self.cleaned_data["username"]
+        try:
+            User._default_manager.get(username=username)
+        except User.DoesNotExist:
+            return username
+        raise forms.ValidationError(self.error_messages['duplicate_username'])
+        
     class Meta(UserCreationForm):
         model = Account
         fields = ['nombre', 'ap_paterno', 'ap_materno', 'correo', 'telefono']
@@ -103,6 +102,7 @@ class AccountLoginForm(Form):
     """Define un formulario para iniciar sesión"""
     username = forms.EmailField(max_length=300)
     password = forms.CharField(max_length=20)
+    #password = forms.PasswordInput()
     labels = {
         'username': ('Correo electrónico'),
         'password': ("Contraseña"),

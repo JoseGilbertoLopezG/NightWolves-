@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'food',
+    'confirm',
 ]
 
 MIDDLEWARE = [
@@ -94,6 +95,15 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }"""
+
+#DataFlair #Email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'djangoproject2020@gmail.com'
+EMAIL_HOST_PASSWORD = 'D20jango20'
 
 AUTH_USER_MODEL = 'users.Account'
 

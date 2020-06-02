@@ -36,6 +36,10 @@ div {
     text-align: center;
 }
 
+h3#usuario {
+    color: black;
+}
+
 .form_field {
     /* padding-left: 0%; */
     font-family: 'Comfortaa';
@@ -65,6 +69,39 @@ input {
 
 #player_direction {
     text-align: center;
-    width: 50%;
+    width: 25%;
     margin: auto;
+    padding: .2%;
+}
+
+#boton_iniciar {
+    text-align: center;
+    width: 45%;
+    margin: auto;
+    padding: .2%;
+}
+
+#boton_crear {
+    text-align: center;
+    width: 55%;
+    margin: auto;
+    padding: .2%;
+}
+
+#boton_iniciar:hover {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0px 10px 15px rgba(75, 110, 175, 0.4);
+    transform: translateY(-7px);
+}
+
+#boton_crear:hover {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0px 10px 15px rgba(75, 110, 175, 0.4);
+    transform: translateY(-7px);
+}
+
+#title_inicio {
+    color: rgb(2, 2, 129);
 }
