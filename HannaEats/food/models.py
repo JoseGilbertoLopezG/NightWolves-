@@ -7,18 +7,19 @@ def direccion_imagenes_comida(self, filename):
     """Obtiene el directorio donde se desea guardar imagenes y nombre del archivo"""
     return f"food/images/{self.nombre}_{self.id}.png"
 
-def unique_name(value):
-    """Verifica que un Charfield sólo contenga números """
-    for e in value:
-        if(e in value):
+def unique_status(value):
+    """Verifica que un status no exista en la tabla"""
+    registered_stati = Status.objects.all()
+    for e in registered_stati:
+        if(e == value):
             raise ValidationError(
                 _('%(value)s Ya existe en la base de datos'),
-                code='existValue',
+                code='requiredToBeUnique',
                 params={'value': value},
                 )
 
-def numero(value):
-    """Verifica que un Charfield sólo contenga números """
+def numeric(value):
+    """Verifica que un Charfield sólo contenga números"""
     for e in value:
         if(e == ' ' or (e >= '0' and e <= '9')):
             raise ValidationError(
@@ -30,10 +31,10 @@ def numero(value):
 def grade(value):
     """Verifica que un Charfield sólo contenga números """
     for e in value:
-        if(e > 5 and e < 0):
+        if(e > '5' and e < '0'):
             raise ValidationError(
-                _('%(value)s Calificacione mayor de 5 estrellas no se puede'),
-                code='existValue',
+                _('%(value)s La calificación tiene que ser un número entero de estrellas entre 1 y 5'),
+                code='invalidRating',
                 params={'value': value},
                 )
 
@@ -42,7 +43,7 @@ class Alimento(models.Model):
     nombre = models.CharField(max_length=120,unique=True)
     descripcion = models.CharField( max_length=200,unique=True)
     precio = models.CharField(max_length=200)
-    foto = models.ImageField(blank=False, null=False, upload_to=direccion_imagenes_comida)
+    foto = models.ImageField(blank=True, null=True, upload_to=direccion_imagenes_comida)
     #Nota: el atributo ID de la entidad existe por defecto en Django
     
     # Relaciones de entidad
@@ -60,7 +61,7 @@ class Alimento(models.Model):
 class Categoria(models.Model):
     """Modelo para la BD de una categoria"""
     nombre = models.CharField(max_length=120,unique=True)
-    imagen = models.ImageField(blank=False, null=False, upload_to=direccion_imagenes_comida)
+    imagen = models.ImageField(blank=True, null=True, upload_to=direccion_imagenes_comida)
     #Nota: el atributo ID de la entidad existe por defecto en Django
     
     def __str__(self):
@@ -94,7 +95,7 @@ class OrdenComida(models.Model):
 
 class Status(models.Model):
     """Modelo para la BD de una orden de comida"""
-    status = models.CharField(validators=[unique_name], max_length=120)
+    status = models.CharField(validators=[unique_status], max_length=30)
     
     def __str__(self):
         """Obtener represencacion como cadena"""
@@ -108,7 +109,7 @@ class CantidadAlimento(models.Model):
     """Modelo para la BD de una orden de comida"""
     orden = models.ForeignKey('food.OrdenComida', on_delete=models.CASCADE, related_name='cantidad_alimento')
     alimento = models.ForeignKey('food.Alimento', on_delete=models.CASCADE, related_name='cantidad_alimento')
-    cantidad = models.CharField(validators=[numero], max_length=5)
+    cantidad = models.CharField(validators=[numeric], max_length=5)
     
     def __str__(self):
         """Obtener represencacion como cadena"""
