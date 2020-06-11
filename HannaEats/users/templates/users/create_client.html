@@ -34,9 +34,11 @@
                     </div>
                     {% endif %}
 
-                    <div class="form_field_error">
-                        {{ field.errors }}
-                    </div>
+                    {% if field.errors %}
+                        <div class="form_field_error">
+                            Ya existe una cuenta con ese correo<br> o ingresó un correo inválido
+                        </div>
+                    {% endif %}
                 {% endfor %}
                 <br>
                 <div text-align="center">

@@ -1,7 +1,7 @@
 {% extends 'users/base.html' %}
 
 {% load static %}
-{% block title %}Modificar Direccion {% endblock title %}
+{% block title %}Modificar Alimento{% endblock title %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'users/css/add_dir.css' %}">
 {% endblock css %}
@@ -17,14 +17,27 @@
         {% csrf_token %}
 
         {% for field in form %}
-            <div class="add_dir">
-                {{ field.label_tag }}
-                <br>
-                {{ field }}
-            </div>
-            <div class="add_dir_field">
-                {{ field.errors }}
-            </div>
+            {% if field.label == 'Foto' %}
+                <div class="add_dir">
+                    <b>Imagen:</b>
+                    <br>
+                    <img id="img_show" src="/media/{{ field.value }}">
+                    <br>
+                    <b>Actual:</b> <a href="/media/{{ field.value }}">{{ field.value }}</a>
+                    <br>
+                    <b>Cambiar:</b>
+                    <input type="file" name="imagen" accept="image/*" id="id_imagen">
+                </div>   
+            {% else %}
+                <div class="add_dir">
+                    <b>{{ field.label_tag }}</b>
+                    <br>
+                    {{ field }}
+                </div>
+                <div class="add_dir_field">
+                    {{ field.errors }}
+                </div>
+            {% endif %}
         {% endfor %}
         <br>
         <div id="div_botton">

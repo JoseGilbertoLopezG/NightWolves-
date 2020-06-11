@@ -19,6 +19,8 @@ footer#pie {
 #ordrsTit {
     font-family: Calistoga;
     padding-left: 2.5%;
+    color: steelblue;
+    font-size: xxx-large;
 }
 
 #edit {
@@ -51,11 +53,11 @@ footer#pie {
 }
 
 #desc_l {
-    padding-left: 2.5%;
+    padding-left: 1.5%;
     width: 55%;
     color: black;
-    font-size: larger;
-    font-family: Comfortaa;
+    font-size: x-large;
+    font-family: 'Bree Serif';
     padding-bottom: 2%;
 }
 
@@ -63,8 +65,8 @@ footer#pie {
     text-align: center;
     width: 13%;
     color: black;
-    font-size: larger;
-    font-family: Comfortaa;
+    font-size: x-large;
+    font-family: 'Bree Serif';
     padding-bottom: 2%;
 }
 
@@ -144,10 +146,12 @@ a {
 }
 
 .supercard {
-    /* width: 90%; */
+    width: 90%;
     margin: 0% 5%;
     background: #f2f2f2;
     padding-bottom: 5%;
+    border-radius: 20px;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 1);
 }
 
 .bg {

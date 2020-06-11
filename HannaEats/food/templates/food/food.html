@@ -14,11 +14,11 @@
 <div class="supercard">
 
 <br>
-<h1 id="ordrsTit">Comida</h1>
+<h1 id="ordrsTit">Alimentos</h1>
 
     <table class="allFoods">
 
-        <tr>
+        {% comment %} <tr>
             <td id ="desc">
                 Alimento
             </td>
@@ -31,31 +31,57 @@
             <td>
 
             </td>
-        </tr>
+        </tr> {% endcomment %}
 
-        {% for food in foods  %}
-                <tr id="foods">
-                    <td id="desc">
-                        {{food}} 
-                    </td>
-                    <td id="cate">
-                    {{food.categoria.nombre}}
+        {% for cate in cates  %}
+            <tr>
+                <td id="cates"> 
+                    {{ cate }} 
+                </td> 
+            </tr>
+            
+            {% comment %} <tr>
+                <td id ="desc_tit">
+                    <b>Alimento</b>
+                </td>
+                <td id="cate">
+                    Categoria 
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+            </tr>{% endcomment %}
+
+            {% for food in foods  %}
+                {% if food.categoria.nombre == cate.nombre %}
                     
-                    </td>
-                    <td id="img_food">
-                        <img id="food_img" title="{{food.descripcion}}" src="/{{food.foto.url}}">
-                    </td>
-                
-                    <td id="updt">
-                        <a href="/food/{{food.id}}/updt_food">
-                            <img id="edit" alt="Editar" title="Editar" src="{% static 'users/images/pencil.png' %}">
-                        </a>
-                    </td>
-                    <td id="del">
-                        <a href="/food/{{food.id}}/del_food">
-                            <img id="delete" alt="Borrar" title="Borrar" src="{% static 'users/images/close.png' %}">
-                    </td>
-                </tr>
+                        <tr id="foods">
+                            <td id="desc">
+                                {{food}} 
+                            </td>
+                            {% comment %} <td id="cate">
+                            {{food.categoria.nombre}}
+                            
+                            </td> {% endcomment %}
+                            <td id="img_food">
+                                <img id="food_img" title="{{food.descripcion}}" src="/{{food.foto.url}}">
+                            </td>
+                        
+                            <td id="updt">
+                                <a href="/food/{{food.id}}/updt_food">
+                                    <img id="edit" alt="Editar" title="Editar" src="{% static 'users/images/pencil.png' %}">
+                                </a>
+                            </td>
+                            <td id="del">
+                                <a href="/food/{{food.id}}/del_food">
+                                    <img id="delete" alt="Borrar" title="Borrar" src="{% static 'users/images/close.png' %}">
+                            </td>
+                        </tr>
+                {% endif %}
+            {% endfor %}
         {% endfor %}
     </table>
 

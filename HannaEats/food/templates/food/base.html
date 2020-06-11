@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet"> 
 
     {% load static %}
@@ -21,7 +22,7 @@
     {% endblock head %}
         <link rel="stylesheet" type="text/css" href={% static 'users/css/player.css' %}>
         <link rel="shortcut icon" href="{% static 'users/images/LogoHE.png' %}">
-        <link rel="stylesheet" href="{% static 'food/css/index.css' %}">
+        <link rel="stylesheet" href="{% static 'users/css/index.css' %}">
     {% block css %}
     {% endblock css %}
 </head>
@@ -36,18 +37,38 @@
 			<nav>
 				<ul>
 				    <li><a href="/">Inicio</a></li>
-                    <li><a href="#">Iniciar Sesión</a></li>
+				    {% if user.is_authenticated %}
+                        <li><a href="/users/logout">Cerrar Sesión</a></li>
+                    {% else %}
+                        <li><a href="/login">Iniciar Sesión</a></li>
+                    {% endif %}
 			    </ul>
 			</nav>
 		</div>
 	</header>
+
+{% if user.is_authenticated %}
+    {% if user.tipo == 1 %}
+        {% block admin_content %}
+        {% endblock admin_content %}
+    {% endif %}
+    
+    {% if user.tipo == 2 %}
+        {% block repartidor_content %}
+        {% endblock repartidor_content %}
+    {% endif %}
+    
+    {% if user.tipo == 3 %}
+        {% block cliente_content %}
+        {% endblock cliente_content %}
+    {% endif %}
+{% endif %}
+
 {% block body_content %}
 {% endblock body_content %}
-
-
+    
 {% block js %}
 {% endblock js %}
-
 
 </body>
 </html>

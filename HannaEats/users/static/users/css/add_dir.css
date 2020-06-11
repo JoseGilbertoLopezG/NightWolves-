@@ -137,6 +137,7 @@ a#ver {
 
 #pie_mod_dir {
     position: absolute;
+    bottom: auto;
 }
 
 #pie_add_categoria {
@@ -154,4 +155,8 @@ a#ver {
     /* background: rgb(133, 171, 247); */
     padding-top: 1px;
     padding-bottom: 3%;
+}
+
+#img_show {
+    width: 50%;
 }

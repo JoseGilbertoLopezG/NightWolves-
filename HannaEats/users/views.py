@@ -4,7 +4,9 @@ from django.views import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse_lazy
-from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView
 
 #Email
 from HannaEats.settings import EMAIL_HOST_USER
@@ -78,7 +80,7 @@ class CreateClient(View):
             #link = str(sub['correo'].value())
             
             subject = 'Bienvienido A HannaEats'
-            message = '¡Bienvenido '+str(sub['nombre'].value())+'!\nEsperamos que su experiencia con nosotros sea buena.\nVerifica tu Cuenta:\n\n'+'http://localhost:8000/user/verificacion/'+str(sub['correo'].value())+'\n'
+            message = '¡Bienvenido '+str(sub['nombre'].value())+'!\nEsperamos que su experiencia con nosotros sea buena.\nVerifica tu Cuenta:\n\n'+'http://localhost:8000/user/verificar/'+str(sub['correo'].value())+'\n'
             recepient = str(sub['correo'].value())
             from_email = 'Hanna Eats'
             send_mail(subject, message, EMAIL_HOST_USER, [recepient], fail_silently = False)
@@ -118,10 +120,10 @@ class CreateAccount(View):
         form = RepartidorForm(request.POST)
         
         if form.is_valid():
-            sub = Confirm(request.POST)
+            sub = RepartidorForm(request.POST)
             
             subject = 'Bienvienido A HannaEats'
-            message = '¡Bienvenido '+str(sub['nombre'].value())+'!\nEsperamos que su experiencia con nosotros sea buena.\nVerifica tu Cuenta:\n\n'+'localhost:8000/user/verificacion/'+(self.cut(link))+'\n'
+            message = '¡Bienvenido '+str(sub['nombre'].value())+'!\nEsperamos que su experiencia con nosotros sea buena.\nVerifica tu Cuenta:\n\n'+'http://localhost:8000/user/verificar/'+str(sub['correo'].value())+'\n'
             recepient = str(sub['correo'].value())
             from_email = 'Hanna Eats'
             send_mail(subject, message, EMAIL_HOST_USER, [recepient], fail_silently = False)
@@ -131,7 +133,7 @@ class CreateAccount(View):
             form.instance.tipo ='2'
             form.save()
             messages.info(request, 'Los datos fueron guardados.\nLa cuenta será borrada, si no se verifica el correo electónico siguiendo el link enviado, en 24hrs')
-            return render( request, self.template, {'form': form,
+            return render( request, 'confirm/success.html', {'form': form,
                                                       "contrib_messages": messages,
                                                         'recepient': recepient})
         else:
@@ -173,7 +175,7 @@ class Logout(View):
         logout(request)
         return redirect('/')
 
-
+@method_decorator(login_required, name='dispatch')
 class AddDir(View):
     """New User Sign Up."""
 
@@ -203,10 +205,10 @@ class AddDir(View):
         #return HttpResponse("<h1>User Created!</h1>")
         return redirect("/")
     
-
+@method_decorator(login_required, name='dispatch')
 class UpdateDir(UpdateView):
     model = Direcciones
-    fields = '__all__'
+    fields = ['calle','numero_lt','numero_mz','numero_interior','colonia','delegacion','cp']
     template_name = "users/upd_dir.html"
     success_url = '/'
     title = "Editar direccion"
@@ -219,15 +221,20 @@ class UpdateDir(UpdateView):
             'delegacion': ('Delegación'),
             'cp' : ('Código Postal'),
         }
-        
     
+    ''' def get(self, request, pk):
+        dir = Direcciones.objects.filter(id=pk).get()
+        context = {"pk":dir}
+        return render(request, self.template_name, context) '''
     
+@method_decorator(login_required, name='dispatch')  
 class DelDir(DeleteView):
     model = Direcciones
     template_name = "users/del_dir.html"
     success_url = '/users/all-directions'
     title = 'Borrar Direcciones'
-    
+
+@method_decorator(login_required, name='dispatch')  
 class AllDir(View):
     
     template = "users/dirs.html"
@@ -238,9 +245,7 @@ class AllDir(View):
         cuentas = Direcciones.objects.filter(direccion=pk).all()
         
         dirs = Direcciones.objects.filter(direccion=pk).all()
-        
         dirs_id = request.GET.get("to_see", 1)
-        
         dirs_to_see = Direcciones.objects.filter(id=dirs_id)
                 
         if dirs_to_see.count() == 0:
@@ -255,6 +260,7 @@ class AllDir(View):
 
 ''' Views para calificacion de la orden '''
 
+@method_decorator(login_required, name='dispatch')
 class OneStar(UpdateView):
     model = OrdenComida
     fields = ['calificacion']
@@ -279,7 +285,8 @@ class OneStar(UpdateView):
     def post(self,request,pk):
         to_update = OrdenComida.objects.filter(id=pk).update(calificacion=1)
         return redirect("/")
-    
+
+@method_decorator(login_required, name='dispatch')   
 class TwoStars(UpdateView):
     model = OrdenComida
     fields = ['calificacion']
@@ -305,6 +312,7 @@ class TwoStars(UpdateView):
         to_update = OrdenComida.objects.filter(id=pk).update(calificacion=2)
         return redirect("/")
 
+@method_decorator(login_required, name='dispatch')
 class ThreeStars(UpdateView):
     model = OrdenComida
     fields = ['calificacion']
@@ -329,7 +337,8 @@ class ThreeStars(UpdateView):
     def post(self,request,pk):
         to_update = OrdenComida.objects.filter(id=pk).update(calificacion=3)
         return redirect("/")
-    
+
+@method_decorator(login_required, name='dispatch')    
 class FourStars(UpdateView):
     model = OrdenComida
     fields = ['calificacion']
@@ -354,7 +363,8 @@ class FourStars(UpdateView):
     def post(self,request,pk):
         to_update = OrdenComida.objects.filter(id=pk).update(calificacion=4)
         return redirect("/")
-    
+
+@method_decorator(login_required, name='dispatch')    
 class FiveStars(UpdateView):
     model = OrdenComida
     fields = ['calificacion']
