@@ -74,6 +74,12 @@ class Categoria(models.Model):
 
 class OrdenComida(models.Model):
     """Modelo para la BD de una orden de comida"""
+    TIPOS_DE_STATUS = ( 
+        (1, "listo_para_entrega"), 
+        (2, "en_entrega"), 
+        (3, "entregado"),
+        (4, "carrito")
+    )
     status = models.ForeignKey('food.Status', on_delete=models.CASCADE)
     id_cliente = models.ForeignKey('users.Account',  
                                    related_name="cliente", on_delete=models.CASCADE)
@@ -94,7 +100,7 @@ class OrdenComida(models.Model):
         return self.__str__()
 
 class Status(models.Model):
-    """Modelo para la BD de una orden de comida"""
+    """Modelo auxiliar para una orden de comida"""
     status = models.CharField(validators=[unique_status], max_length=30)
     
     def __str__(self):
@@ -106,29 +112,16 @@ class Status(models.Model):
         return self.__str__()
     
 class CantidadAlimento(models.Model):
-    """Modelo para la BD de una orden de comida"""
+    """Modelo auxiliar para una orden de comida"""
+    cantidad = models.CharField(validators=[numeric], max_length=5)
+    
+    # Relaciones de entidad
     orden = models.ForeignKey('food.OrdenComida', on_delete=models.CASCADE, related_name='cantidad_alimento')
     alimento = models.ForeignKey('food.Alimento', on_delete=models.CASCADE, related_name='cantidad_alimento')
-    cantidad = models.CharField(validators=[numeric], max_length=5)
     
     def __str__(self):
         """Obtener represencacion como cadena"""
         return f"{self.alimento}                      x{self.cantidad}"
-
-    def __repr__(self):
-        """Obtener represencacion como cadena"""
-        return self.__str__()
-    
-    
-class CarritoDeCompras(models.Model):
-    """Modelo para la BD de un carrito de compras"""
-    subtotal = models.IntegerField()
-    #Falta lidiar con el Alimento[]
-    #Nota: el atributo ID de la entidad existe por defecto en Django
-    
-    def __str__(self):
-        """Obtener represencacion como cadena"""
-        return self.name
 
     def __repr__(self):
         """Obtener represencacion como cadena"""
