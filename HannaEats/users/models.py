@@ -54,21 +54,24 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     fecha_registro = models.DateTimeField(default=timezone.now)
     
+    
     USERNAME_FIELD = 'correo'
     REQUIRED_FIELDS = ['nombre', 'ap_paterno']
     objects = AccountManager()    
     
     def __str__(self):
         """Obtener represencacion como cadena"""
-        dirs_str = ""
-        dirs = list(self.direccion.all())
+        ''' dirs_str = ""
+        dirs = list(self.direcciones.all())
         if len(dirs) == 0:
             return f"{self.nombre} {self.ap_paterno} {self.ap_materno}"
             
         dirs_str += f"{dirs[0].__str__()}"
         for dir in dirs[1:]:
             dirs_str += f"{dir.__str__()}"
-        return f"Dirección: {dirs_str}"
+        return f"Dirección: {dirs_str}" '''
+        
+        return f"{self.correo}" #f"{self.nombre} {self.ap_paterno} {self.ap_materno}"
 
     def __repr__(self):
         """Obtener represencacion como cadena"""

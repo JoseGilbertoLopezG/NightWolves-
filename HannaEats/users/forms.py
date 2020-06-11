@@ -61,9 +61,15 @@ class ClienteForm(UserCreationForm):
             'correo': ('Correo electrónico'),
             'telefono': ('Número de teléfono*')
         }
+        error_messages = {
+            'correo': {
+                'unique': ("Ya existe una cuenta con este correo"),
+            },
+        }
 
-class RepartidorForm(ModelForm):
+class RepartidorForm(UserCreationForm):
     """Define un formulario para crear Repartidor"""
+    correo = forms.EmailField()
     def clean_username(self):
         # Since User.username is unique, this check is redundant,
         # but it sets a nicer error message than the ORM. See #13147.
@@ -73,7 +79,7 @@ class RepartidorForm(ModelForm):
         except User.DoesNotExist:
             return username
         raise forms.ValidationError(self.error_messages['duplicate_username'])
-        
+    
     class Meta(UserCreationForm):
         model = Account
         fields = ['nombre', 'ap_paterno', 'ap_materno', 'correo', 'telefono']
@@ -83,6 +89,11 @@ class RepartidorForm(ModelForm):
             'ap_materno': ('Apellido Materno*'),
             'correo': ('Correo electrónico'),
             'telefono': ('Número de teléfono*')
+        }
+        error_messages = {
+            'correo': {
+                'unique': ("Ya existe una cuenta con este correo"),
+            },
         }
 
 class AccountModifyForm(UserChangeForm):
@@ -105,5 +116,5 @@ class AccountLoginForm(Form):
     #password = forms.PasswordInput()
     labels = {
         'username': ('Correo electrónico'),
-        'password': ("Contraseña"),
+        'password': ('Contraseña'),
     }

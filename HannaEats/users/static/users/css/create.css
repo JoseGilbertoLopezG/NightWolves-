@@ -55,3 +55,26 @@ input#save_button {
     padding-bottom: 80px;
     padding-top: 30px;
 }
+
+.form_field_error {
+    color: red;
+    display: flow-root list-item;
+    padding: 1% 0%;
+}
+
+.error {
+    padding-top: 5%;
+}
+
+#error {
+    text-align: center;
+    color: brown;
+    font-family: Comfortaa;
+    padding: .5% 2%;
+}
+
+#error:hover {
+    color: white;
+    background-color: brown;
+    border-radius: 10px;
+}

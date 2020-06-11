@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.views import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 #Models
 from django.db import models
@@ -19,6 +21,7 @@ from users.forms import ClienteForm
 from food.forms import FoodForm
 from food.forms import CategoryForm
 
+@method_decorator(login_required, name='dispatch')
 class IndexFood(View):
     
     template = "food/index.html"
@@ -26,6 +29,7 @@ class IndexFood(View):
     def get(self, request):
         return render(request, self.template)
 
+@method_decorator(login_required, name='dispatch')
 class CategoriaVista(View):
     
     template = "food/home_cat.html"
@@ -35,7 +39,8 @@ class CategoriaVista(View):
         categorias = Categoria.objects.all()
         context = {"categorias": categorias}
         return render(request, self.template, context)
-    
+
+@method_decorator(login_required, name='dispatch')
 class ComidaVista(View):
 
     template = "food/categoria_comida.html"
@@ -47,7 +52,8 @@ class ComidaVista(View):
         foods = Alimento.objects.filter(categoria_id = id)
         context = {"foods": foods,"cat":cat}
         return render(request, self.template, context)
-    
+
+@method_decorator(login_required, name='dispatch')
 class AllOrders(View):
     
     template = "food/orders.html"
@@ -86,6 +92,7 @@ class AllOrders(View):
     
 """ Views referentes a los alimentos """
 
+@method_decorator(login_required, name='dispatch')
 class AllFood(View):
     
     template = "food/food.html"
@@ -95,14 +102,25 @@ class AllFood(View):
         foods = Alimento.objects.all()
         foods_id = request.GET.get("to_see", 1)
         foods_to_see = Alimento.objects.filter(id=foods_id)
+        
+        cates = Categoria.objects.all()
+        cate_id = request.GET.get("to_see", 1)
+        cate_to_see = Categoria.objects.filter(id=cate_id)
                 
         if foods_to_see.count() == 0:
             to_eat = Alimento.objects.first()
         else:
             to_eat = foods_to_see.first()
-        context = {"foods": foods,"to_eat": to_eat}
+            
+        if cate_to_see.count() == 0:
+            to_see = Categoria.objects.first()
+        else:
+            to_see = cate_to_see.first()
+            
+        context = {"foods": foods,"to_eat": to_eat,"cates": cates,"to_see":to_see}
         return render(request, self.template, context)
     
+@method_decorator(login_required, name='dispatch')    
 class AddFood(View):
 
     template = "food/add_food.html"
@@ -129,21 +147,21 @@ class AddFood(View):
         )
         return redirect("/food/all")
 
-
+@method_decorator(login_required, name='dispatch')
 class UpdateFood(UpdateView):
     model = Alimento
     fields = '__all__'
     template_name = "food/updt_food.html"
     success_url = '/food/all'
     
-    
+@method_decorator(login_required, name='dispatch')    
 class DelFood(DeleteView):
     model = Alimento
     template_name = "food/del_food.html"
     success_url = '/food/all'
     
 """ Views referentes a las categorias """
-
+@method_decorator(login_required, name='dispatch')
 class AllCategorys(View):
     
     template = "food/categoria.html"
@@ -161,7 +179,8 @@ class AllCategorys(View):
             
         context = {"categorias":categorias,"to_see":to_see}
         return render(request, self.template, context)
-    
+ 
+@method_decorator(login_required, name='dispatch')   
 class AddCategory(View):
 
     template = "food/add_categ.html"
@@ -185,21 +204,21 @@ class AddCategory(View):
         )
         return redirect("/food/category")
 
-
+@method_decorator(login_required, name='dispatch')
 class UpdateCategory(UpdateView):
     model = Categoria
     fields = '__all__'
     template_name = "food/updt_categ.html"
     success_url = '/'
     
-    
+@method_decorator(login_required, name='dispatch')    
 class DelCategory(DeleteView):
     model = Categoria
     template_name = "food/del_categ.html"
     success_url = '/food/category'
     
 """ Views de los estados de las comidas """
-
+@method_decorator(login_required, name='dispatch')
 class AllStatus(UpdateView):
     
     model = OrdenComida
@@ -225,6 +244,7 @@ class AllStatus(UpdateView):
 ''' Views para cambiar el estado de orden '''
 
 ''' View para cambiar a recibida '''
+@method_decorator(login_required, name='dispatch')
 class ChangeStatusToReceived(UpdateView):
     model = OrdenComida
     fields = ['status']
@@ -251,7 +271,8 @@ class ChangeStatusToReceived(UpdateView):
         return redirect("/food/orders")
     
 ''' View para cambiar a preparandose '''
-    
+
+@method_decorator(login_required, name='dispatch')    
 class ChangeStatusToPrepared(UpdateView):
     model = OrdenComida
     fields = ['status']
@@ -278,7 +299,7 @@ class ChangeStatusToPrepared(UpdateView):
         return redirect("/food/orders")
     
 ''' View para cambiar a en espera '''
-    
+@method_decorator(login_required, name='dispatch')    
 class ChangeStatusToWait(UpdateView):
     model = OrdenComida
     fields = ['status']
@@ -305,7 +326,7 @@ class ChangeStatusToWait(UpdateView):
         return redirect("/food/orders")
 
 ''' View para cambiar a en Camino '''
-
+@method_decorator(login_required, name='dispatch')
 class ChangeStatusToOnWay(UpdateView):
     model = OrdenComida
     fields = ['status']
@@ -332,7 +353,7 @@ class ChangeStatusToOnWay(UpdateView):
         return redirect("/food/orders")
 
 ''' View para cambiar a Entregada '''
-    
+@method_decorator(login_required, name='dispatch')    
 class ChangeStatusToDelivered(UpdateView):
     model = OrdenComida
     fields = ['status']
@@ -359,7 +380,7 @@ class ChangeStatusToDelivered(UpdateView):
         return redirect("/food/orders")
 
 ''' View para cambiar a finalizada ''' 
-    
+@method_decorator(login_required, name='dispatch')    
 class ChangeStatusToFinalized(UpdateView):
     model = OrdenComida
     fields = ['status']
@@ -386,7 +407,7 @@ class ChangeStatusToFinalized(UpdateView):
         return redirect("/food/orders")
     
 ''' View para cambiar a cancelada '''
-
+@method_decorator(login_required, name='dispatch')
 class ChangeStatusToCanceled(UpdateView):
     model = OrdenComida
     fields = ['status']

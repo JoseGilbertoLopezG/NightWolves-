@@ -72,7 +72,7 @@ class CategoryForm(forms.ModelForm):
         }
         error_messages = {
             'nombre': {
-                'unique': ("Alimento existente en la base de datos"),
+                'unique': ("Categoria existente en la base de datos"),
             },
         }
         
