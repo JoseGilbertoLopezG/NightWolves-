@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
+from django.contrib import messages
 
 #Email
 from HannaEats.settings import EMAIL_HOST_USER

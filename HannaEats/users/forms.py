@@ -63,7 +63,7 @@ class ClienteForm(UserCreationForm):
         }
         error_messages = {
             'correo': {
-                'unique': ("Ya existe una cuenta con este correo o ingresó un correo inválido"),
+                'unique': ("Ya existe una cuenta con este correo"),
             },
         }
 
@@ -92,7 +92,7 @@ class RepartidorForm(UserCreationForm):
         }
         error_messages = {
             'correo': {
-                'unique': ("Ya existe una cuenta con este correo ó ingresó un correo inválido"),
+                'unique': ("Ya existe una cuenta con este correo"),
             },
         }
 
