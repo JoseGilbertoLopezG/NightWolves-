@@ -58,7 +58,7 @@ class AllOrders(View):
     
     template = "food/orders.html"
 
-    def get(self, request):
+    def get(self, request, pk):
         """GET method."""
         orders = OrdenComida.objects.all()
         orders_id = request.GET.get("to_see", 1)
@@ -77,17 +77,22 @@ class AllOrders(View):
             to_eat = Alimento.objects.first()
         else:
             to_eat = foods_to_see.first()
-            
+                        
         cants = CantidadAlimento.objects.all()
         cants_id = request.GET.get("to_see", 1)
         cants_to_see = CantidadAlimento.objects.filter(id=cants_id)
-                
+        
         if cants_to_see.count() == 0:
             to_count = CantidadAlimento.objects.first()
         else:
             to_count = cants_to_see.first()
             
-        context = {"orders": orders,"to_see": to_see,"foods": foods,"to_eat": to_eat,"cants":cants, "to_count":to_count}
+        context = {"orders": orders,
+                   "to_see": to_see,
+                   "foods": foods,
+                   "to_eat": to_eat,
+                   "cants":cants, 
+                   "to_count":to_count,}
         return render(request, self.template, context)
     
 @method_decorator(login_required, name='dispatch')

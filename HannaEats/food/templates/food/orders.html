@@ -193,6 +193,10 @@
                             <td id="food">
                                 <img id="food_img" title="{{cant.alimento.descripcion}}" src="/{{cant.alimento.foto.url}}">
                             </td>
+
+                            <td id="food">
+                                {{ cant.alimento.get_subtotal }}
+                            </td>
                         </tr>
                     {% endif %}
                 {% endfor %}
@@ -266,7 +270,7 @@
 {% endfor %}
 
     <span id="ver_dir">
-        <a id="ver" href="orders/history">
+        <a id="ver" href="history">
             <img id="see" alt="Borrar" title="Borrar" src="{% static 'users/images/ver.png' %}">
             <br>
             <span id="add_text">Ver Historial de Pedidos</span>

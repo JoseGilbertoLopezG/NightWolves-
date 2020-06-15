@@ -1,0 +1,196 @@
+footer#pie {
+    position: absolute;
+    margin-top: 0%;
+}
+
+#food {
+    /*padding-left: 5%;*/
+    width: 27%;
+    text-align: center;
+}
+
+#change_stats {
+    text-decoration: none;
+    color: teal;
+    font-size: large;
+    padding: 5px 10px;
+}
+
+#change_stats:hover {
+    text-decoration: none;
+    color: rgb(253, 253, 253);
+    font-size: large;
+    background: teal;
+    border-radius: 15px;
+}
+
+.supercard {
+    /* width: 90%; */
+    margin: 0% 5%;
+    background: #f2f2f2;
+    padding-bottom: 6%;
+    border-radius: 20px;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 1);
+}
+
+.bg {
+    /* background: rgb(133, 171, 247); */
+    padding-top: 1px;
+    padding-bottom: 5%;
+}
+
+#div_cs {
+    text-align: center;
+}
+
+#food_img {
+    height: 80px;
+}
+
+.allOrdrs {
+    padding-left: 3%;
+    padding-bottom: 40px;
+}
+
+.allFoods {
+    padding-left: 3%;
+    padding-bottom: 40px;
+}
+
+#ordrsTit {
+    font-family: Calistoga;
+    padding-left: 2.5%;
+    color: brown;
+}
+
+#estado {
+    width: 15%;
+    text-align: center;
+}
+
+#desc {
+    padding-left: 2.5%;
+    width: 47.5%;
+}
+
+#precio {
+    text-align: center;
+    width: 15%;
+}
+
+#desc_l {
+    padding-left: 2.5%;
+    width: 47.5%;
+}
+
+#precio_l {
+    text-align: center;
+    width: 15%;
+}
+
+#datos {
+    padding-left: 2.5%;
+    width: 50%;
+}
+
+#grade {
+    width: 30%;
+    text-align: center;
+}
+
+footer#pie_ords {
+    background: rgb(0, 0, 0);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 0%;
+    flex: 0 0 auto;
+    bottom: 0;
+    margin-bottom: 0;
+    width: -moz-available;
+    width: -webkit-fill-available;
+}
+
+tr#labels {
+    padding-left: 2.5%;
+    color: black;
+    font-family: Manrope;
+}
+
+#cantidad {
+    text-align: center;
+}
+
+#star1 {
+    width: 10%;
+}
+
+#star2 {
+    width: 10%;
+}
+
+#star3 {
+    width: 10%;
+}
+
+#star4 {
+    width: 10%;
+}
+
+#star5 {
+    width: 10%;
+}
+
+#estado_str {
+    color: rgb(255, 255, 255);
+    padding: 3% 5%;
+    font-size: large;
+    background: dodgerblue;
+    border-radius: 15px;
+    padding: 1% 15%;
+}
+
+#no_orden {
+    margin-left: 3%;
+    padding: .5% 1%;
+    border-radius: 15px;
+    background: darkmagenta;
+    color: white;
+    font-style: oblique;
+}
+
+span#ver_dir {
+    text-decoration: none;
+    -webkit-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+    font-size: 18px;
+    right: 0;
+    margin-bottom: 10%;
+    /*bottom: 0;*/
+    margin-right: 5%;
+    position: absolute;
+    padding-right: 1%;
+    font-family: 'Comfortaa';
+}
+
+#ver_dir:hover {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 22px;
+    color: #000;
+}
+
+#see {
+    width: 30%;
+    padding: 0 33%;
+}
+
+a#ver {
+    color: navy;
+    text-decoration: none;
+}
+
+span#add_text {
+    font-family: 'Comfortaa';
+}

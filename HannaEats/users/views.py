@@ -419,7 +419,7 @@ class CartAdd(View):
             instancia = Status.objects.get(status="carrito")
         except:
             Status.objects.create(
-                status = "carrito"
+                status = "carrito",
             )
             instancia = Status.objects.get(status="carrito")
         
