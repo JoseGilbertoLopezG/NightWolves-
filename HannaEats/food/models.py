@@ -97,7 +97,7 @@ class OrdenComida(models.Model):
         a = 0
         for i in alimentos:
             a += i.cantidad * i.alimento.precio
-        return f"Orden {self.id} por $" + a + " para " 
+        return f"Orden {self.id} por $" + a + " para {self.id_cliente}" 
 
     def __repr__(self):
         """Obtener represencacion como cadena"""

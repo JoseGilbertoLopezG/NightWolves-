@@ -136,7 +136,7 @@ class CreateAccount(View):
             
             form.instance.tipo ='2'
             form.save()
-            messages.info(request, 'Los datos fueron guardados.\nLa cuenta será borrada, si no se verifica el correo electónico siguiendo el link enviado, en 24hrs')
+            #messages.info(request, 'Los datos fueron guardados.\nLa cuenta será borrada, si no se verifica el correo electónico siguiendo el link enviado, en 24hrs')
             return render( request, 'confirm/success.html', {'form': form,
                                                       "contrib_messages": messages,
                                                         'recepient': recepient})

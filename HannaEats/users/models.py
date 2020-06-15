@@ -85,16 +85,16 @@ class Account(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         """Obtener represencacion como cadena"""
         ''' dirs_str = ""
-        dirs = list(self.direcciones.all())
+        dirs = list(Direcciones.direccion.all())
         if len(dirs) == 0:
             return f"{self.nombre} {self.ap_paterno} {self.ap_materno}"
             
         dirs_str += f"{dirs[0].__str__()}"
         for dir in dirs[1:]:
             dirs_str += f"{dir.__str__()}"
-        return f"Dirección: {dirs_str}" '''
+        return f"Dirección: {dirs_str}"  '''
         
-        return f"{self.correo}" #f"{self.nombre} {self.ap_paterno} {self.ap_materno}"
+        return f"{self.nombre} {self.ap_paterno} {self.ap_materno}"
 
     def __repr__(self):
         """Obtener represencacion como cadena"""

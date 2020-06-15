@@ -14,30 +14,50 @@
 
 {% for order in orders  %}
 
-{% if order.id == to_see.id%}
-        <div id="status">
-                Orden No. {{order.id}}
-            <br>
-                Estado actual de la orden:
-            <br>
-                <span id="curr_stat"><b> {{order.status}} </b></span>
-            
-        </div>
+    {% if order.id == to_see.id%}
+        {% if user.tipo == 2 %}
+            <div id="status">
+                        Orden No. {{order.id}}
+                    <br>
+                        Estado actual de la orden:
+                    <br>
+                        <span id="curr_stat"><b> {{order.status}} </b></span>
+                    
+                </div>
 
-<br>   
-    <div id="options"><b>
-        <a id="stat" href="/users/order/{{order.id}}/received">Recibida</a> 
-        <a id="stat" href="/users/order/{{order.id}}/prepared">Preparandose</a>
-        <a id="stat" href="/users/order/{{order.id}}/wait">En espera</a>
-        <a id="stat" href="/users/order/{{order.id}}/onWay">En camino</a> 
-        <a id="stat" href="/users/order/{{order.id}}/delivered">Entregada</a> 
-        <a id="stat" href="/users/order/{{order.id}}/finalized">Finalizada</a> 
-        <a id="stat" href="/users/order/{{order.id}}/canceled">Cancelada</a>
-    </b></div>
+            <br>   
+            <div id="options"><b>
+                
+                <a id="stat" href="/food/order/{{order.id}}/onWay">En camino</a>
+                <a id="stat" href="/food/order/{{order.id}}/finalized">Finalizada</a>
+            </b></div>
 
-    <br>
-    <br>
-{% endif %}
+            <br>
+            <br>
+        {% else %}
+            <div id="status">
+                        Orden No. {{order.id}}
+                    <br>
+                        Estado actual de la orden:
+                    <br>
+                        <span id="curr_stat"><b> {{order.status}} </b></span>
+                    
+                </div>
+
+            <br>   
+            <div id="options"><b>
+                <a id="stat" href="/food/order/{{order.id}}/received">Recibida</a> 
+                <a id="stat" href="/food/order/{{order.id}}/prepared">Preparandose</a>
+                <a id="stat" href="/food/order/{{order.id}}/prepared">Lista para entrega</a>
+                <a id="stat" href="/food/order/{{order.id}}/onWay">En camino</a>
+                <a id="stat" href="/food/order/{{order.id}}/finalized">Finalizada</a> 
+                <a id="stat" href="/food/order/{{order.id}}/canceled">Cancelada</a>
+            </b></div>
+
+            <br>
+            <br>
+        {% endif %}
+    {% endif %}
 {% endfor %}
 
     <div id="cancelar">
