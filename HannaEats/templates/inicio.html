@@ -12,73 +12,93 @@
         {% if user.is_authenticated %}
             <h2 text-align="center" font-family="Comfortaa">
             Actualmente esta en sesión como {{ user.correo }} </h2>
+
+            <h3 id="usuario"> ¡Bienvenido {{user.nombre}}! </h3>
+            
             {% if user.tipo == 3 %}
-                <h3>cuenta tipo Cliente</h3>
-                <br>
-                <div id="player_direction">
-                    <h3><a id="action_link" href="/food/category/all">Ver comida</a></h3>
+                <div class="card">
+                    <h3>cuenta tipo Cliente</h3>
+                    <br>
+                    <div id="player_direction">
+                        <h3><a id="action_link" href="/food/category/all">Ver comida</a></h3>
+                    </div>
+                    <br>
+                    <div id="player_direction">
+                        <h3><a id="action_link" href="/food/orders/{{user.id}}">Mis ordenes</a></h3>
+                    </div>
+                    <br>
+                    <div id="player_direction">
+                        <h3><a id="action_link" href="/users/{{user.id}}/all-directions">Mis direcciones</a></h3>
+                    </div>
+                    <br>
+                    <div id="player_direction">
+                        <h3><a id="action_link" href="/users/logout">Cerrar sesión</a></h3>
+                    </div>
                 </div>
-                <br>
-                <div id="player_direction">
-                    <h3><a id="action_link" href="/food/orders">Mis ordenes</a></h3>
-                </div>
-                <br>
-                <div id="player_direction">
-                    <h3><a id="action_link" href="/users/{{user.id}}/all-directions">Mis direcciones</a></h3>
-                </div>
-                <br>
-                <div id="player_direction">
-                    <h3><a id="action_link" href="/users/logout">Cerrar sesión</a></h3>
-                </div>
-                
             {% elif user.tipo == 2  %}
-                <h3>cuenta tipo Repartidor</h3>
-                <br>
-                <div id="player_direction">
-                    <h3><a id="action_link" href="/food/">Ordenes disponibles</a></h3>
+                <div class="card">
+                    <h3>cuenta tipo Repartidor</h3>
+                    <br>
+                    <div id="player_direction">
+                        <h3><a id="action_link" href="/food/orders/{{user.id}}">Ordenes disponibles</a></h3>
+                    </div>
+                    <br>
+                    <div id="player_direction">
+                        <h3><a id="action_link" href="/users/logout">Cerrar sesión</a></h3>
+                    </div>
                 </div>
-                <br>
-                <div id="player_direction">
-                    <h3><a id="action_link" href="/users/logout">Cerrar sesión</a></h3>
-                </div>
-                
             {% else %}
-                <h3 text-align="center" font-family="Comfortaa">
-                cuenta tipo Administrador</h3>
-                <br>
-                <div id="player_direction">
-                    <h3><a id="action_link" href="/food/orders">Ordenes</a></h3>
-                </div>
-                <br>
-                <div id="player_direction">
-                    <h3><a id="action_link" href="/food/category/all">Categorias</a></h3>
-                </div>
-                <br>
-                <div id="player_direction">
-                    <h3><a id="action_link" href="/admin/">Django</a></h3>
+                <div class="card">
+                    <h3 text-align="center" font-family="Comfortaa">
+                    cuenta tipo Administrador</h3>
+                    <br>
+                    <div id="player_direction">
+                        <h3><a id="action_link" href="/food/orders/{{user.id}}">Ordenes</a></h3>
+                    </div>
+                    <br>
+                    <div id="player_direction">
+                        <h3><a id="action_link" href="/food/category">Categorias</a></h3>
+                    </div>
+                    <br>
+                    <div id="player_direction">
+                        <h3><a id="action_link" href="/food/all">Alimentos</a></h3>
+                    </div>
+                    <br>
+                    <div id="player_direction">
+                        <h3><a id="action_link" href="/users/create-delivery-account">Registrar Repartidor</a></h3>
+                    </div>
+                    <br>
+                    <div id="player_direction">
+                        <h3><a id="action_link" href="/admin/">Django</a></h3>
+                    </div>
+                    <br>
+                    <div id="player_direction_logout">
+                        <h3><a id="action_link_logout" href="/users/logout">Cerrar sesión</a></h3>
+                    </div>
+                    <br>
                 </div>
             {% endif %}
 
         {% else %}
         <div class="bg" style="background-image: url({% static '/food/images/pn.jpg' %}); ">
-<div class="supercard">
+            <div class="supercard">
 
-<br>
-            <h2 text-align="center" font-family="Comfortaa">
+            <br>
+            <h2 id="title_inicio" text-align="center" font-family="Comfortaa">
             Para continuar </h2>
             <br>
-            <div id="player_direction">
+            <div id="boton_iniciar">
                 <h3><a id="action_link" href="/users/login">Iniciar sesión</a></h3>
             </div>
             <br>
             <h2 text-align="center" font-family="Comfortaa">
             ó</h2>
             <br>
-            <div id="player_direction">
+            <div id="boton_crear">
                 <h3><a id="action_link" href="/users/create-client-account">
                 Crear una cuenta</a></h3>
             </div>
-        </div>
+            </div>
         </div>
         {% endif %}
     

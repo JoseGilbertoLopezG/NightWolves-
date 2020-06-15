@@ -1,0 +1,27 @@
+{% extends 'users/base.html' %}
+
+{% load static %}
+{% block title %}Index Correo {% endblock title %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'users/css/success.css' %}">
+{% endblock css %}
+
+{% block body_content %}
+<div class="bg" style="background-image: url('/static/food/images/bg.jpg'); ">
+    <div class="supercard">
+        <br>
+            <h1 id="message">E-mail enviado a: <br> {{ recepient }} </h1>
+            <br>
+            <h3 id="verif">Revise su correo para verificar su cuenta.</h3>
+        <br>
+        <br>
+        <div class="inicio">
+            <h3>
+                <a id="action_link" href="/">
+                     Ir a Inicio 
+                </a>
+            </h3>
+        </div>
+    </div>
+</div>
+{% endblock body_content %}

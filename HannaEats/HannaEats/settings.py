@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'food',
+    'confirm',
 ]
+
+LOGIN_URL = '/login/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,6 +79,17 @@ WSGI_APPLICATION = 'HannaEats.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 
+''' DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USERNAME'),
+        'PASSWORD': os.environ.get('DB_USER_PASSWORD'),
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+} '''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -94,6 +108,15 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }"""
+
+#DataFlair #Email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'djangoproject2020@gmail.com'
+EMAIL_HOST_PASSWORD = 'D20jango20'
 
 AUTH_USER_MODEL = 'users.Account'
 

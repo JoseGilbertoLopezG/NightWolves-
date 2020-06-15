@@ -137,6 +137,7 @@ a#ver {
 
 #pie_mod_dir {
     position: absolute;
+    bottom: auto;
 }
 
 #pie_add_categoria {
@@ -154,4 +155,22 @@ a#ver {
     /* background: rgb(133, 171, 247); */
     padding-top: 1px;
     padding-bottom: 3%;
+}
+
+#img_show {
+    width: 50%;
+}
+
+#center {
+    text-align: center;
+}
+
+#t2 {
+    text-align: center;
+    color: #000;
+}
+
+#id_cantidad {
+    width: 5%;
+    text-align: center;
 }

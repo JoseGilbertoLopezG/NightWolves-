@@ -1,0 +1,35 @@
+{% extends 'food/base.html' %}
+
+{% load static %}
+
+{% block title %}Verificar Cuenta{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'users/css/verify.css' %}">
+{% endblock head %}
+
+{% block body_content %}
+
+<div class="bg" style="background-image: url('/static/food/images/bg.jpg'); ">
+<div class="supercard">
+    <br>
+    <h1 id="titulo_verif">Verifica tu cuenta</h1>
+
+    <div class="form_dir">
+    <form action="" method="post" enctype="multipart/form-data" id="dir_form_del">
+        {% csrf_token %}
+        <br>
+        <input id="verif_boton" value="Verificar" type="submit">
+        <br><br> 
+    </form>
+    </div>
+</div>
+</div>
+    {% comment %} <div id="cancelar">   
+        <a href="/food/orders">Cancelar</a> 
+    </div> {% endcomment %}
+
+    <footer id="pie_status">
+		&copy; 2020 <a href="/">HannaEats</a>
+	</footer>
+{% endblock body_content %}

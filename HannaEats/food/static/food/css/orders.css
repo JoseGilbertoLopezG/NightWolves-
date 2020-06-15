@@ -28,6 +28,9 @@ footer#pie {
     /* width: 90%; */
     margin: 0% 5%;
     background: #f2f2f2;
+    padding-bottom: 6%;
+    border-radius: 20px;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 1);
 }
 
 .bg {
@@ -55,8 +58,9 @@ footer#pie {
 }
 
 #ordrsTit {
-    font-family: Manrope;
+    font-family: Calistoga;
     padding-left: 2.5%;
+    color: tomato;
 }
 
 #estado {
@@ -143,6 +147,7 @@ tr#labels {
     font-size: large;
     background: rgb(33, 172, 44);
     border-radius: 15px;
+    padding: 1% 15%;
 }
 
 #no_orden {
@@ -152,4 +157,40 @@ tr#labels {
     background: tomato;
     color: white;
     font-style: oblique;
+}
+
+span#ver_dir {
+    text-decoration: none;
+    -webkit-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+    font-size: 18px;
+    right: 0;
+    margin-bottom: 10%;
+    /*bottom: 0;*/
+    margin-right: 5%;
+    position: absolute;
+    padding-right: 1%;
+    font-family: 'Comfortaa';
+}
+
+#ver_dir:hover {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 22px;
+    color: #000;
+}
+
+#see {
+    width: 15%;
+    padding: 0 42%;
+}
+
+a#ver {
+    color: navy;
+    text-decoration: none;
+}
+
+span#add_text {
+    font-family: 'Comfortaa';
 }

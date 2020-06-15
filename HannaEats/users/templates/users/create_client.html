@@ -17,20 +17,34 @@
                 {% csrf_token %}
                 {% for field in form %}
                     <div class="form_field">
+                    {% if  field.label == 'Password'%}
+                        Contraseña:
+                        <br>
+                        {{ form.password1 }}
+                        </div>
+                    {% elif  field.label == 'Password confirmation'%}
+                        Confirmar Contraseña:
+                        <br>
+                        {{ form.password2 }}
+                        </div>
+                    {% else %}
                         {{ field.label_tag }}
                         <br>
                         {{ field }}
                     </div>
-                    <div class="form_field_error">
-                        {{ field.errors }}
-                    </div>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <div class="form_field_error">
+                            Ya existe una cuenta con ese correo<br> o ingresó un correo inválido
+                        </div>
+                    {% endif %}
                 {% endfor %}
                 <br>
-                
                 <div text-align="center">
                     <span text-align="center" font-family="Comfortaa">Casillas opcionales(*)</span>
                 </div>
-                
+                <br>
                 <div id="div_button">
                     <input id="save_button" value="Crear" type="submit">
                 </div>

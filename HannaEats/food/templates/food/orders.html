@@ -14,112 +14,268 @@
 <div class="bg" style="background-image: url('/static/food/images/bg.jpg'); ">
 <div class="supercard">
     <br>
-    <h1 id="ordrsTit">Mis Ordenes</h1>
+    <h1 id="ordrsTit">Ordenes</h1>
     <br>
+
+
 {% for order in orders  %}
 
-    <span id="no_orden"><b> Orden No. {{order.id}} </b></span>
-    <br>
-    <br>
-    <table class="allFoods">
-            <tr id="labels">
-                <td id="desc_l">Descripcion</td>
-                <td id="precio_l">Precio</td>
+{% comment %} Condicional para mostrar a Administrador {% endcomment %}
 
-                <td>Cantidad</td>
-                <td></td>
-            </tr>
+    {% if user.tipo == 1 %}
+        {% if order.status.status == 'carrito' %}
+
+        {% else %}
+            <span id="no_orden"><b> Orden No. {{order.id}} </b></span>
+            <br>
+            <br>
+            <table class="allFoods">
+                    <tr id="labels">
+                        <td id="desc_l">Descripcion</td>
+                        <td id="precio_l">Precio</td>
+
+                        <td>Cantidad</td>
+                        <td></td>
+                    </tr>
 
 
-        {% for cant in cants  %}
-            {% if cant.orden_id == order.id%}
-                <tr id="foods">
-                    <td id="desc">
-                        {{cant.alimento.descripcion}} 
-                    </td>
-                    
-                    <td id="precio">
-                        ${{cant.alimento.precio}}
-                    </td>
+                {% for cant in cants  %}
+                    {% if cant.orden_id == order.id%}
+                        <tr id="foods">
+                            <td id="desc">
+                                {{cant.alimento.descripcion}} 
+                            </td>
+                            
+                            <td id="precio">
+                                ${{cant.alimento.precio}}
+                            </td>
 
-                    <td id="cantidad">
-                        x {{cant.cantidad}}
-                    </td>
+                            <td id="cantidad">
+                                x {{cant.cantidad}}
+                            </td>
 
-                    <td id="food">
-                        <img id="food_img" title="{{cant.alimento.descripcion}}" src="/{{cant.alimento.foto.url}}">
-                    </td>
-                </tr>
-            {% endif %}
-        {% endfor %}
-    </table>
-    <table class="allOrdrs">
-        
-        
-            <tr id="ordrs">
-                <td id="estado">
-                    <span id="estado_str"><b>{{order.status}}</b></span>
-                </td>
-
-                <td id="datos">
-                    {{order}}
-                    <br>
-                    Repartidor: {{order.id_repartidor}}
-                </td>
-            
-                <td id="grade">
-                    Calificación: 
-                    <br><!--{{order.calificacion}}-->
-
-                    {% if order.calificacion == 1 %}
-                         <a id="stat" href="/users/order/{{order.id}}/1_star"><img id="star1" title="Stars1" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/2_stars"><img id="star2" title="Stars2" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/3_stars"><img id="star3" title="Stars3" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/4_stars"><img id="star4" title="Stars4" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/5_stars"><img id="star5" title="Stars5" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
-                    {% elif order.calificacion == 2 %}
-                         <a id="stat" href="/users/order/{{order.id}}/1_star"><img id="star1" title="Stars1" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/2_stars"><img id="star2" title="Stars2" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/3_stars"><img id="star3" title="Stars3" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/4_stars"><img id="star4" title="Stars4" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/5_stars"><img id="star5" title="Stars5" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
-                    {% elif order.calificacion == 3 %}
-                         <a id="stat" href="/users/order/{{order.id}}/1_star"><img id="star1" title="Stars1" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/2_stars"><img id="star2" title="Stars2" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/3_stars"><img id="star3" title="Stars3" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/4_stars"><img id="star4" title="Stars4" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/5_stars"><img id="star5" title="Stars5" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
-                    {% elif order.calificacion == 4 %}
-                         <a id="stat" href="/users/order/{{order.id}}/1_star"><img id="star1" title="Stars1" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/2_stars"><img id="star2" title="Stars2" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/3_stars"><img id="star3" title="Stars3" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/4_stars"><img id="star4" title="Stars4" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/5_stars"><img id="star5" title="Stars5" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
-                    {% elif order.calificacion == 5 %}
-                         <a id="stat" href="/users/order/{{order.id}}/1_star"><img id="star1" title="Stars1" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/2_stars"><img id="star2" title="Stars2" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/3_stars"><img id="star3" title="Stars3" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/4_stars"><img id="star4" title="Stars4" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/5_stars"><img id="star5" title="Stars5" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
-                    {% else %}
-                         <a id="stat" href="/users/order/{{order.id}}/1_star"><img id="star1" title="Stars" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/2_stars"><img id="star2" title="Stars" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/3_stars"><img id="star3" title="Stars" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/4_stars"><img id="star4" title="Stars" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
-                         <a id="stat" href="/users/order/{{order.id}}/5_stars"><img id="star5" title="Stars" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
+                            <td id="food">
+                                <img id="food_img" title="{{cant.alimento.descripcion}}" src="/{{cant.alimento.foto.url}}">
+                            </td>
+                        </tr>
                     {% endif %}
-                </td>
+                {% endfor %}
+            </table>
+            <table class="allOrdrs">
+                
+                
+                    <tr id="ordrs">
+                        <td id="estado">
+                            <span id="estado_str"><b>{{order.status}}</b></span>
+                        </td>
 
-            </tr>
-        
-    </table>
+                        <td id="datos">
+                            {{order}}
+                            <br>
+                            Repartidor: {{order.id_repartidor}}
+                        </td>
 
-    <br>
-    <div id="div_cs">
-        <a id="change_stats" href="/users/order/{{order.id}}/status"><b>Cambiar estado de orden</b></a>
-    </div>
-    <br>
+                    </tr>
+                
+            </table>
+
+            <br>
+            <div id="div_cs">
+                <a id="change_stats" href="/food/order/{{order.id}}/status"><b>Cambiar estado de orden</b></a>
+            </div>
+            <br>
+            
+        {% endif %}
+
+{% comment %} Condicional para mostrar a Repartidor {% endcomment %}
+
+    {% elif user.tipo == 2 %}
+        {% if order.status.status == 'listo' %}
+
+            <span id="no_orden"><b> Orden No. {{order.id}} </b></span>
+            <br>
+            <br>
+            <table class="allFoods">
+                    <tr id="labels">
+                        <td id="desc_l">Descripcion</td>
+                        <td id="precio_l">Precio</td>
+
+                        <td>Cantidad</td>
+                        <td></td>
+                    </tr>
+
+
+                {% for cant in cants  %}
+                    {% if cant.orden_id == order.id%}
+                        <tr id="foods">
+                            <td id="desc">
+                                {{cant.alimento.descripcion}} 
+                            </td>
+                            
+                            <td id="precio">
+                                ${{cant.alimento.precio}}
+                            </td>
+
+                            <td id="cantidad">
+                                x {{cant.cantidad}}
+                            </td>
+
+                            <td id="food">
+                                <img id="food_img" title="{{cant.alimento.descripcion}}" src="/{{cant.alimento.foto.url}}">
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+            <table class="allOrdrs">
+                
+                
+                    <tr id="ordrs">
+                        <td id="estado">
+                            <span id="estado_str"><b>{{order.status}}</b></span>
+                        </td>
+
+                        <td id="datos">
+                            {{order}}
+                            <br>
+                            Repartidor: {{order.id_repartidor}}
+                        </td>                    
+
+                    </tr>
+                
+            </table>
+
+            <br>
+            <div id="div_cs">
+                <a id="change_stats" href="/food/order/{{order.id}}/status"><b>Cambiar estado de orden</b></a>
+            </div>
+            <br>
+        {% else %}
+            
+        {% endif %}
+
+{% comment %} Condicional para mostrar a CLiente {% endcomment %}
+
+    {% elif user.tipo == 3%}
+        {% if order.status.status == 'carrito' %}
+
+        {% elif order.status.status == 'finalizado' or order.status.status == 'cancelado'%}
+
+        {% else %}
+            <span id="no_orden"><b> Orden No. {{order.id}} </b></span>
+            <br>
+            <br>
+            <table class="allFoods">
+                    <tr id="labels">
+                        <td id="desc_l">Descripcion</td>
+                        <td id="precio_l">Precio</td>
+
+                        <td>Cantidad</td>
+                        <td></td>
+                    </tr>
+
+
+                {% for cant in cants  %}
+                    {% if cant.orden_id == order.id%}
+                        <tr id="foods">
+                            <td id="desc">
+                                {{cant.alimento.descripcion}} 
+                            </td>
+                            
+                            <td id="precio">
+                                ${{cant.alimento.precio}}
+                            </td>
+
+                            <td id="cantidad">
+                                x {{cant.cantidad}}
+                            </td>
+
+                            <td id="food">
+                                <img id="food_img" title="{{cant.alimento.descripcion}}" src="/{{cant.alimento.foto.url}}">
+                            </td>
+
+                            <td id="food">
+                                {{ cant.alimento.get_subtotal }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+            <table class="allOrdrs">
+                
+                
+                    <tr id="ordrs">
+                        <td id="estado">
+                            <span id="estado_str"><b>{{order.status}}</b></span>
+                        </td>
+
+                        <td id="datos">
+                            {{order}}
+                            <br>
+                            Repartidor: {{order.id_repartidor}}
+                        </td>
+                    
+                        <td id="grade">
+                            Calificación: 
+                            <br><!--{{order.calificacion}}-->
+
+                            {% if order.calificacion == 1 %}
+                                <a id="stat" href="/food/order/{{order.id}}/1_star"><img id="star1" title="Stars1" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/2_stars"><img id="star2" title="Stars2" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/3_stars"><img id="star3" title="Stars3" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/4_stars"><img id="star4" title="Stars4" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/5_stars"><img id="star5" title="Stars5" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
+                            {% elif order.calificacion == 2 %}
+                                <a id="stat" href="/food/order/{{order.id}}/1_star"><img id="star1" title="Stars1" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/2_stars"><img id="star2" title="Stars2" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/3_stars"><img id="star3" title="Stars3" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/4_stars"><img id="star4" title="Stars4" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/5_stars"><img id="star5" title="Stars5" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
+                            {% elif order.calificacion == 3 %}
+                                <a id="stat" href="/food/order/{{order.id}}/1_star"><img id="star1" title="Stars1" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/2_stars"><img id="star2" title="Stars2" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/3_stars"><img id="star3" title="Stars3" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/4_stars"><img id="star4" title="Stars4" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/5_stars"><img id="star5" title="Stars5" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
+                            {% elif order.calificacion == 4 %}
+                                <a id="stat" href="/food/order/{{order.id}}/1_star"><img id="star1" title="Stars1" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/2_stars"><img id="star2" title="Stars2" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/3_stars"><img id="star3" title="Stars3" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/4_stars"><img id="star4" title="Stars4" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/5_stars"><img id="star5" title="Stars5" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
+                            {% elif order.calificacion == 5 %}
+                                <a id="stat" href="/food/order/{{order.id}}/1_star"><img id="star1" title="Stars1" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/2_stars"><img id="star2" title="Stars2" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/3_stars"><img id="star3" title="Stars3" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/4_stars"><img id="star4" title="Stars4" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/5_stars"><img id="star5" title="Stars5" onmouseover="changeStars()" src="{% static '/food/images/star.png' %}"></a>
+                            {% else %}
+                                <a id="stat" href="/food/order/{{order.id}}/1_star"><img id="star1" title="Stars" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/2_stars"><img id="star2" title="Stars" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/3_stars"><img id="star3" title="Stars" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/4_stars"><img id="star4" title="Stars" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
+                                <a id="stat" href="/food/order/{{order.id}}/5_stars"><img id="star5" title="Stars" onmouseover="changeStars()" src="{% static '/food/images/star_empty.png' %}"></a>
+                            {% endif %}
+                        </td> 
+
+                    </tr>
+                
+            </table>
+            <br>
+            
+        {% endif %}
+    {% else %}
+        <meta http-equiv="refresh" content="5; url=http://localhost:8000/">
+    {% endif %}
 {% endfor %}
+
+    <span id="ver_dir">
+        <a id="ver" href="history">
+            <img id="see" alt="Borrar" title="Borrar" src="{% static 'users/images/ver.png' %}">
+            <br>
+            <span id="add_text">Ver Historial de Pedidos</span>
+        </a>
+    </span>
 </div>
 </div>
         

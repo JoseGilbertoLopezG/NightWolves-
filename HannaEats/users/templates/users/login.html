@@ -10,12 +10,21 @@
 
 {% block body_content %}
 
+<div class="bg" style="background-image: url(/static/food/images/pn.jpg); ">
+<div class="supercard">
+
     <h1 id="loginTit">Inicio de sesión</h1>
     <h2>Ingresa tus datos para iniciar sesión</h2>
     <div text-align="center">
         <form action="login" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{form.as_p}}
+            <p id="label">
+                Correo: {{form.username}}
+            </p>
+            <p id="label">
+                {% comment %} <br> {% endcomment %}
+                Contraseña: <input type="password" {{form.password}} 
+            </p>
             <button type="submit">Iniciar sesión</button>
         </form>        
     </div>
@@ -23,12 +32,16 @@
     {% if messages %}
     <div class="contrib_messages">
         {% for message in messages %}
-        <h3 {% if message.tags %} class="{{ message.tags }}"{% endif %}>
-        {{ message }}</h3>
+            <h3 {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                {{ message }}
+            </h3>
         {% endfor %}
     </div>
     {% endif %}
-    
+
+</div>
+</div>
+
     <footer id="pie">
         &copy; 2020 <a href="/">HannaEats</a>
     </footer>

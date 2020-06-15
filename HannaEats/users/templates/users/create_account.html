@@ -9,7 +9,8 @@
 
 {% block body_content %}
     <h1 id="createTit">Crear una cuenta para Repartidor</h1>
-    <br>
+    
+    {% comment %} {% if user.is_authenticated and user.tipo == 1 %} {% endcomment %}
     {% if user.is_authenticated and user.tipo == 1 %}
         <div class="form_dir">
             <form action="create-delivery-account" method="post" enctype="multipart/form-data">
@@ -17,21 +18,36 @@
                 {% csrf_token %}
                 {% for field in form %}
                     <div class="form_field">
-                        {{ field.label_tag }}
+                    {% if  field.label == 'Password'%}
+                            Contraseña:
+                            <br>
+                            {{ form.password1 }}
+                            </div>
+                        {% elif  field.label == 'Password confirmation'%}
+                            Confirmar Contraseña:
+                            <br>
+                            {{ form.password2 }}
+                            </div>
+                        {% else %}
+                            {{ field.label_tag }}
+                            <br>
+                            {{ field }}
+                        </div>
+                    {% endif %}
+                    {% if field.errors %}
+                        <div class="form_field_error">
+                            Ya existe una cuenta con ese correo
                         <br>
-                        {{ field }}
-                    </div>
-                    <div class="form_field_error">
-                        {{ field.errors }}
-                    </div>
+                        </div>
+                    {% endif %}
                 {% endfor %}
                 <br>
-                
                 <div text-align="center">
                     <span text-align="center" font-family="Comfortaa">
-                    Casillas opcionales(*)</span>
+                        Casillas opcionales(*)
+                    </span>
                 </div>
-                
+                <br>
                 <div id="div_button">
                     <input id="save_button" value="Crear" type="submit">
                 </div>
@@ -50,6 +66,10 @@
     {% else %}
         <div>
             <h3> Sólo puedes hacer esto con una sesión de Administrador activa</h3>
+        </div>
+
+        <div class="error">
+            <a id="error" href="/">Ir a Inicio</a>
         </div>
     {% endif %}
     

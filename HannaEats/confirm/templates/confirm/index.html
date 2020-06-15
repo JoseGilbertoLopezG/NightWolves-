@@ -1,0 +1,26 @@
+{% extends 'users/base.html' %}
+
+{% load static %}
+{% block title %}Index Correo {% endblock title %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'users/css/add_dir.css' %}">
+{% endblock css %}
+
+{% block body_content %}
+        <center>
+        <h1 class = 'alert alert-success'>Subscribe Form</h1>
+        <h3 class="p-3 mb-2 bg-primary text-white" style = 'font-size: 50px;'>DataFlair Django Tutorials
+    </h3>
+    <form method="POST">
+        <!-- Very Important csrf Token -->
+        {% csrf_token %}
+        <div class = "form-group">
+            <p>
+            <h3>{{ form.as_p }}</h3>
+        </p>
+            <br>
+            <input type="submit" name="Subscribe" class = 'btn btn-primary btn-lg'>
+                </div>
+            </form>
+        </center>
+{% endblock body_content %}

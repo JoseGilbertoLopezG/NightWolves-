@@ -1,0 +1,49 @@
+{% extends 'users/base.html' %}
+
+{% load static %}
+{% block title %}Agregar Direccion {% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'users/css/add_dir.css' %}">
+{% endblock css %}
+
+{% block body_content %}
+<div class="bg" style="background-image: url('/static/food/images/bg.jpg'); ">
+<div class="supercard">
+<br>
+
+<h1 id="titulo_add_direction">Agregar Artículo</h1>
+
+<div id=t2> ¿Cuántos articulos desea agregar? </div>
+<br>
+<div class="form_item" text-align="center">
+   <form action="" method="post" enctype="multipart/form-data" id="item_form">
+        {% csrf_token %}
+        <div id="center">
+            {{ form.cantidad }}
+        </div>
+        <br>
+        <div id="div_botton">
+            <input id="add_botton" value="Guardar" type="submit">
+            <br>
+            <br>
+            <a id="cancelar" href="/users/all-items">Cancelar</a>
+        </div>
+    </form>
+</div>
+    
+    <span id="ver_dir">
+        <a id="ver" href="/users/all-items">
+            <img id="see" alt="Ver" title="Ver" src="{% static 'users/images/ver.png' %}">
+            <br>
+            <span id="add_text">Ver Carrito</span>
+        </a>
+    </span>
+
+</div>
+</div>
+
+    <footer id="pie_add_dirs">
+		&copy; 2020 <a href="/">HannaEats</a>
+	</footer>
+
+{% endblock body_content %}
