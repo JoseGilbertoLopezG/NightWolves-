@@ -17,7 +17,7 @@ urlpatterns = [
     path('<int:pk>/<int:food>/add-item', views.CartAdd.as_view(), name='add-item'),
     path('<int:pk>/all-items', views.CartAll.as_view(), name='all-item'),
     path('upd-cart/<int:pk>', views.CartUpdate.as_view(), name='upd-item'),
-    path('del-item/<int:pk>/<int:food>', views.CartDel.as_view(), name='del-item'),
+    path('del-item/<int:pk>/', views.CartDel.as_view(), name='del-item'),
     path('cart/checkout', views.CartCheckout.as_view(), name='checkout-cart'),
     #Views de creación de cuentas 
     path("create-client-account", views.CreateClient.as_view(), name='create-client'),
