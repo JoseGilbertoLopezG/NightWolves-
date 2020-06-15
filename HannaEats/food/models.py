@@ -120,7 +120,7 @@ class CantidadAlimento(models.Model):
     cantidad = models.IntegerField()
     
     # Relaciones de entidad
-    orden = models.ForeignKey('food.OrdenComida', on_delete=models.CASCADE, related_name='cantidad_alimento')
+    orden = models.ForeignKey('food.OrdenComida', on_delete=models.CASCADE, related_name='orden')
     alimento = models.ForeignKey('food.Alimento', on_delete=models.CASCADE, related_name='cantidad_alimento')
     ## initial=5
     

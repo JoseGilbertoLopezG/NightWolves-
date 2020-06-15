@@ -18,12 +18,14 @@ from django.db import models
 from .models import Direcciones
 from .models import Account
 from food.models import OrdenComida
+from food.models import CantidadAlimento
 
 # Forms
 from .forms import ClienteForm
 from .forms import RepartidorForm
 from .forms import AccountLoginForm
 from .forms import DirectionsForm
+from food.forms import CantidadAlimentoForm
 
 ''' View para cambiar a recibida '''
 
@@ -92,7 +94,7 @@ class CreateClient(View):
             messages.info(request, 'Los datos fueron guardados.\nLa cuenta será borrada, si no se verifica el correo electónico siguiendo el link enviado, en 24hrs')
             return render( request, 'confirm/success.html', {'form': form,
                                                       "contrib_messages": messages,
-                                                      'recepient': recepient})
+                                                      'recepient':recepient})
         else:
             template = self.template
             return render( request, self.template, {'form': form})
@@ -169,7 +171,7 @@ class Login(View):
             messages.info(request, 'Asegurate de llenar los campos como se pide')
             return render(request, self.template, {'form': form,
                                                 "contrib_messages":messages})
- 
+
 class Logout(View):
     """Página de inicio de sesion"""
     template = "users/login.html"
@@ -393,14 +395,89 @@ class FiveStars(UpdateView):
         to_update = OrdenComida.objects.filter(id=pk).update(calificacion=5)
         return redirect("/")
     
-class CartAdd(UpdateView):
-    template_name = "users/cart.html"
+class CartAdd(View):
+    
+    template = "users/add_item.html"
+
+    def get(self, request, pk):
+        form = CanitdadAlimentoForm()
+        context = {"form": form}
+        return render(request, self.template, context)
+
+    def post(self, request, pk):
+        form = CanitdadAlimentoForm(request.POST)
+        
+        form.instance.alimento ='2'
+        
+        carrito = OrdenComida.objects.filter(status)
+        
+        try:
+            carrito = carrito.get(id_cliente=pk)
+        except DoesNotExist:
+            OrdenComida.objects.create(
+                id_cliente = pk,
+                status = form.cleaned_data["numero_mz"]
+            )
+            carrito = OrdenComida.objects.filter(status)
+            carrito = carrito.get(id_cliente=pk)
+
+        if not form.is_valid():
+            context = {"form": form}
+            return CanitdadAlimentoForm(request, self.template, context)
+        
+        form.instance.orden = carrito.pk
+        nuevo_articulo = form.save()
+        carrito.articulos.add( nuevo_articulo.pk )
+        messages.info(request, 'El artículo fue agregado al carrito')        
+        #return HttpResponse("<h1>User Created!</h1>")
+        return redirect("/")
     
 class CartDelete(UpdateView):
+    
+    model = CantidadAlimento
     template_name = "users/cart.html"
+    template_name = "users/del_dir.html"
+    success_url = '/users/all-directions'
+    title = 'Borrar Articulos'
     
 class CartContents(UpdateView):
     template_name = "users/cart.html"
+    
+    template = "users/dirs.html"
+
+    def get(self, request, pk):
+        """GET method."""
+        
+        cuentas = Direcciones.objects.filter(direccion=pk).all()
+        
+        dirs = Direcciones.objects.filter(direccion=pk).all()
+        dirs_id = request.GET.get("to_see", 1)
+        dirs_to_see = Direcciones.objects.filter(id=dirs_id)
+                
+        if dirs_to_see.count() == 0:
+            to_see = Direcciones.objects.first()
+
+        else:
+            to_see = dirs_to_see.first()
+            
+        context = {"dirs": dirs,"to_see": to_see,"pk":pk,"cuentas":cuentas}
+        return render(request, self.template, context)
+    
+    
+class CartUpdate(UpdateView):
+    model = CantidadAlimento
+    fields = ['cantidad']
+    template_name = "users/upd_dir.html"
+    success_url = '/'
+    title = "Editar cantidad"
+    labels = {
+            'cantidad': ('Cantidad'),
+        }
+    
+    ''' def get(self, request, pk):
+        dir = Direcciones.objects.filter(id=pk).get()
+        context = {"pk":dir}
+        return render(request, self.template_name, context) '''
     
 class CartCheckout(UpdateView):
     template_name = "users/cart.html"

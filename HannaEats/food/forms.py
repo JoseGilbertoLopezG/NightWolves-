@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate
 from users.models import Direcciones
 from food.models import Alimento
 from food.models import Categoria
+from food.models import OrdenComida
+from food.models import CantidadAlimento
 
 from django.db import models
 
@@ -19,7 +21,7 @@ class FoodForm(forms.Form):
     def clean_food(self):
         data = self.cleaned_data["nombre"]
         if Alimento.objects.filter(nombre=data).count() > 0:
-            raise forms.ValidationError("This Alimento already exists.")
+            raise forms.ValidationError("Un akimento con este nombre ya existe")
 
         return data
 
@@ -36,7 +38,7 @@ class FoodForm(forms.ModelForm):
         }
         error_messages = {
             'nombre': {
-                'unique': ("Alimento existente en la base de datos"),
+                'unique': ("Alimento ya existente en la base de datos"),
             },
             'descripcion': {
                 'unique': ("Alimento con esa descripcion ya existe en la base de datos"),
@@ -46,7 +48,7 @@ class FoodForm(forms.ModelForm):
     def clean_food(self):
         data = self.cleaned_data["nombre"]
         if Alimento.objects.filter(nombre=data).count() > 0:
-            raise forms.ValidationError("This Alimento already exists.")
+            raise forms.ValidationError("Un akimento con este nombre ya existe")
 
         return data
     
@@ -58,14 +60,14 @@ class CategoryForm(forms.Form):
     def clean_food(self):
         data = self.cleaned_data["nombre"]
         if Alimento.objects.filter(nombre=data).count() > 0:
-            raise forms.ValidationError("This Alimento already exists.")
+            raise forms.ValidationError("Una categoria con este nombre ya existe")
 
         return data
 
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Categoria
-        fields = ('nombre','imagen')
+        fields = ['nombre','imagen']
         labels = {
             'nombre': ('Nombre'),
             'imagen' : ('Imágen'),
@@ -79,6 +81,15 @@ class CategoryForm(forms.ModelForm):
     def clean_food(self):
         data = self.cleaned_data["nombre"]
         if Alimento.objects.filter(nombre=data).count() > 0:
-            raise forms.ValidationError("This Alimento already exists.")
+            raise forms.ValidationError("Una categoria con este nombre ya existe")
 
         return data
+
+            
+class CantidadAlimentoForm(forms.ModelForm):
+    class Meta:
+        model = CantidadAlimento
+        fields = ['cantidad']
+        labels = {
+            'cantidad': ('Cantidad'),
+        }
