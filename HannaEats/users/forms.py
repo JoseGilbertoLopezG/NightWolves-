@@ -102,7 +102,7 @@ class AccountModifyForm(UserChangeForm):
 class AccountLoginForm(Form):
     """Define un formulario para iniciar sesión"""
     username = forms.EmailField(max_length=150,
-                                help_text='A valid email address, please.',
+                                help_text='Escribe un correo adecuado',
                                error_messages=
                                {'invalid':"Necesitas escribir un correo valido",
                                 'required':'Es necesario llenar este campo',

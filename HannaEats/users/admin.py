@@ -19,7 +19,7 @@ class AccountAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'date_of_birth', 'password1', 'password2'),
+            'fields': ('correo', 'nombre', 'password1', 'password2'),
         }),
     )
     

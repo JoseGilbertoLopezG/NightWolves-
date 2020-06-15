@@ -19,6 +19,7 @@ from .models import Direcciones
 from .models import Account
 from food.models import OrdenComida
 from food.models import CantidadAlimento
+from food.models import Status
 
 # Forms
 from .forms import ClienteForm
@@ -409,7 +410,15 @@ class CartAdd(View):
         
         form.instance.alimento ='2'
         
-        carrito = OrdenComida.objects.filter(status)
+        try:
+            instancia = Status.objects.get(status="carrito")
+        except DoesNotExist:
+            Status.objects.create(
+                status = "carrito"
+            )
+            instancia = OrdenComida.objects.get(status="carrito")
+        
+        carrito = OrdenComida.objects.filter(status=instancia.id)
         
         try:
             carrito = carrito.get(id_cliente=pk)
@@ -418,32 +427,29 @@ class CartAdd(View):
                 id_cliente = pk,
                 status = form.cleaned_data["numero_mz"]
             )
-            carrito = OrdenComida.objects.filter(status)
+            carrito = OrdenComida.objects.filter(status=instancia.id)
             carrito = carrito.get(id_cliente=pk)
 
         if not form.is_valid():
             context = {"form": form}
             return CanitdadAlimentoForm(request, self.template, context)
         
-        form.instance.orden = carrito.pk
+        form.instance.orden = carrito.id
         nuevo_articulo = form.save()
-        carrito.articulos.add( nuevo_articulo.pk )
+        carrito.articulos.add( nuevo_articulo.id )
         messages.info(request, 'El artículo fue agregado al carrito')        
         #return HttpResponse("<h1>User Created!</h1>")
         return redirect("/")
     
-class CartDelete(UpdateView):
+class CartDel(UpdateView):
     
     model = CantidadAlimento
-    template_name = "users/cart.html"
-    template_name = "users/del_dir.html"
-    success_url = '/users/all-directions'
+    template_name = "users/del_item.html"
+    success_url = '/users/all-item'
     title = 'Borrar Articulos'
     
-class CartContents(UpdateView):
-    template_name = "users/cart.html"
-    
-    template = "users/dirs.html"
+class CartAll(UpdateView):
+    template_name = "users/items.html"
 
     def get(self, request, pk):
         """GET method."""
@@ -467,7 +473,7 @@ class CartContents(UpdateView):
 class CartUpdate(UpdateView):
     model = CantidadAlimento
     fields = ['cantidad']
-    template_name = "users/upd_dir.html"
+    template_name = "users/upd_item.html"
     success_url = '/'
     title = "Editar cantidad"
     labels = {
