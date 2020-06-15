@@ -14,7 +14,7 @@ from users.models import *
 from food.models import Alimento
 
 class DirectionsForm(forms.Form):
-
+    """Define un formulario para registrar una direccion"""
     calle = forms.CharField(max_length = 60)
     numero_lt = forms.CharField(max_length = 5)
     numero_mz = forms.CharField(max_length = 5)
@@ -40,16 +40,16 @@ class DirectionsForm(forms.ModelForm):
 
 class ClienteForm(UserCreationForm):
     """Define un formulario para crear Cliente"""
-    correo = forms.EmailField()
+    
     def clean_username(self):
         # Since User.username is unique, this check is redundant,
         # but it sets a nicer error message than the ORM. See #13147.
-        username = self.cleaned_data["username"]
+        username = self.cleaned_data["correo"]
         try:
             User._default_manager.get(username=username)
         except User.DoesNotExist:
             return username
-        raise forms.ValidationError(self.error_messages['duplicate_username'])
+        raise forms.ValidationError(self.error_messages['Ya existe una cuenta con este correo'])
     
     class Meta(UserCreationForm):
         model = Account
@@ -60,25 +60,20 @@ class ClienteForm(UserCreationForm):
             'ap_materno': ('Apellido Materno*'),
             'correo': ('Correo electrónico'),
             'telefono': ('Número de teléfono*')
-        }
-        error_messages = {
-            'correo': {
-                'unique': ("Ya existe una cuenta con este correo o ingresó un correo inválido"),
-            },
         }
 
 class RepartidorForm(UserCreationForm):
     """Define un formulario para crear Repartidor"""
-    correo = forms.EmailField()
+    
     def clean_username(self):
         # Since User.username is unique, this check is redundant,
         # but it sets a nicer error message than the ORM. See #13147.
-        username = self.cleaned_data["username"]
+        username = self.cleaned_data["correo"]
         try:
             User._default_manager.get(username=username)
         except User.DoesNotExist:
             return username
-        raise forms.ValidationError(self.error_messages['duplicate_username'])
+        raise forms.ValidationError(self.error_messages['Ya existe una cuenta con este correo'])
     
     class Meta(UserCreationForm):
         model = Account
@@ -89,11 +84,6 @@ class RepartidorForm(UserCreationForm):
             'ap_materno': ('Apellido Materno*'),
             'correo': ('Correo electrónico'),
             'telefono': ('Número de teléfono*')
-        }
-        error_messages = {
-            'correo': {
-                'unique': ("Ya existe una cuenta con este correo ó ingresó un correo inválido"),
-            },
         }
 
 class AccountModifyForm(UserChangeForm):
@@ -111,8 +101,13 @@ class AccountModifyForm(UserChangeForm):
 
 class AccountLoginForm(Form):
     """Define un formulario para iniciar sesión"""
-    username = forms.EmailField(max_length=300)
-    password = forms.CharField(max_length=20)
+    username = forms.EmailField(max_length=150,
+                                help_text='Escribe un correo adecuado',
+                               error_messages=
+                               {'invalid':"Necesitas escribir un correo valido",
+                                'required':'Es necesario llenar este campo',
+                                "max_length":"El correo solo puede tener 150 caracteres máximo"})
+    password = forms.CharField()
     #password = forms.PasswordInput()
     labels = {
         'username': ('Correo electrónico'),

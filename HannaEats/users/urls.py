@@ -14,9 +14,10 @@ urlpatterns = [
     path('logout', views.Logout.as_view(), name='logout'),
     path('verificar/<str:correo>', views.VerifyCount.as_view(), name='verificar'),
     #Views de carrito de compras
-    path('cart/add', views.CartAdd.as_view(), name='add-to.cart'),
-    path('cart/delete', views.CartDelete.as_view(), name='delete-from-cart'),
-    path('cart', views.CartContents.as_view(), name='cart-contents'),
+    path('<int:pk>/<int:food>/add-item', views.CartAdd.as_view(), name='add-item'),
+    path('<int:pk>/all-items', views.CartAll.as_view(), name='all-item'),
+    path('upd-cart/<int:pk>', views.CartUpdate.as_view(), name='upd-item'),
+    path('del-item/<int:pk>/<int:food>', views.CartDel.as_view(), name='del-item'),
     path('cart/checkout', views.CartCheckout.as_view(), name='checkout-cart'),
     #Views de creación de cuentas 
     path("create-client-account", views.CreateClient.as_view(), name='create-client'),

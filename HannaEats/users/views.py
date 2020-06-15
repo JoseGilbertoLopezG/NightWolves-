@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
+from django.contrib import messages
 
 #Email
 from HannaEats.settings import EMAIL_HOST_USER
@@ -17,14 +18,17 @@ from django.db import models
 from .models import Direcciones
 from .models import Account
 from food.models import OrdenComida
+from food.models import CantidadAlimento
+from food.models import Status
+from food.models import Alimento
 
 # Forms
 from .forms import ClienteForm
 from .forms import RepartidorForm
 from .forms import AccountLoginForm
 from .forms import DirectionsForm
+from food.forms import CantidadAlimentoForm
 
-''' View para cambiar a recibida '''
 
 class VerifyCount(UpdateView):
     model = Account
@@ -91,7 +95,7 @@ class CreateClient(View):
             messages.info(request, 'Los datos fueron guardados.\nLa cuenta será borrada, si no se verifica el correo electónico siguiendo el link enviado, en 24hrs')
             return render( request, 'confirm/success.html', {'form': form,
                                                       "contrib_messages": messages,
-                                                      'recepient': recepient})
+                                                      'recepient':recepient})
         else:
             template = self.template
             return render( request, self.template, {'form': form})
@@ -143,6 +147,7 @@ class CreateAccount(View):
 
 class Login(View):
     """Página de inicio de sesion"""
+    
     template = "users/login.html"
 
     def get(self, request):
@@ -159,14 +164,15 @@ class Login(View):
                 login(request, user)
                 return redirect("/")
             else:
-                messages.info(request, 'Los datos no son correctos. Intenta de nuevo')
+                messages.info(request, 
+                              'Los datos no son correctos. Intenta de nuevo')
                 return render(request, self.template, {'form': form,
-                                                      "contrib_messages": messages})
+                                                "contrib_messages":messages})
         else:
             messages.info(request, 'Asegurate de llenar los campos como se pide')
             return render(request, self.template, {'form': form,
-                                                      "contrib_messages": messages})
- 
+                                                "contrib_messages":messages})
+
 class Logout(View):
     """Página de inicio de sesion"""
     template = "users/login.html"
@@ -390,14 +396,94 @@ class FiveStars(UpdateView):
         to_update = OrdenComida.objects.filter(id=pk).update(calificacion=5)
         return redirect("/")
     
-class CartAdd(UpdateView):
-    template_name = "users/cart.html"
+class CartAdd(View):
     
-class CartDelete(UpdateView):
-    template_name = "users/cart.html"
+    template = "users/add_item.html"
+
+    def get(self, request, pk, food):
+        form = CantidadAlimentoForm()
+        context = {"form": form}
+        return render(request, self.template, context)
+
+    def post(self, request, pk, food):
+        form = CantidadAlimentoForm(request.POST)
+        
+        form.instance.alimento = Alimento.objects.get(id=food)
+        
+        try:
+            instancia = Status.objects.get(status="carrito")
+        except:
+            Status.objects.create(
+                status = "carrito"
+            )
+            instancia = Status.objects.get(status="carrito")
+        
+        carrito = OrdenComida.objects.filter(status=instancia.id)
+        
+        try:
+            carrito = carrito.get(id_cliente=pk)
+        except:
+            OrdenComida.objects.create(
+                id_cliente = Account.objects.get(id=pk),
+                status = instancia
+            )
+            carrito = OrdenComida.objects.filter(status=instancia.id)
+            carrito = carrito.get(id_cliente=pk)
+
+        if not form.is_valid():
+            context = {"form": form}
+            return CanitdadAlimentoForm(request, self.template, context)
+        
+        form.instance.orden = carrito
+        nuevo_articulo = form.save()
+        carrito.alimentos.add( nuevo_articulo )
+        messages.info(request, 'El artículo fue agregado al carrito')        
+        #return HttpResponse("<h1>User Created!</h1>")
+        return redirect("/")
     
-class CartContents(UpdateView):
-    template_name = "users/cart.html"
+class CartDel(UpdateView):
+    
+    model = CantidadAlimento
+    template_name = "users/del_item.html"
+    success_url = '/users/all-item'
+    title = 'Borrar Articulos'
+    
+class CartAll(UpdateView):
+    template_name = "users/items.html"
+
+    def get(self, request, pk):
+        """GET method."""
+        
+        cuentas = Direcciones.objects.filter(direccion=pk).all()
+        
+        dirs = Direcciones.objects.filter(direccion=pk).all()
+        dirs_id = request.GET.get("to_see", 1)
+        dirs_to_see = Direcciones.objects.filter(id=dirs_id)
+                
+        if dirs_to_see.count() == 0:
+            to_see = Direcciones.objects.first()
+
+        else:
+            to_see = dirs_to_see.first()
+            
+        context = {"dirs": dirs,"to_see": to_see,"pk":pk,"cuentas":cuentas}
+        return render(request, self.template, context)
+    
+    
+class CartUpdate(UpdateView):
+    model = CantidadAlimento
+    fields = ['cantidad']
+    template_name = "users/upd_item.html"
+    success_url = '/'
+    title = "Editar cantidad"
+    labels = {
+            'cantidad': ('Cantidad'),
+        }
+    
+    ''' def get(self, request, pk):
+        dir = Direcciones.objects.filter(id=pk).get()
+        context = {"pk":dir}
+        return render(request, self.template_name, context) '''
     
 class CartCheckout(UpdateView):
     template_name = "users/cart.html"
