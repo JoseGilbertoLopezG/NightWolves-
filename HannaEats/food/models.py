@@ -40,9 +40,9 @@ def grade(value):
 
 class Alimento(models.Model):
     """Modelo para la BD de un alimento"""
-    nombre = models.CharField(max_length=120,unique=True)
-    descripcion = models.CharField( max_length=200,unique=True)
-    precio = models.CharField(max_length=200)
+    nombre = models.CharField(max_length=120,unique=True, error_messages={'required':'Este campo es obligatorio', "max_length":"La longitud máxima es de 120 caracteres", "unique":'Un alimento con este nombre ya existe'})
+    descripcion = models.CharField( max_length=200, error_messages={'required':'Este campo es obligatorio', "max_length":"La longitud máxima es de 200 caracteres"})
+    precio = models.FloatField(error_messages={'required':'Este campo es obligatorio', "invalid":"Tienes que proporcionar un número (puede tener decimales)"})
     foto = models.ImageField(blank=True, null=True, upload_to=direccion_imagenes_comida)
     #Nota: el atributo ID de la entidad existe por defecto en Django
     
@@ -60,7 +60,7 @@ class Alimento(models.Model):
 
 class Categoria(models.Model):
     """Modelo para la BD de una categoria"""
-    nombre = models.CharField(max_length=120,unique=True)
+    nombre = models.CharField(max_length=120,unique=True, error_messages={'required':'Este campo es obligatorio', "max_length":"La longitud máxima es de 120 caracteres", "unique":'Una categoria con este nombre ya existe'})
     imagen = models.ImageField(blank=True, null=True, upload_to=direccion_imagenes_comida)
     #Nota: el atributo ID de la entidad existe por defecto en Django
     
@@ -83,17 +83,21 @@ class OrdenComida(models.Model):
     status = models.ForeignKey('food.Status', on_delete=models.CASCADE)
     id_cliente = models.ForeignKey('users.Account',  
                                    related_name="cliente", on_delete=models.CASCADE)
-    id_repartidor = models.ForeignKey('users.Account', 
-                                    related_name="repartidor",on_delete=models.CASCADE)
-    calificacion = models.IntegerField(validators=[grade], null=True)
+    id_repartidor = models.ForeignKey('users.Account', blank=True,
+                                    related_name="repartidor",
+                                    on_delete=models.CASCADE)
+    calificacion = models.IntegerField(validators=[grade], null=True, blank=True)
     #Nota: el atributo Numero Orden de la entidad lo manejaremos como ID
     
     # Relaciones de entidad
-    alimentos = models.ManyToManyField("food.Alimento", related_name="articulos",through="food.CantidadAlimento")
+    alimentos = models.ManyToManyField("food.Alimento", related_name="articulos",through="food.CantidadAlimento", blank=True)
     
     def __str__(self):
         """Obtener represencacion como cadena"""
-        return f"{self.id_cliente}"
+        a = 0
+        for i in alimentos:
+            a += i.cantidad * i.alimento.precio
+        return f"Orden {self.id} por $" + a + " para " 
 
     def __repr__(self):
         """Obtener represencacion como cadena"""
@@ -113,11 +117,12 @@ class Status(models.Model):
     
 class CantidadAlimento(models.Model):
     """Modelo auxiliar para una orden de comida"""
-    cantidad = models.CharField(validators=[numeric], max_length=5)
+    cantidad = models.IntegerField()
     
     # Relaciones de entidad
     orden = models.ForeignKey('food.OrdenComida', on_delete=models.CASCADE, related_name='cantidad_alimento')
     alimento = models.ForeignKey('food.Alimento', on_delete=models.CASCADE, related_name='cantidad_alimento')
+    ## initial=5
     
     def __str__(self):
         """Obtener represencacion como cadena"""

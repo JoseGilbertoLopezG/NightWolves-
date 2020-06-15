@@ -144,6 +144,7 @@ class CreateAccount(View):
 
 class Login(View):
     """Página de inicio de sesion"""
+    
     template = "users/login.html"
 
     def get(self, request):
@@ -160,13 +161,14 @@ class Login(View):
                 login(request, user)
                 return redirect("/")
             else:
-                messages.info(request, 'Los datos no son correctos. Intenta de nuevo')
+                messages.info(request, 
+                              'Los datos no son correctos. Intenta de nuevo')
                 return render(request, self.template, {'form': form,
-                                                      "contrib_messages": messages})
+                                                "contrib_messages":messages})
         else:
             messages.info(request, 'Asegurate de llenar los campos como se pide')
             return render(request, self.template, {'form': form,
-                                                      "contrib_messages": messages})
+                                                "contrib_messages":messages})
  
 class Logout(View):
     """Página de inicio de sesion"""
