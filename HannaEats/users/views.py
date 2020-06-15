@@ -408,7 +408,7 @@ class CartAdd(View):
     def post(self, request, pk, food):
         form = CantidadAlimentoForm(request.POST)
         
-        form.instance.alimento = Alimento.objects.get(id=food)
+        form.instance=Alimento.objects.get(id=food)
         
         try:
             instancia = Status.objects.get(status="carrito")

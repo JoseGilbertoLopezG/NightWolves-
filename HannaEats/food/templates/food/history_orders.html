@@ -19,9 +19,9 @@
 
 
 {% for order in orders  %}
-        {% if order.status.status == 'carrito' %}
+        {% if order.status.status == 'cararito' %}
 
-        {% elif order.status.status == 'finalizado' or order.status.status == 'cancelado'%}
+        {% elif order.status.status == 'finalizado' or order.status.status == 'cancelado' or order.status.status == 'carrito'%}
             <span id="no_orden"><b> Orden No. {{order.id}} </b></span>
             <br>
             <br>
