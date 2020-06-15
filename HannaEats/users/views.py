@@ -408,7 +408,12 @@ class CartAdd(View):
     def post(self, request, pk, food):
         form = CantidadAlimentoForm(request.POST)
         
+<<<<<<< HEAD
         form.instance=Alimento.objects.get(id=food)
+=======
+        num = form.instance.cantidad
+        form.instance = Alimento.objects.get(id=food)
+>>>>>>> NeoIsaac
         
         try:
             instancia = Status.objects.get(status="carrito")
@@ -436,6 +441,8 @@ class CartAdd(View):
         
         form.instance.orden = carrito
         nuevo_articulo = form.save()
+        nuevo_articulo.cantidad = num
+        nuevo_articulo.save()
         carrito.alimentos.add( nuevo_articulo )
         messages.info(request, 'El artículo fue agregado al carrito')        
         #return HttpResponse("<h1>User Created!</h1>")
@@ -454,19 +461,36 @@ class CartAll(UpdateView):
     def get(self, request, pk):
         """GET method."""
         
-        cuentas = Direcciones.objects.filter(direccion=pk).all()
+        try:
+            instancia = Status.objects.get(status="carrito")
+        except:
+            Status.objects.create(
+                status = "carrito"
+            )
+            instancia = Status.objects.get(status="carrito")
         
-        dirs = Direcciones.objects.filter(direccion=pk).all()
-        dirs_id = request.GET.get("to_see", 1)
-        dirs_to_see = Direcciones.objects.filter(id=dirs_id)
+        try:
+            carrito = carrito.get(id_cliente=pk)
+        except:
+            OrdenComida.objects.create(
+                id_cliente = Account.objects.get(id=pk),
+                status = instancia
+            )
+            carrito = OrdenComida.objects.filter(status=instancia.id)
+            carrito = carrito.get(id_cliente=pk)
+        
+        articulos = CantidadAlimento.objects.filter(orden=carrito.id).all()
+        
+        articulos_id = request.GET.get("to_see", 1)
+        articulos_to_see = CantidadAlimento.objects.filter(id=articulos_id)
                 
-        if dirs_to_see.count() == 0:
-            to_see = Direcciones.objects.first()
+        if articulos_to_see.count() == 0:
+            to_see = CantidadAlimento.objects.first()
 
         else:
-            to_see = dirs_to_see.first()
+            to_see = articulos_to_see.first()
             
-        context = {"dirs": dirs,"to_see": to_see,"pk":pk,"cuentas":cuentas}
+        context = {"dirs": articulos_to_see,"to_see": to_see,"pk":pk,"cuentas":cuentas}
         return render(request, self.template, context)
     
     

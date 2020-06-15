@@ -87,6 +87,9 @@ class CategoryForm(forms.ModelForm):
 
             
 class CantidadAlimentoForm(forms.ModelForm):
+    
+    cantidad = models.IntegerField()
+    
     class Meta:
         model = CantidadAlimento
         fields = ['cantidad']

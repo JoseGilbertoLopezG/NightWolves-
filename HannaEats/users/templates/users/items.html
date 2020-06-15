@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Mis Direcciones{% endblock title %}
+{% block title %}Carrito de Compras{% endblock title %}
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'users/css/dirs.css' %}">
@@ -15,27 +15,25 @@
 <div class="supercard">
 <br>
 
-    <h1 id="dirsTit">Mis direcciones</h1>
+    <h1 id="dirsTit">Carrito de compras</h1>
 
     <table class="allDirs">
-        {% for dir in dirs  %}
-        
-            
+        {% for art in dirs  %}            
         	<tr id="dirs">
                 <td id="mark">
-                    <img id="mark" alt="elemento {{dir.id}}" src="{% static 'users/images/checklist.png' %}">
+                    <img id="mark" alt="elemento {{art.id}}" src="{% static 'users/images/checklist.png' %}">
                 </td>
                 <td id="direction">
-                    <!--{{dir}}-->{{dir}}
+                    <!--{{art}}-->{{art}}
                 </td>
                 
                 <td id="updt">
-                    <a href="/users/upd-directions/{{dir.id}}">
+                    <a href="/users/upd-cart/{{art.id}}">
                         <img id="edit" alt="Editar" title="Editar" src="{% static 'users/images/pencil.png' %}">
                     </a>
                 </td>
                 <td id="del">
-                    <a href="/users/del-directions/{{dir.id}}">
+                    <a href="/users/del-item/{{art.id}}">
                         <img id="delete" alt="Borrar" title="Borrar" src="{% static 'users/images/close.png' %}">
                     </a>
                 </td>

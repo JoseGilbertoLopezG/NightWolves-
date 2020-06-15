@@ -29,14 +29,13 @@ def numeric(value):
                 )
 
 def grade(value):
-    """Verifica que un Charfield sólo contenga números """
-    for e in value:
-        if(e > '5' and e < '0'):
-            raise ValidationError(
-                _('%(value)s La calificación tiene que ser un número entero de estrellas entre 1 y 5'),
-                code='invalidRating',
-                params={'value': value},
-                )
+    """Verifica que un Int este entre 0 y 5 """
+    if(value > 5 or value < 1):
+        raise ValidationError(
+            _('%(value)s La calificación tiene que ser un número entero de estrellas entre 1 y 5'),
+            code='invalidRating',
+            params={'value': value},
+        )
 
 class Alimento(models.Model):
     """Modelo para la BD de un alimento"""
@@ -97,7 +96,7 @@ class OrdenComida(models.Model):
         ''' a = 0
         for i in alimentos:
             a += i.cantidad * i.alimento.precio '''
-        return f"Orden {self.id} por $" +" para {self.id_cliente}" 
+        return f"Orden {self.id} para {self.id_cliente}"
 
     def __repr__(self):
         """Obtener represencacion como cadena"""
@@ -121,7 +120,7 @@ class CantidadAlimento(models.Model):
     
     # Relaciones de entidad
     orden = models.ForeignKey('food.OrdenComida', on_delete=models.CASCADE, related_name='orden')
-    alimento = models.ForeignKey('food.Alimento', on_delete=models.CASCADE, related_name='cantidad_alimento')
+    alimento = models.ForeignKey('food.Alimento', on_delete=models.CASCADE, related_name='articulo')
     ## initial=5
     
     def __str__(self):
