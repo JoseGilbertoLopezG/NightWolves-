@@ -19,6 +19,18 @@
     <div class="cartas">  
         {% for food in foods %}
             <div class="card"> 
+            {% if user.tipo == 3 %}
+                <a id="link" href="/users/{{user.id}}/{{food.id}}/add-item">
+                    <img id="img_food" src="/media/{{ food.foto }}"/>
+                    <span id="desc">
+                    {{food.descripcion}}
+                    </span>
+                    <br>
+                    <span id="precio">
+                    ${{food.precio}}
+                    </span>
+                </a>
+            {% else %}
                 <img id="img_food" src="/media/{{ food.foto }}"/>
                 <span id="desc">
                 {{food.descripcion}}
@@ -26,9 +38,10 @@
                 <br>
                 <span id="precio">
                 ${{food.precio}}
-                </span>
                 <!--p>{{food.descripcion}}</p-->
                 <!--p><button>Agregar al Carrito</button></p-->
+                </span>
+            {% endif %}
             </div>
         {% endfor %}
     </div>

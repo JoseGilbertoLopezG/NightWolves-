@@ -83,7 +83,7 @@ class OrdenComida(models.Model):
     status = models.ForeignKey('food.Status', on_delete=models.CASCADE)
     id_cliente = models.ForeignKey('users.Account',  
                                    related_name="cliente", on_delete=models.CASCADE)
-    id_repartidor = models.ForeignKey('users.Account', blank=True,
+    id_repartidor = models.ForeignKey('users.Account', blank=True, null=True,
                                     related_name="repartidor",
                                     on_delete=models.CASCADE)
     calificacion = models.IntegerField(validators=[grade], null=True, blank=True)

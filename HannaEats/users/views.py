@@ -20,6 +20,7 @@ from .models import Account
 from food.models import OrdenComida
 from food.models import CantidadAlimento
 from food.models import Status
+from food.models import Alimento
 
 # Forms
 from .forms import ClienteForm
@@ -28,7 +29,6 @@ from .forms import AccountLoginForm
 from .forms import DirectionsForm
 from food.forms import CantidadAlimentoForm
 
-''' View para cambiar a recibida '''
 
 class VerifyCount(UpdateView):
     model = Account
@@ -400,32 +400,32 @@ class CartAdd(View):
     
     template = "users/add_item.html"
 
-    def get(self, request, pk):
-        form = CanitdadAlimentoForm()
+    def get(self, request, pk, food):
+        form = CantidadAlimentoForm()
         context = {"form": form}
         return render(request, self.template, context)
 
-    def post(self, request, pk):
-        form = CanitdadAlimentoForm(request.POST)
+    def post(self, request, pk, food):
+        form = CantidadAlimentoForm(request.POST)
         
-        form.instance.alimento ='2'
+        form.instance.alimento = Alimento.objects.get(id=food)
         
         try:
             instancia = Status.objects.get(status="carrito")
-        except DoesNotExist:
+        except:
             Status.objects.create(
                 status = "carrito"
             )
-            instancia = OrdenComida.objects.get(status="carrito")
+            instancia = Status.objects.get(status="carrito")
         
         carrito = OrdenComida.objects.filter(status=instancia.id)
         
         try:
             carrito = carrito.get(id_cliente=pk)
-        except DoesNotExist:
+        except:
             OrdenComida.objects.create(
-                id_cliente = pk,
-                status = form.cleaned_data["numero_mz"]
+                id_cliente = Account.objects.get(id=pk),
+                status = instancia
             )
             carrito = OrdenComida.objects.filter(status=instancia.id)
             carrito = carrito.get(id_cliente=pk)
@@ -434,9 +434,9 @@ class CartAdd(View):
             context = {"form": form}
             return CanitdadAlimentoForm(request, self.template, context)
         
-        form.instance.orden = carrito.id
+        form.instance.orden = carrito
         nuevo_articulo = form.save()
-        carrito.articulos.add( nuevo_articulo.id )
+        carrito.alimentos.add( nuevo_articulo )
         messages.info(request, 'El artículo fue agregado al carrito')        
         #return HttpResponse("<h1>User Created!</h1>")
         return redirect("/")
