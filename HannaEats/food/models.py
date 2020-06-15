@@ -96,8 +96,8 @@ class OrdenComida(models.Model):
         """Obtener represencacion como cadena"""
         ''' a = 0
         for i in alimentos:
-            a += i.cantidad * i.alimento.precio '''
-        return f"Orden {self.id} por $" +" para {self.id_cliente}" 
+            a += i.cantidad * i.alimentos.precio '''
+        return f"Orden {self.id} " + f" para {self.id_cliente}" 
 
     def __repr__(self):
         """Obtener represencacion como cadena"""
@@ -123,6 +123,9 @@ class CantidadAlimento(models.Model):
     orden = models.ForeignKey('food.OrdenComida', on_delete=models.CASCADE, related_name='orden')
     alimento = models.ForeignKey('food.Alimento', on_delete=models.CASCADE, related_name='cantidad_alimento')
     ## initial=5
+    
+    def get_subtotal(self):
+        return self.cantidad * self.alimento.precio
     
     def __str__(self):
         """Obtener represencacion como cadena"""

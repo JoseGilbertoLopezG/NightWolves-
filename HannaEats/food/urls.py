@@ -11,7 +11,7 @@ app_name = "food"
 
 urlpatterns = [
     path('', views.IndexFood.as_view(), name='home'),
-    path('orders', views.AllOrders.as_view(), name='orders'),
+    path('orders/<int:pk>', views.AllOrders.as_view(), name='orders'),
     path('orders/history', views.HistoryOrders.as_view(), name='history'),
     path('category/all', views.CategoriaVista.as_view(), name='category_view'),
     path('category/<str:name>', views.ComidaVista.as_view(), name='food_view'),

@@ -5,7 +5,7 @@
 {% block title %}Mis Ordenes{% endblock title %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'food/css/orders.css' %}">
+<link rel="stylesheet" href="{% static 'food/css/orders_h.css' %}">
 <script src="{% static 'food/js/functions.js' %}"></script>
 {% endblock head %}
 
@@ -19,9 +19,9 @@
 
 
 {% for order in orders  %}
-        {% if order.status.status == 'cararito' %}
+        {% if order.status.status == 'carrito' %}
 
-        {% elif order.status.status == 'finalizado' or order.status.status == 'cancelado' or order.status.status == 'carrito'%}
+        {% elif order.status.status == 'finalizado' or order.status.status == 'cancelado'%}
             <span id="no_orden"><b> Orden No. {{order.id}} </b></span>
             <br>
             <br>
@@ -118,11 +118,7 @@
                 
             </table>
 
-            <br>
-            <div id="div_cs">
-                <a id="change_stats" href="/food/order/{{order.id}}/canceled"><b>Cancelar orden</b></a>
-            </div>
-            <br>
+            
         {% else %}
             
         {% endif %}

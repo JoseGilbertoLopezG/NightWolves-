@@ -12,10 +12,13 @@
 <br>
 
 <h1 id="titulo_add_direction">Agregar Artículo</h1>
+
+<div id=t2> ¿Cuántos articulos desea agregar? </div>
+<br>
 <div class="form_item" text-align="center">
    <form action="" method="post" enctype="multipart/form-data" id="item_form">
         {% csrf_token %}
-        <div text-align="center">
+        <div id="center">
             {{ form.cantidad }}
         </div>
         <br>

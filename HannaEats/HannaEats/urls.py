@@ -26,5 +26,4 @@ urlpatterns = [
     path('login/', views.MenuSesion.as_view(), name='sesion'),
     path('food/', include('food.urls')),
     path('users/', include('users.urls')),
-    path('confirm/', include('confirm.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
