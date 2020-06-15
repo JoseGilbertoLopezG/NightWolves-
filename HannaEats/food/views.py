@@ -90,6 +90,43 @@ class AllOrders(View):
         context = {"orders": orders,"to_see": to_see,"foods": foods,"to_eat": to_eat,"cants":cants, "to_count":to_count}
         return render(request, self.template, context)
     
+@method_decorator(login_required, name='dispatch')
+class HistoryOrders(View):
+    
+    template = "food/history_orders.html"
+
+    def get(self, request):
+        """GET method."""
+        orders = OrdenComida.objects.all()
+        orders_id = request.GET.get("to_see", 1)
+        orders_to_see = OrdenComida.objects.filter(id=orders_id)
+                
+        if orders_to_see.count() == 0:
+            to_see = OrdenComida.objects.first()
+        else:
+            to_see = orders_to_see.first()
+            
+        foods = Alimento.objects.all()
+        foods_id = request.GET.get("to_see", 1)
+        foods_to_see = Alimento.objects.filter(id=foods_id)
+                
+        if foods_to_see.count() == 0:
+            to_eat = Alimento.objects.first()
+        else:
+            to_eat = foods_to_see.first()
+            
+        cants = CantidadAlimento.objects.all()
+        cants_id = request.GET.get("to_see", 1)
+        cants_to_see = CantidadAlimento.objects.filter(id=cants_id)
+                
+        if cants_to_see.count() == 0:
+            to_count = CantidadAlimento.objects.first()
+        else:
+            to_count = cants_to_see.first()
+            
+        context = {"orders": orders,"to_see": to_see,"foods": foods,"to_eat": to_eat,"cants":cants, "to_count":to_count}
+        return render(request, self.template, context)
+    
 """ Views referentes a los alimentos """
 
 @method_decorator(login_required, name='dispatch')
@@ -267,40 +304,13 @@ class ChangeStatusToReceived(UpdateView):
         return render(request, self.template_name, context)
 
     def post(self,request,pk):
-        to_update = OrdenComida.objects.filter(id=pk).update(status=1)
+        to_update = OrdenComida.objects.filter(id=pk).update(status=2)
         return redirect("/food/orders")
     
 ''' View para cambiar a preparandose '''
 
 @method_decorator(login_required, name='dispatch')    
 class ChangeStatusToPrepared(UpdateView):
-    model = OrdenComida
-    fields = ['status']
-    template_name = "food/eachstatus.html"
-    success_url = '/'
-    title = "Editar direccion"
-    
-    def get(self, request, pk):
-        """GET method."""
-        orders = OrdenComida.objects.all()
-        orders_id = request.GET.get("to_see", 1)
-        orders_to_see = OrdenComida.objects.filter(id=orders_id)
-                
-        if orders_to_see.count() == 0:
-            to_see = OrdenComida.objects.first()
-        else:
-            to_see = orders_to_see.first()
-            
-        context = {"orders": orders,"to_see": to_see}
-        return render(request, self.template_name, context)
-
-    def post(self,request,pk):
-        to_update = OrdenComida.objects.filter(id=pk).update(status=2)
-        return redirect("/food/orders")
-    
-''' View para cambiar a en espera '''
-@method_decorator(login_required, name='dispatch')    
-class ChangeStatusToWait(UpdateView):
     model = OrdenComida
     fields = ['status']
     template_name = "food/eachstatus.html"
@@ -352,32 +362,6 @@ class ChangeStatusToOnWay(UpdateView):
         to_update = OrdenComida.objects.filter(id=pk).update(status=4)
         return redirect("/food/orders")
 
-''' View para cambiar a Entregada '''
-@method_decorator(login_required, name='dispatch')    
-class ChangeStatusToDelivered(UpdateView):
-    model = OrdenComida
-    fields = ['status']
-    template_name = "food/eachstatus.html"
-    success_url = '/'
-    title = "Editar direccion"
-    
-    def get(self, request, pk):
-        """GET method."""
-        orders = OrdenComida.objects.all()
-        orders_id = request.GET.get("to_see", 1)
-        orders_to_see = OrdenComida.objects.filter(id=orders_id)
-                
-        if orders_to_see.count() == 0:
-            to_see = OrdenComida.objects.first()
-        else:
-            to_see = orders_to_see.first()
-            
-        context = {"orders": orders,"to_see": to_see}
-        return render(request, self.template_name, context)
-
-    def post(self,request,pk):
-        to_update = OrdenComida.objects.filter(id=pk).update(status=5)
-        return redirect("/food/orders")
 
 ''' View para cambiar a finalizada ''' 
 @method_decorator(login_required, name='dispatch')    
@@ -403,12 +387,39 @@ class ChangeStatusToFinalized(UpdateView):
         return render(request, self.template_name, context)
 
     def post(self,request,pk):
-        to_update = OrdenComida.objects.filter(id=pk).update(status=6)
+        to_update = OrdenComida.objects.filter(id=pk).update(status=5)
         return redirect("/food/orders")
     
 ''' View para cambiar a cancelada '''
 @method_decorator(login_required, name='dispatch')
 class ChangeStatusToCanceled(UpdateView):
+    model = OrdenComida
+    fields = ['status']
+    template_name = "food/eachstatus.html"
+    success_url = '/'
+    title = "Editar direccion"
+    
+    def get(self, request, pk):
+        """GET method."""
+        orders = OrdenComida.objects.all()
+        orders_id = request.GET.get("to_see", 1)
+        orders_to_see = OrdenComida.objects.filter(id=orders_id)
+                
+        if orders_to_see.count() == 0:
+            to_see = OrdenComida.objects.first()
+        else:
+            to_see = orders_to_see.first()
+            
+        context = {"orders": orders,"to_see": to_see}
+        return render(request, self.template_name, context)
+
+    def post(self,request,pk):
+        to_update = OrdenComida.objects.filter(id=pk).update(status=6)
+        return redirect("/food/orders")
+
+''' View para cambiar a cancelada '''
+@method_decorator(login_required, name='dispatch')
+class ChangeStatusToReady(UpdateView):
     model = OrdenComida
     fields = ['status']
     template_name = "food/eachstatus.html"

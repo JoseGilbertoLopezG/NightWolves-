@@ -86,7 +86,7 @@ class OrdenComida(models.Model):
     
     def __str__(self):
         """Obtener represencacion como cadena"""
-        return f"{self.id_cliente}"
+        return f"{self.id_cliente} {self.status}"
 
     def __repr__(self):
         """Obtener represencacion como cadena"""
