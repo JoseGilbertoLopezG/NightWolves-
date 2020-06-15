@@ -51,7 +51,7 @@ class Alimento(models.Model):
     
     def __str__(self):
         """Obtener represencacion como cadena"""
-        return f"{self.nombre} - {self.descripcion} por ${self.precio}.00"
+        return f"{self.nombre} - {self.descripcion} por ${self.precio}"
 
     def __repr__(self):
         """Obtener represencacion como cadena"""
